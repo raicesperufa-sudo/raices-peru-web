@@ -419,6 +419,28 @@ h3 { font-size: 1.35rem; }
 .manual-actions .button{min-height:42px;padding:.62rem .85rem;font-size:.92rem}
 @media (max-width:980px){.manual-book-grid{grid-template-columns:1fr}.manual-book-card-wide{grid-column:auto;grid-template-columns:minmax(150px,36%) 1fr}}
 @media (max-width:620px){.manual-book-card,.manual-book-card-wide{grid-template-columns:1fr}.manual-book-cover{max-width:260px;margin:0 auto}.manual-book-cover img{min-height:0}.manual-actions{flex-direction:column}.manual-actions .button{width:100%}}
+
+/* Biblioteca-catálogo y personalización */
+.library-access-note{padding:2.2rem max(1rem,calc((100% - var(--max))/2));display:grid;grid-template-columns:.8fr 1.2fr;gap:3rem;align-items:center;background:#eaf3f4;border-block:1px solid #c8dde0}
+.library-access-note h2{margin:.25rem 0;color:var(--blue-deep)}
+.library-access-note p:last-child{margin:0;color:var(--muted);line-height:1.7}
+.collection-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.1rem;margin-top:2rem}
+.collection-card{display:grid;grid-template-columns:3.2rem 1fr;gap:1rem;padding:1.5rem;border:1px solid var(--line);border-radius:1.25rem;background:#fff;box-shadow:0 14px 34px rgba(23,58,94,.06)}
+.collection-card.is-ready{background:linear-gradient(145deg,#fff 0%,#edf6f5 100%);border-color:#a9cfc8}
+.collection-number{display:flex;width:2.75rem;height:2.75rem;align-items:center;justify-content:center;border-radius:50%;background:var(--blue-deep);color:#fff;font-weight:850}
+.collection-card:nth-child(3n+2) .collection-number{background:var(--terra)}
+.collection-card:nth-child(3n) .collection-number{background:#6f9277}
+.collection-card h3{margin:.15rem 0 .5rem;color:var(--blue-deep);font-size:1.35rem}
+.collection-card p{margin:.2rem 0;color:var(--muted);line-height:1.6}
+.collection-card .collection-status{color:var(--terra);font-size:.75rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+.age-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.85rem}.age-tags span{padding:.3rem .55rem;border-radius:99px;background:#f3eee6;color:var(--blue-deep);font-size:.76rem;font-weight:800}
+.preview-shelf{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1rem;margin:2rem 0 2.5rem}.preview-shelf article{padding:.8rem;border-radius:1rem;background:#fff;box-shadow:0 14px 32px rgba(23,58,94,.1)}
+.preview-shelf img{display:block;width:100%;aspect-ratio:210/297;object-fit:cover;border-radius:.65rem}.preview-shelf p{margin:.8rem 0 .15rem;color:var(--terra);font-size:.72rem;font-weight:850;text-transform:uppercase}.preview-shelf h3{margin:0;color:var(--blue-deep);font-size:1.05rem}
+.library-cta{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;padding:2rem;border-radius:1.4rem;background:var(--blue-deep);color:#fff}.library-cta h2{margin:.2rem 0;color:#fff}.library-cta p{max-width:700px;margin:.5rem 0;line-height:1.65}.library-cta .section-kicker{color:#f0c86f}
+.personalization-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;list-style:none;padding:0;margin:2rem 0 0}.personalization-steps li{padding:1.3rem;border:1px solid var(--line);border-radius:1.1rem;background:#fff}.personalization-steps span{display:flex;width:2.3rem;height:2.3rem;align-items:center;justify-content:center;border-radius:50%;background:var(--terra);color:#fff;font-weight:850}.personalization-steps h3{margin:.8rem 0 .3rem;color:var(--blue-deep)}.personalization-steps p{margin:0;color:var(--muted);line-height:1.55}
+@media (max-width:900px){.preview-shelf{grid-template-columns:repeat(3,1fr)}.personalization-steps{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:760px){.library-access-note,.collection-grid,.library-cta{grid-template-columns:1fr}.library-cta .button{width:100%}}
+@media (max-width:520px){.preview-shelf{grid-template-columns:repeat(2,1fr)}.personalization-steps{grid-template-columns:1fr}.collection-card{grid-template-columns:2.8rem 1fr;padding:1.1rem}}
 @media (max-width:620px){.principles-grid li{grid-template-columns:92px 1fr;gap:.9rem;padding:1rem 1rem 1rem 3.6rem;min-height:132px}.principles-grid img{width:92px;height:76px}.principles-grid li::before{left:1rem;top:1rem}}
 
 /* Recorrido visual e historias destacadas */
