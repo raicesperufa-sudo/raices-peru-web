@@ -55,6 +55,7 @@ const readerLibrary = {
   'rutas-10-12': { title: 'Rutas de lectura · 10 a 12 años', pages: 12 },
   'antes-leer-13-17': { title: 'Antes de leer · 13 a 17 años', pages: 12 },
   'acompanar-lectura': { title: 'Acompañar la lectura · Familias y educadores', pages: 10 }
+  ,'rutas-13-17': { title: 'Rutas de lectura · 13 a 17 años', pages: 12 }
 };
 
 const reader = document.querySelector('#manual-reader');
