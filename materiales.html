@@ -61,11 +61,11 @@
 
     <section class="section soft" id="lectura"><div class="section-heading narrow"><p class="section-kicker">Primera colección visible</p><h2>Lectura y acompañamiento</h2><p>Estas portadas muestran los primeros manuales terminados. Se presentan como catálogo; el contenido completo se solicita a RAÍCES.</p></div>
       <div class="preview-shelf">
-        <article><img src="assets/manuales/portadas/manual-antes-leer-6-9.webp" alt="Portada Antes de leer, 6 a 9 años"><p>6 a 9 años</p><h3>Antes de leer</h3></article>
-        <article><img src="assets/manuales/portadas/manual-rutas-6-9.webp" alt="Portada Rutas de lectura, 6 a 9 años"><p>6 a 9 años</p><h3>Rutas de lectura</h3></article>
-        <article><img src="assets/manuales/portadas/manual-rutas-10-12.webp" alt="Portada Rutas de lectura, 10 a 12 años"><p>10 a 12 años</p><h3>Rutas de lectura</h3></article>
-        <article><img src="assets/manuales/portadas/manual-antes-leer-13-17.webp" alt="Portada Antes de leer, 13 a 17 años"><p>13 a 17 años</p><h3>Antes de leer</h3></article>
-        <article><img src="assets/manuales/portadas/manual-acompanar-lectura.webp" alt="Portada Acompañar la lectura"><p>Familias y educadores</p><h3>Acompañar la lectura</h3></article>
+        <article><img src="assets/manuales/portadas/manual-antes-leer-6-9.webp" alt="Portada Antes de leer, 6 a 9 años"><p>6 a 9 años</p><h3>Antes de leer</h3><button class="preview-button" type="button" data-open-reader="antes-leer-6-9">Ver presentación</button></article>
+        <article><img src="assets/manuales/portadas/manual-rutas-6-9.webp" alt="Portada Rutas de lectura, 6 a 9 años"><p>6 a 9 años</p><h3>Rutas de lectura</h3><button class="preview-button" type="button" data-open-reader="rutas-6-9">Ver presentación</button></article>
+        <article><img src="assets/manuales/portadas/manual-rutas-10-12.webp" alt="Portada Rutas de lectura, 10 a 12 años"><p>10 a 12 años</p><h3>Rutas de lectura</h3><button class="preview-button" type="button" data-open-reader="rutas-10-12">Ver presentación</button></article>
+        <article><img src="assets/manuales/portadas/manual-antes-leer-13-17.webp" alt="Portada Antes de leer, 13 a 17 años"><p>13 a 17 años</p><h3>Antes de leer</h3><button class="preview-button" type="button" data-open-reader="antes-leer-13-17">Ver presentación</button></article>
+        <article><img src="assets/manuales/portadas/manual-acompanar-lectura.webp" alt="Portada Acompañar la lectura"><p>Familias y educadores</p><h3>Acompañar la lectura</h3><button class="preview-button" type="button" data-open-reader="acompanar-lectura">Ver presentación</button></article>
       </div>
       <div class="library-cta"><div><p class="section-kicker">Solicitar un material</p><h2>Cuéntenos qué necesita acompañar.</h2><p>Puede solicitar un manual, fichas, cartas, láminas o un paquete combinado. La personalización, el alcance y el valor se confirman por correo; la entrega se realiza cuando la propuesta ha sido acordada y el pago está confirmado.</p></div><a class="button light" href="mailto:raicesperu.fa@gmail.com?subject=Solicitud%20de%20material%20personalizado%20RA%C3%8DCES&body=Nombre%3A%0AEdad%20o%20grupo%20de%20edad%3A%0ATema%20que%20desea%20trabajar%3A%0AFormato%20preferido%20(manual%2C%20fichas%2C%20cartas%2C%20l%C3%A1minas%20u%20otro)%3A%0AContexto%20familiar%2C%20educativo%20o%20profesional%3A%0AApoyos%20o%20preferencias%20importantes%3A">Solicitar por correo</a></div>
     </section>
@@ -76,5 +76,11 @@
   </main>
 
   <footer class="site-footer"><div class="footer-brand"><img src="assets/isotipo-raices.webp" alt="Isotipo de RAÍCES Perú"><div><strong>RAÍCES PERÚ</strong><p>Familias y neurodiversidad, construyendo juntos.</p></div></div><div class="footer-links"><p>Proyecto en desarrollo · Lima, Perú</p><a href="mailto:raicesperu.fa@gmail.com?subject=Solicitud%20de%20material%20personalizado%20RA%C3%8DCES">Solicitar un material personalizado</a><a href="https://www.facebook.com/RaicesFamiliasPeru/" target="_blank" rel="noopener noreferrer">Seguir RAÍCES en Facebook</a></div></footer>
+
+  <div class="manual-reader" id="manual-reader" role="dialog" aria-modal="true" aria-labelledby="reader-title" hidden>
+    <div class="reader-bar"><div><p>Biblioteca RAÍCES · Vista en línea</p><h2 id="reader-title">Manual</h2></div><button type="button" class="reader-close" data-reader-close aria-label="Cerrar presentación">Cerrar ×</button></div>
+    <div class="reader-stage" data-reader-stage><button type="button" class="reader-arrow reader-prev" data-reader-prev aria-label="Página anterior">‹</button><img data-reader-image src="" alt=""><button type="button" class="reader-arrow reader-next" data-reader-next aria-label="Página siguiente">›</button></div>
+    <div class="reader-footer"><span data-reader-count>Página 1 de 1</span><span>Solo lectura · Contenido protegido por RAÍCES Perú</span></div>
+  </div>
 </body>
 </html>
