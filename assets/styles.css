@@ -286,7 +286,7 @@ h3 { font-size: 1.35rem; }
 .map-branch strong, .map-branch span { display: block; }
 .map-branch strong { color: var(--blue-deep); }
 .map-branch span { color: var(--muted); font-size: .88rem; }
-.barrier-map > p { grid-column: 1/-1; margin: .7rem 0 0; padding: 1rem; border-radius: .8rem; background: var(--blue-deep); color: white; text-align: center; }
+.barrier-map > p { grid-column: 1/-1; margin: .7rem 0 0; padding: 1rem; border-radius: .8rem; background: var(--blue-deep); color: #fff !important; font-weight: 750; line-height: 1.55; text-align: center; }
 .raices-thought { border-left: 5px solid var(--green); background: #edf5ef; }
 .action-contexts { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin: 2rem 0; }
 .action-contexts article { padding: 1.4rem; border: 1px solid var(--line); border-radius: 1rem; background: white; }
