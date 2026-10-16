@@ -50,6 +50,9 @@
   };
   $$('[data-open-activity]').forEach(b => b.addEventListener('click', () => open(b.dataset.openActivity)));
   $('[data-close-activity]').addEventListener('click', () => { cleanup(); if(canSpeak)speechSynthesis.cancel(); zone.hidden = true; document.body.classList.remove('activity-open'); });
+  if (location.hash === '#mindfulness') {
+    requestAnimationFrame(() => open('mindfulness'));
+  }
 
   function levelPicker(run) {
     const wrap = document.createElement('div'); wrap.className = 'activity-levels';
