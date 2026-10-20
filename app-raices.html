@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="Aplicación instalable RAÍCES Perú con juegos, lectoescritura, activación mental, color y acompañamiento sonoro.">
+  <meta name="theme-color" content="#075c70"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="assets/app-icons/app-icon-192.png"><link rel="apple-touch-icon" href="assets/app-icons/app-icon-192.png">
+  <title>App RAÍCES · Juega, crea y acompáñate</title>
+  <link rel="stylesheet" href="assets/app-raices.css?v=20261020-1"><script defer src="assets/app-raices.js?v=20261020-1"></script>
+</head>
+<body>
+  <a class="app-skip" href="#app-main">Saltar al contenido</a>
+  <header class="app-topbar">
+    <a class="app-brand" href="app-raices.html" aria-label="Inicio de la aplicación RAÍCES"><img src="assets/isotipo-raices.webp" alt=""><span><b>RAÍCES</b><small>Juega a tu ritmo</small></span></a>
+    <div class="app-top-actions"><button type="button" data-share aria-label="Compartir aplicación">↗</button><a href="index.html" aria-label="Ir al sitio web de RAÍCES">Web</a></div>
+  </header>
+
+  <main id="app-main">
+    <section class="app-hero" id="inicio">
+      <div class="app-hero-copy"><p class="app-kicker" id="app-greeting">Hola, explorador</p><h1>¿Qué quieres descubrir hoy?</h1><p>Queñal te acompaña con juegos breves, voz amable y descansos cuando los necesites.</p><div class="app-hero-actions"><a class="app-primary" href="mente-en-raices.html">Continuar jugando</a><button type="button" class="app-secondary" data-install>Instalar app</button></div></div>
+      <div class="app-hero-art"><span class="app-orbit one"></span><span class="app-orbit two"></span><img src="assets/personaje-quenal-v2.webp" alt="Queñal sonríe y acompaña la aventura"><span class="app-float star">★</span><span class="app-float leaf">❧</span></div>
+    </section>
+
+    <section class="app-stats" aria-label="Progreso en este dispositivo">
+      <article><span class="app-ring" style="--progress:0" id="app-ring"><b id="app-progress-percent">0%</b></span><div><small>Tu recorrido</small><strong><span id="app-progress-count">0</span> de 83 juegos</strong></div></article>
+      <article><span class="app-streak">🔥</span><div><small>Constancia amable</small><strong><span id="app-streak-count">1</span> día de exploración</strong></div></article>
+    </section>
+
+    <section class="app-section" id="jugar">
+      <div class="app-section-title"><div><p class="app-kicker">Universo RAÍCES</p><h2>Elige una aventura</h2></div><span>83 juegos</span></div>
+      <div class="app-paths">
+        <a class="app-path cognition" href="mente-en-raices.html"><span class="app-path-icon">🧠</span><div><small>30 aventuras</small><h3>Mente en RAÍCES</h3><p>Atención, memoria, comprensión y razonamiento.</p></div><b>›</b></a>
+        <a class="app-path play" href="juegos-ludicos.html"><span class="app-path-icon">🔭</span><div><small>17 familias</small><h3>Explora y encuentra</h3><p>Sombras, diferencias, patrones, rutas y parejas.</p></div><b>›</b></a>
+        <a class="app-path activate" href="activacion-mental.html"><span class="app-path-icon">⚡</span><div><small>19 circuitos</small><h3>Activa cuerpo y mente</h3><p>Manos, coordinación, ritmo, matrices y códigos.</p></div><b>›</b></a>
+        <a class="app-path words" href="juegos-lectoescritura.html"><span class="app-path-icon">🔤</span><div><small>17 rutas</small><h3>Sonidos y palabras</h3><p>Fonemas, sílabas, frases, lectura y comprensión.</p></div><b>›</b></a>
+      </div>
+    </section>
+
+    <section class="app-section calm-section" id="calma">
+      <div class="app-section-title"><div><p class="app-kicker">Calma y acompañamiento</p><h2>Elige cómo quieres sentirte</h2></div><span>Audio voluntario</span></div>
+      <p class="app-note">Usa un volumen cómodo. Puedes detener cualquier pista cuando quieras. Estas experiencias acompañan; no reemplazan atención profesional.</p>
+      <div class="calm-grid">
+        <article class="calm-card night"><span>🌙</span><div><small>Dormir</small><h3>Noche tranquila</h3><p>Sonido continuo para bajar el ritmo.</p><audio controls preload="none" src="assets/audio/onda-nocturna.mp3"></audio></div></article>
+        <article class="calm-card wake"><span>☀️</span><div><small>Despertar</small><h3>Inicio suave</h3><p>Una pista luminosa para comenzar.</p><audio controls preload="none" src="assets/audio/onda-diurna.mp3"></audio></div></article>
+        <article class="calm-card focus"><span>🎯</span><div><small>Concentración</small><h3>Foco amable</h3><p>Acompañamiento sonoro durante una tarea.</p><audio controls preload="none" src="assets/audio/onda-concentracion-raices.mp3"></audio></div></article>
+        <article class="calm-card relax"><span>🌿</span><div><small>Relajar</small><h3>Pausa con gong</h3><p>Escucha, nota y decide cómo continuar.</p><audio controls preload="none" src="assets/audio/onda-gong-40hz.mp3"></audio></div></article>
+        <article class="calm-card meditate"><span>🧘</span><div><small>Meditación guiada</small><h3>Volver al presente</h3><p>Una guía lenta para acompañar la respiración.</p><audio controls preload="none" src="assets/audio/meditacion-guiada-raices.mp3"></audio></div></article>
+      </div>
+    </section>
+
+    <section class="app-section coloring-section" id="crear">
+      <div class="app-section-title"><div><p class="app-kicker">Taller de color</p><h2>Nuevas aventuras de Queñal</h2></div><a href="pintar-mandalas.html">Abrir taller</a></div>
+      <div class="coloring-showcase"><a href="pintar-mandalas.html"><img src="assets/mandalas/quenal-quenual-coloring-overlay.png" alt="Queñal junto a un árbol de queñual para colorear"><span>Queñal y el queñual</span></a><a href="pintar-mandalas.html"><img src="assets/mandalas/quenal-llama-coloring-overlay.png" alt="Queñal camina con una llama para colorear"><span>Caminata con llama</span></a><a href="pintar-mandalas.html"><img src="assets/mandalas/quenal-condor-coloring-overlay.png" alt="Queñal observa un cóndor para colorear"><span>El cóndor curioso</span></a><a href="pintar-mandalas.html"><img src="assets/mandalas/quenal-calma-coloring-overlay.png" alt="Queñal descansa bajo las estrellas para colorear"><span>Noche de calma</span></a></div>
+    </section>
+
+    <section class="app-install-card"><img src="assets/app-icons/app-icon-192.png" alt="Icono de RAÍCES"><div><p class="app-kicker">Llévalo contigo</p><h2>Instala RAÍCES en tu pantalla</h2><p>Accede como una app desde Android, tablet o celular y comparte el enlace por redes.</p></div><button type="button" data-install>Instalar</button></section>
+  </main>
+
+  <nav class="app-bottom-nav" aria-label="Navegación de la aplicación"><a href="#inicio"><span>⌂</span>Inicio</a><a href="#jugar"><span>◇</span>Jugar</a><a href="#calma"><span>◌</span>Calma</a><a href="#crear"><span>✦</span>Crear</a></nav>
+  <dialog id="install-help"><button type="button" data-close-install aria-label="Cerrar">×</button><img src="assets/app-icons/app-icon-192.png" alt=""><h2>Instalar RAÍCES</h2><p id="install-message">En Android abre el menú del navegador y elige “Instalar aplicación” o “Agregar a pantalla principal”.</p></dialog>
+</body>
+</html>

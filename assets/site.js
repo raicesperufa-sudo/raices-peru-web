@@ -1,12 +1,55 @@
 const button = document.querySelector('.menu-toggle');
 const nav = document.querySelector('#main-nav');
 
+// Voz común de RAÍCES: española, cálida, pausada y con volumen amable.
+(() => {
+  const supported = 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
+  const preferredNames = /elvira|helena|laura|m[oó]nica|paulina|sabina|dalia|luciana|female|mujer|woman|google espa[nñ]ol/i;
+  let voices = [];
+  const refreshVoices = () => { if (supported) voices = window.speechSynthesis.getVoices(); };
+  const chooseVoice = () => {
+    const spanish = voices.filter((voice) => /^es(?:-|_)/i.test(voice.lang));
+    return spanish.find((voice) => /^es-PE/i.test(voice.lang) && preferredNames.test(voice.name))
+      || spanish.find((voice) => preferredNames.test(voice.name))
+      || spanish.find((voice) => /^es-PE/i.test(voice.lang))
+      || spanish.find((voice) => /^es-(MX|CO|US)/i.test(voice.lang))
+      || spanish[0]
+      || null;
+  };
+  refreshVoices();
+  if (supported) window.speechSynthesis.addEventListener?.('voiceschanged', refreshVoices);
+  window.RaicesVoice = {
+    supported,
+    stop() { if (supported) window.speechSynthesis.cancel(); },
+    speak(text, options = {}) {
+      if (!supported || !text) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(String(text).replace(/\s+/g, ' ').trim());
+      utterance.lang = 'es-PE';
+      utterance.rate = options.rate || .76;
+      utterance.pitch = options.pitch || .98;
+      utterance.volume = options.volume || .88;
+      utterance.voice = chooseVoice();
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+})();
+
 if (nav && !nav.querySelector('a[href="blog.html"]')) {
   const blogLink = document.createElement('a');
   blogLink.href = 'blog.html';
   blogLink.textContent = 'Blog';
   const responsibilityLink = nav.querySelector('a[href="responsabilidad.html"]');
   nav.insertBefore(blogLink, responsibilityLink);
+}
+
+if (nav && !nav.querySelector('a[href="app-raices.html"]')) {
+  const appLink = document.createElement('a');
+  appLink.href = 'app-raices.html';
+  appLink.textContent = 'App RAÍCES';
+  appLink.className = 'nav-app';
+  const blogLink = nav.querySelector('a[href="blog.html"]');
+  nav.insertBefore(appLink, blogLink);
 }
 
 if (button && nav) {

@@ -11,9 +11,10 @@
   let feedbackAudio = null;
   function speak(text) {
     if (!canSpeak || !text) return;
+    if (window.RaicesVoice) { window.RaicesVoice.speak(text); return; }
     speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text.replace(/\s+/g, ' ').trim());
-    utterance.lang = 'es-PE'; utterance.rate = .9; utterance.pitch = 1;
+    utterance.lang = 'es-PE'; utterance.rate = .76; utterance.pitch = .98; utterance.volume = .88;
     const voices = speechSynthesis.getVoices();
     utterance.voice = voices.find(v => /^es-PE/i.test(v.lang)) || voices.find(v => /^es/i.test(v.lang)) || null;
     speechSynthesis.speak(utterance);
@@ -28,7 +29,7 @@
     const bar = document.createElement('div'); bar.className = 'voice-guide';
     bar.innerHTML = '<span>Guía de voz</span><button type="button" data-voice-play>Escuchar instrucciones</button><button type="button" data-voice-stop>Detener</button>';
     bar.querySelector('[data-voice-play]').onclick = () => speak(voiceText());
-    bar.querySelector('[data-voice-stop]').onclick = () => speechSynthesis.cancel();
+    bar.querySelector('[data-voice-stop]').onclick = () => window.RaicesVoice ? window.RaicesVoice.stop() : speechSynthesis.cancel();
     content.prepend(bar);
   }
 

@@ -97,6 +97,41 @@
           choice('La planta se inclinó hacia la ventana. ¿Qué buscaba?','<span class="big">🌱 ☀️</span>',['Luz','Ruido','Frío'],0),
           choice('Ana guardó silencio mientras su amiga hablaba. ¿Qué hizo?','<span class="big">👂</span>',['Escuchó','Interrumpió','Se fue'],0),
           choice('El camino estaba mojado y había charcos. ¿Qué ocurrió antes?','<span class="big">💧</span>',['Llovió','Nevó','Hubo viento'],0)
+        ]),
+        game('l13','Busca y encuentra','🔭','visual','Explora escenas originales y toca solamente los objetivos.',[
+          tap('Encuentra los cinco limones entre los pollitos.',['🐥','🍋','🐤','🐥','🎀','🐤','🍋','🐥','🧢','🐤','🍋','🐥','🐤','🍋','🐥','👓','🐤','🍋'],[1,6,10,13,17]),
+          tap('Encuentra al pollito perdido entre los patos.',['🦆','🦆','🦆','🐤','🦆','🦆','🦆','🦆','🦆','🦆','🦆','🦆'],[3]),
+          tap('Encuentra los tres cocos entre los osos.',['🧸','🥥','🧸','🧸','🧸','🥥','🧸','🧸','🥥','🧸','🧸','🧸','🧸','🧸','🧸'],[1,5,8]),
+          tap('Busca: llama, cangrejo, colibrí, delfín y caracol.',['🦙','🦀','🐕','🐬','🦅','🐌','🐸','🐟','🐦','🦋','🦔','🦜','🐋','🐈','🐿️'],[0,1,3,5,8]),
+          tap('Encuentra los seis animales marinos.',['🐠','🌿','🐙','🪨','🐬','⭐','🦀','🐚','🐢','🌊','🐳','☀️'],[0,2,4,6,8,10])
+        ]),
+        game('l14','Sombras que encajan','🌘','visual','Compara contornos, orientación y detalles.',[
+          choice('¿Qué sombra corresponde a la palmera?','<span class="big">🌴</span>',['<span class="shadow-option">☂️</span>','<span class="shadow-option">🌴</span>','<span class="shadow-option">🌵</span>'],1),
+          choice('¿Qué sombra corresponde al balde?','<span class="big">🪣</span>',['<span class="shadow-option">🪣</span>','<span class="shadow-option">🧺</span>','<span class="shadow-option">🥁</span>'],0),
+          choice('Observa las orejas y elige la sombra del conejo.','<span class="big">🐇</span>',['<span class="shadow-option">🐈</span>','<span class="shadow-option">🐇</span>','<span class="shadow-option">🐿️</span>'],1),
+          choice('¿Qué sombra tiene la misma cola que el pez?','<span class="big">🐟</span>',['<span class="shadow-option">🐟</span>','<span class="shadow-option">🐬</span>','<span class="shadow-option">🦭</span>'],0),
+          choice('Nivel final: busca el mismo contorno del colibrí.','<span class="big">🐦</span>',['<span class="shadow-option">🦋</span>','<span class="shadow-option">🐦</span>','<span class="shadow-option">🦅</span>'],1)
+        ]),
+        game('l15','Cinco diferencias','🕵️','visual','Compara dos escenas y descubre qué cambió.',[
+          choice('Escena A: 🐸🌼☀️ · Escena B: 🐸🌸☀️. ¿Qué cambió?','<span class="big">🐸 🌼 ☀️ &nbsp; | &nbsp; 🐸 🌸 ☀️</span>',['La flor','El sol','La rana'],0),
+          choice('Escena A: 🏠🌳🐕 · Escena B: 🏠🌲🐕. ¿Qué cambió?','<span class="big">🏠 🌳 🐕 &nbsp; | &nbsp; 🏠 🌲 🐕</span>',['El perro','El árbol','La casa'],1),
+          choice('Escena A: 🚲🎈☁️ · Escena B: 🛴🎈☁️. ¿Qué cambió?','<span class="big">🚲 🎈 ☁️ &nbsp; | &nbsp; 🛴 🎈 ☁️</span>',['El vehículo','El globo','La nube'],0),
+          tap('Toca las cinco parejas diferentes.',['🍎🍎','🌙⭐','🐟🐟','🌼🌻','🔑🔑','🏠🏡','🦋🦋','⚽🏀','📘📘','🐈🐕'],[1,3,5,7,9]),
+          tap('Reto final: encuentra seis cambios.',['🔴🔴','▲▼','🌿🌿','12·21','🐦🐦','AB·BA','☀️🌙','□□','🎵🎶','LR·RL'],[1,3,5,6,8,9])
+        ]),
+        game('l16','Rastros y caminos','🧭','patrones','Sigue pistas visuales y elige la ruta que conserva la regla.',[
+          choice('La abeja avanza hacia la flor sin tocar la nube.','<span class="big">🐝 · ☁️ · 🌼</span>',['Por arriba','Atravesando la nube','Hacia atrás'],0),
+          order('Repite el camino corto.',['Derecha','Arriba','Derecha'],['Derecha','Arriba','Derecha']),
+          memory('Mira la ruta.',['↑','→','→','↓'],'¿Qué movimiento fue tercero?',['Arriba','Derecha','Abajo'],1),
+          order('Ordena el rastro que lleva del nido al árbol.',['Abajo','Derecha','Arriba','Derecha'],['Derecha','Arriba','Derecha','Abajo']),
+          memory('Recuerda la ruta larga.',['↑','→','↓','→','↑','↑'],'¿Qué dos movimientos cerraron la ruta?',['Arriba y arriba','Derecha y arriba','Abajo y derecha'],0)
+        ]),
+        game('l17','Parejas escondidas','🪄','visual','Recuerda asociaciones de imágenes y recupera la pareja correcta.',[
+          memory('Relaciona cada animal con su lugar.',['🐟=🌊','🐦=🌳','🦙=⛰️'],'¿Dónde estaba la llama?',['Mar','Montaña','Árbol'],1),
+          memory('Relaciona objeto y uso.',['🔑=🚪','✏️=📄','🥄=🥣'],'¿Qué acompañaba al lápiz?',['Puerta','Papel','Tazón'],1),
+          memory('Relaciona color y figura.',['🔵=●','🟡=▲','🟢=■'],'¿Qué forma tenía el verde?',['Círculo','Triángulo','Cuadrado'],2),
+          memory('Recuerda cuatro parejas.',['🌙=noche','☀️=día','🌧️=paraguas','❄️=abrigo'],'¿Qué se relacionaba con el paraguas?',['Lluvia','Nieve','Sol'],0),
+          memory('Reto final de cinco parejas.',['1=🐝','2=🐢','3=🦊','4=🦉','5=🐬'],'¿Qué animal tenía el número 4?',['Zorro','Búho','Delfín'],1)
         ])
       ]
     },
@@ -208,6 +243,34 @@
           choice('Sube llena y baja vacía; si se demora, la sopa se enfría.','<span class="big">?</span>',['Cuchara','Escalera','Puerta'],0),
           choice('Me hago más pequeño cada vez que me baño.','<span class="big">🧼</span>',['Jabón','Toalla','Agua'],0),
           choice('Cuanto más seca, más mojada queda.','<span class="big">?</span>',['Toalla','Arena','Luz'],0)
+        ]),
+        game('a16','Atención alternante','🚦','atencion','Cambia de regla con calma y conserva la consigna actual.',[
+          tap('Regla 1: toca solamente los elementos rojos.',['🔴','🔵','🟥','🟢','🍎','🟡','🔺','🔵'],[0,2,4,6]),
+          tap('Regla 2: ahora toca solamente los círculos.',['🔴','🟦','🟢','🟥','🔵','🟨','🟣','🔶'],[0,2,4,6]),
+          tap('Regla 3: toca animales, no plantas.',['🐕','🌿','🐈','🌼','🦋','🍃','🐦','🌵'],[0,2,4,6]),
+          tap('Regla 4: toca números pares.',['1','2','3','4','5','6','7','8'],[1,3,5,7]),
+          tap('Regla final: toca figuras azules o estrellas amarillas.',['🔵','🟡','💙','⭐','🟦','🌟','🔷','☀️'],[0,3,4,5,6])
+        ]),
+        game('a17','Copia la matriz','▦','memoria','Mira posiciones, cubre la matriz y recupera el patrón.',[
+          memory('Observa la matriz 2 por 2.',['🔴','⚪','⚪','🔵'],'¿Qué color estaba abajo a la derecha?',['Rojo','Azul','Blanco'],1),
+          memory('Observa la fila.',['⭐','●','▲','■'],'¿Qué figura estaba entre la estrella y el triángulo?',['Círculo','Cuadrado','Estrella'],0),
+          memory('Mira seis posiciones.',['🟢','⚪','🟡','⚪','🔵','⚪'],'¿Qué color estaba en la quinta posición?',['Azul','Verde','Amarillo'],0),
+          memory('Recuerda la matriz 3 por 3.',['⭐','○','○','○','▲','○','○','○','■'],'¿Qué figura estaba en el centro?',['Estrella','Triángulo','Cuadrado'],1),
+          memory('Reto final de nueve posiciones.',['A','2','🔵','B','5','🟢','C','8','🟡'],'¿Qué color acompañaba al 8?',['Azul','Verde','Amarillo'],2)
+        ]),
+        game('a18','Cuenta y cambia','🔁','atencion','Alterna entre cantidad, color y forma sin perder la consigna.',[
+          choice('Cuenta solo las estrellas.','<span class="big">⭐ ● ⭐ ▲ ⭐</span>',['2','3','4'],1),
+          choice('Ahora ignora la cantidad y elige el color.','<span class="word" style="color:#4b8fcb">ROJO</span>',['Rojo','Azul','Verde'],1),
+          choice('Vuelve a contar: ¿cuántos animales hay?','<span class="big">🐟 🌿 🐕 ☀️ 🦋</span>',['2','3','4'],1),
+          choice('Ahora elige la forma, no el color.','<span class="big" style="color:#dc7f58">▲</span>',['Triángulo','Naranja','Círculo'],0),
+          memory('Cambia una vez más.',['2=🔵','4=⭐','6=🌿','8=🐦'],'¿Qué imagen acompañaba al 6?',['Hoja','Ave','Estrella'],0)
+        ]),
+        game('a19','Ritmo visual','🥁','coordinacion','Observa pulsos, repite secuencias y aumenta su longitud.',[
+          order('Repite el ritmo de dos golpes.',['Palma','Mesa'],['Palma','Mesa']),
+          order('Repite el ritmo de tres golpes.',['Palma','Palma','Mesa'],['Palma','Mesa','Palma']),
+          memory('Mira el ritmo.',['👏','🫳','👏','🫳'],'¿Qué gesto fue tercero?',['Palma','Mesa','Pausa'],0),
+          order('Ordena el ritmo de cinco pasos.',['Pausa','Palma','Mesa','Palma','Mesa'],['Palma','Mesa','Palma','Pausa','Mesa']),
+          memory('Ritmo final de seis pulsos.',['👏','🫳','🤫','👏','🫳','👏'],'¿Cuáles fueron los dos últimos?',['Mesa y palma','Palma y mesa','Pausa y palma'],0)
         ])
       ]
     },
@@ -298,6 +361,41 @@
           choice('Pedro llevó una botella reutilizable para evitar plástico. ¿Qué quería cuidar?','<span class="big">🌎</span>',['El ambiente','Su mochila','La mesa'],0),
           choice('“Primero mezcló la harina; luego añadió agua”. ¿Qué hizo después de mezclar?','<span class="big">🥣</span>',['Añadió agua','Encendió una luz','Guardó la harina'],0),
           choice('Luz pidió ayuda, probó otra estrategia y terminó el reto. ¿Cuál es la idea principal?','<span class="big">💡</span>',['Persistió usando apoyo','Ganó una carrera','Trabajó sola'],0)
+        ]),
+        game('e13','¿Dónde suena?','📍','vocales','Ubica un sonido al inicio, en medio o al final de la palabra.',[
+          choice('¿Dónde suena /m/ en MESA?','<span class="big">🪑 MESA</span>',['Al inicio','En medio','Al final'],0),
+          choice('¿Dónde suena /s/ en CASA?','<span class="big">🏠 CASA</span>',['Al inicio','En medio','Al final'],1),
+          choice('¿Dónde suena /l/ en SOL?','<span class="big">☀️ SOL</span>',['Al inicio','En medio','Al final'],2),
+          choice('¿Dónde aparece el sonido /r/ en CARA?','<span class="big">🙂 CARA</span>',['Al inicio','En medio','Al final'],1),
+          choice('¿En qué palabra /n/ aparece al inicio y al final?','<span class="big">?</span>',['Nube','Nadan','Luna'],1)
+        ]),
+        game('e14','Sonidos cercanos','👂','vocales','Escucha y diferencia palabras que cambian por un solo sonido.',[
+          choice('Queñal dice PALA. ¿Qué imagen corresponde?','<span class="big">PALA</span>',['🪏 Pala','⚽ Bala','🪽 Ala'],0),
+          choice('Queñal dice TAZA. ¿Qué palabra escuchaste?','<span class="big">☕</span>',['Casa','Taza','Masa'],1),
+          choice('¿Qué palabra cambia L por S en LANA?','<span class="big">LANA → ?</span>',['Sana','Lata','Luna'],0),
+          choice('¿Qué par empieza con sonidos diferentes?','<span class="big">🐱 GATO · 🦆 PATO</span>',['Gato y pato','Gato y gorro','Pato y pala'],0),
+          choice('Nivel final: ¿qué palabra oyes al cambiar /p/ por /m/ en PESA?','<span class="big">PESA → M...</span>',['Mesa','Misa','Masa'],0)
+        ]),
+        game('e15','Familias de sonidos','🗂️','palabras','Agrupa palabras por el sonido que comparten.',[
+          tap('Toca las palabras que empiezan con M.',['Mesa','Sapo','Mano','Luna','Mapa','Pato','Mono','Casa'],[0,2,4,6]),
+          tap('Toca las palabras que empiezan con P.',['Pera','Mala','Pino','Silla','Puma','Lata','Pato','Nube'],[0,2,4,6]),
+          tap('Toca las palabras que contienen L.',['Sol','Mesa','Luna','Pato','Ala','Nube','Pelo','Casa'],[0,2,4,6]),
+          tap('Toca las palabras que terminan en A.',['Casa','Sol','Luna','Pan','Mesa','Tren','Pera','Mar'],[0,2,4,6]),
+          tap('Reto final: toca palabras con R fuerte al inicio.',['Rana','Cara','Roca','Pera','Río','Loro','Rueda','Mar'],[0,2,4,6])
+        ]),
+        game('e16','Frases que crecen','🌱','lectura','Ordena palabras para construir frases cada vez más largas.',[
+          order('Forma una frase de dos palabras.',['corre','Lola'],['Lola','corre']),
+          order('Forma una frase de tres palabras.',['salta','alto','Kantu'],['Kantu','salta','alto']),
+          order('Forma una frase de cinco palabras.',['El','niño','riega','el','huerto'],['El','niño','riega','el','huerto']),
+          order('Forma la frase completa.',['libro','lee','un','interesante','Mila'],['Mila','lee','un','libro','interesante']),
+          order('Reto final con causa.',['llovía','porque','Lina','paraguas','llevó'],['Lina','llevó','paraguas','porque','llovía'])
+        ]),
+        game('e17','Pistas de letras','🔎','palabras','Busca letras dentro de palabras y resuelve pistas visuales.',[
+          tap('Encuentra todas las A.',['A','M','E','A','I','P','A','O','U','A'],[0,3,6,9]),
+          tap('Encuentra las letras de SOL en cualquier orden.',['S','A','O','M','L','P','E','R'],[0,2,4]),
+          choice('Empieza con C, termina con A y sirve para vivir.','<span class="big">C _ _ A</span>',['Casa','Cama','Copa'],0),
+          choice('Tiene dos sílabas, empieza con LU y aparece de noche.','<span class="big">LU _ _</span>',['Luna','Lupa','Luz'],0),
+          typing('Completa la palabra del dibujo.','<span class="big">🦙 LLA _ A</span>',['llama','ma'])
         ])
       ]
     }
@@ -330,8 +428,9 @@
   };
   function speak(text) {
     if (!canSpeak || !text) return;
+    if (window.RaicesVoice) { window.RaicesVoice.speak(strip(text)); return; }
     speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(strip(text)); utterance.lang = 'es-PE'; utterance.rate = .88;
+    const utterance = new SpeechSynthesisUtterance(strip(text)); utterance.lang = 'es-PE'; utterance.rate = .76; utterance.pitch = .98; utterance.volume = .88;
     const voices = speechSynthesis.getVoices(); utterance.voice = voices.find(v => /^es-PE/i.test(v.lang)) || voices.find(v => /^es/i.test(v.lang)) || null;
     speechSynthesis.speak(utterance);
   }
@@ -357,7 +456,7 @@
   function bindGuide(round){
     const listen=dialogBody.querySelector('[data-listen]'), stop=dialogBody.querySelector('[data-stop]');
     if(listen) listen.onclick=()=>speak(`${currentGame.title}. ${round.cue} ${round.prompt}`);
-    if(stop) stop.onclick=()=>canSpeak&&speechSynthesis.cancel();
+    if(stop) stop.onclick=()=>window.RaicesVoice?window.RaicesVoice.stop():(canSpeak&&speechSynthesis.cancel());
   }
   function levelBar(){
     const total=currentGame.rounds.length, step=currentRound+1, level=Math.min(5,Math.ceil(step/Math.max(1,total/5)));
@@ -409,7 +508,7 @@
   function openGame(item){
     currentGame=item;currentRound=0;$('#collection-dialog-title').textContent=item.title;$('#collection-dialog-meta').textContent=`${config.label} · ${config.groups[item.group]}`;dialog.hidden=false;document.body.classList.add('mind-dialog-open');renderRound();setTimeout(()=>$('#collection-close').focus(),20);
   }
-  function closeDialog(){cleanRound();cleanRound=()=>{};if(canSpeak)speechSynthesis.cancel();dialog.hidden=true;document.body.classList.remove('mind-dialog-open')}
+  function closeDialog(){cleanRound();cleanRound=()=>{};if(window.RaicesVoice)window.RaicesVoice.stop();else if(canSpeak)speechSynthesis.cancel();dialog.hidden=true;document.body.classList.remove('mind-dialog-open')}
   function renderFilters(){
     const holder=$('#collection-filters');holder.innerHTML=`<button type="button" class="is-active" data-filter="all">Todas</button>${Object.entries(config.groups).map(([key,label])=>`<button type="button" data-filter="${key}">${label}</button>`).join('')}`;
     holder.querySelectorAll('button').forEach(button=>button.onclick=()=>{activeFilter=button.dataset.filter;holder.querySelectorAll('button').forEach(item=>item.classList.toggle('is-active',item===button));renderCards(activeFilter)});
