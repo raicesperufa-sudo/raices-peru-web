@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="Gimnasia cerebral RAÍCES: 55 niveles interactivos de coordinación bilateral, atención, memoria y percepción con Queñal.">
+  <meta name="theme-color" content="#075c70">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/app-icons/app-icon-192.png">
+  <link rel="apple-touch-icon" href="assets/app-icons/app-icon-192.png">
+  <title>Gimnasia cerebral · App RAÍCES</title>
+  <link rel="stylesheet" href="assets/gimnasia-cerebral.css?v=20261026-1">
+  <script defer src="assets/site.js?v=20261019-voice1"></script>
+  <script defer src="assets/gimnasia-cerebral.js?v=20261026-1"></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="gym-topbar">
+    <a class="gym-brand" href="app-raices.html" aria-label="Volver a la aplicación RAÍCES">
+      <img src="assets/isotipo-raices.webp" alt="">
+      <span><b>RAÍCES</b><small>Gimnasia cerebral</small></span>
+    </a>
+    <a class="back-app" href="app-raices.html">← Volver a la app</a>
+  </header>
+
+  <main id="contenido">
+    <section class="gym-hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Mover, mirar, recordar y descubrir</p>
+        <h1>Gimnasia cerebral con Queñal</h1>
+        <p>Un circuito amable para jugar con las dos manos, los ojos y la memoria. Empieza fácil y avanza de a poco: aquí cada intento cuenta.</p>
+        <div class="hero-actions">
+          <button class="primary" type="button" id="start-route">Iniciar mi recorrido</button>
+          <button class="secondary" type="button" id="voice-intro">🔊 Escuchar bienvenida</button>
+        </div>
+        <div class="hero-pills" aria-label="Características"><span>55 niveles</span><span>Voz cálida</span><span>Sin cronómetro</span></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <span class="light light-one"></span><span class="light light-two"></span>
+        <img src="assets/personaje-quenal-v2.webp" alt="">
+        <span class="hero-bubble left-hand">👈</span><span class="hero-bubble right-hand">👉</span>
+      </div>
+    </section>
+
+    <section class="journey-panel" aria-label="Progreso de gimnasia cerebral">
+      <div class="journey-copy"><small>Mi recorrido</small><strong><span id="completed-count">0</span> de 11 estaciones exploradas</strong></div>
+      <div class="journey-track" aria-hidden="true"><span id="journey-fill"></span></div>
+      <button type="button" id="reset-progress">Reiniciar recorrido</button>
+    </section>
+
+    <section class="station-section" id="estaciones">
+      <div class="section-heading">
+        <div><p class="eyebrow">Elige una estación</p><h2>Entrena a tu manera</h2></div>
+        <p>Para empezar, un nivel dura entre 2 y 5 minutos. Puedes parar cuando quieras.</p>
+      </div>
+      <div class="profile-chooser" aria-label="Elegir edad y dificultad">
+        <div><strong>Edad orientativa</strong><div role="group" aria-label="Edad"><button type="button" data-age="infantes">3 a 6</button><button type="button" data-age="ninos" class="is-active">7 a 10</button><button type="button" data-age="adolescentes">Adolescentes</button></div></div>
+        <div><strong>Dificultad inicial</strong><div role="group" aria-label="Dificultad"><button type="button" data-difficulty="1" class="is-active">Inicio</button><button type="button" data-difficulty="3">Intermedio</button><button type="button" data-difficulty="5">Desafío</button></div></div>
+        <p id="profile-note">Queñal comenzará en el nivel 1 y ajustará el tamaño de los retos.</p>
+      </div>
+      <div class="station-grid" id="station-grid"></div>
+    </section>
+
+    <section class="family-note">
+      <div class="note-icon">🌱</div>
+      <div><p class="eyebrow">Para acompañar</p><h2>Observar vale más que comparar</h2><p>Una persona adulta puede nombrar la estrategia que funcionó: “miraste otra vez”, “usaste las dos manos” o “pediste una pausa”. Estas actividades son educativas y no diagnósticas.</p></div>
+    </section>
+  </main>
+
+  <dialog id="game-dialog" aria-labelledby="game-title">
+    <div class="game-shell">
+      <header class="game-header">
+        <div><p id="game-family">Gimnasia cerebral</p><h2 id="game-title">Actividad</h2></div>
+        <button type="button" id="close-game" aria-label="Cerrar actividad">Cerrar ×</button>
+      </header>
+      <div class="game-progress-row">
+        <span id="level-label">Nivel 1 de 5</span>
+        <div class="game-progress" aria-hidden="true"><span id="level-fill"></span></div>
+        <span id="round-label">Paso 1</span>
+      </div>
+      <div class="voice-bar">
+        <strong>Guía de voz</strong>
+        <button type="button" id="listen-guide">🔊 Escuchar</button>
+        <button type="button" id="stop-guide">Detener</button>
+      </div>
+      <section class="game-body">
+        <p class="game-instruction" id="game-instruction"></p>
+        <div class="game-stage" id="game-stage" aria-live="polite"></div>
+        <div class="game-feedback" id="game-feedback" role="status" aria-live="polite"></div>
+      </section>
+      <footer class="game-footer">
+        <button type="button" class="quiet-button" id="repeat-level">↻ Repetir nivel</button>
+        <button type="button" class="next-button" id="next-level" hidden>Siguiente nivel →</button>
+      </footer>
+    </div>
+  </dialog>
+
+  <div class="celebration" id="celebration" aria-hidden="true"></div>
+  <nav class="gym-bottom-nav" aria-label="Navegación de gimnasia cerebral">
+    <a href="app-raices.html"><span>⌂</span>App</a><a href="#estaciones"><span>✦</span>Estaciones</a><a href="pintar-mandalas.html"><span>◉</span>Colorear</a><a href="app-raices.html#calma"><span>◌</span>Calma</a>
+  </nav>
+</body>
+</html>

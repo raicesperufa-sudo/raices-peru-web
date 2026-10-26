@@ -14,7 +14,8 @@
     ['raices-mente-progreso', 30],
     ['raices-juegos-ludicos-progreso', 17],
     ['raices-activacion-mental-progreso', 19],
-    ['raices-lectoescritura-progreso', 17]
+    ['raices-lectoescritura-progreso', 17],
+    ['raices-gimnasia-progreso', 11]
   ];
   const completed = stores.reduce((sum, [key]) => {
     try { return sum + new Set(JSON.parse(localStorage.getItem(key) || '[]')).size; } catch (_) { return sum; }

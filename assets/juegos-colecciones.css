@@ -1,6 +1,6 @@
 .game-collection-tabs{
   width:min(var(--max),calc(100% - 2rem));margin:1rem auto 1.3rem;padding:.55rem;
-  display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;border:1px solid #c8dad7;
+  display:grid;grid-template-columns:repeat(5,1fr);gap:.55rem;border:1px solid #c8dad7;
   border-radius:1.2rem;background:#edf5f3;box-shadow:0 10px 28px rgba(23,58,94,.07)
 }
 .game-collection-tabs a{
