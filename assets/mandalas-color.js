@@ -45,15 +45,31 @@
     ctx.restore();
   }
   function saveState(){history.push(pctx.getImageData(0,0,paint.width,paint.height));if(history.length>18)history.shift();undo.disabled=false;}
+  function squareDilate(source,radius,width,height){
+    const horizontal=new Uint8Array(source.length),result=new Uint8Array(source.length);
+    for(let y=0;y<height;y++){let count=0,row=y*width;for(let x=0;x<=radius;x++)count+=source[row+x];for(let x=0;x<width;x++){horizontal[row+x]=count>0?1:0;const leaving=x-radius,entering=x+radius+1;if(leaving>=0)count-=source[row+leaving];if(entering<width)count+=source[row+entering];}}
+    for(let x=0;x<width;x++){let count=0;for(let y=0;y<=radius;y++)count+=horizontal[y*width+x];for(let y=0;y<height;y++){result[y*width+x]=count>0?1:0;const leaving=y-radius,entering=y+radius+1;if(leaving>=0)count-=horizontal[leaving*width+x];if(entering<height)count+=horizontal[entering*width+x];}}
+    return result;
+  }
+  function squareErode(source,radius,width,height){
+    const horizontal=new Uint8Array(source.length),result=new Uint8Array(source.length),diameter=radius*2+1;
+    for(let y=0;y<height;y++){let count=radius,row=y*width;for(let x=0;x<=radius;x++)count+=source[row+x];for(let x=0;x<width;x++){horizontal[row+x]=count===diameter?1:0;const leaving=x-radius,entering=x+radius+1;count-=leaving<0?1:source[row+leaving];count+=entering>=width?1:source[row+entering];}}
+    for(let x=0;x<width;x++){let count=radius;for(let y=0;y<=radius;y++)count+=horizontal[y*width+x];for(let y=0;y<height;y++){result[y*width+x]=count===diameter?1:0;const leaving=y-radius,entering=y+radius+1;count-=leaving<0?1:horizontal[leaving*width+x];count+=entering>=height?1:horizontal[entering*width+x];}}
+    return result;
+  }
   function boundaryForCurrentDesign(){
     if(boundaryCache[design]) return boundaryCache[design];
     const image=drawings[design]; if(!image?.complete||!image.naturalWidth)return null;
     const mask=document.createElement('canvas');mask.width=canvas.width;mask.height=canvas.height;
     const mctx=mask.getContext('2d',{willReadFrequently:true});mctx.drawImage(image,0,0,canvas.width,canvas.height);
     const pixels=mctx.getImageData(0,0,canvas.width,canvas.height).data;
-    const raw=new Uint8Array(canvas.width*canvas.height),blocked=new Uint8Array(raw.length);
+    const raw=new Uint8Array(canvas.width*canvas.height);
     for(let i=0;i<raw.length;i++)if(pixels[i*4+3]>28)raw[i]=1;
-    for(let y=0;y<canvas.height;y++)for(let x=0;x<canvas.width;x++){const i=y*canvas.width+x;if(!raw[i])continue;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const nx=x+dx,ny=y+dy;if(nx>=0&&ny>=0&&nx<canvas.width&&ny<canvas.height)blocked[ny*canvas.width+nx]=1;}}
+    // Cierra pequeñas aberturas del trazo sin engrosar toda la línea. Así el balde
+    // reconoce cada objeto como una región independiente y no se escapa al fondo.
+    const blocked=squareErode(squareDilate(raw,5,canvas.width,canvas.height),5,canvas.width,canvas.height);
+    for(let x=0;x<canvas.width;x++){blocked[x]=1;blocked[(canvas.height-1)*canvas.width+x]=1;}
+    for(let y=0;y<canvas.height;y++){blocked[y*canvas.width]=1;blocked[y*canvas.width+canvas.width-1]=1;}
     boundaryCache[design]=blocked;return blocked;
   }
   function rgb(hex){const n=parseInt(hex.slice(1),16);return [(n>>16)&255,(n>>8)&255,n&255];}
@@ -61,9 +77,12 @@
     const boundary=boundaryForCurrentDesign();if(!boundary){status.textContent='La escena todavía está cargando. Prueba otra vez en un momento.';return;}
     const sx=Math.max(0,Math.min(canvas.width-1,Math.floor(start.x))),sy=Math.max(0,Math.min(canvas.height-1,Math.floor(start.y))),first=sy*canvas.width+sx;
     if(boundary[first]){status.textContent='Tocaste una línea. Elige el espacio de adentro.';return;}
-    saveState();const image=pctx.getImageData(0,0,paint.width,paint.height),data=image.data,visited=new Uint8Array(boundary.length),stack=[first];let count=0;visited[first]=1;const [r,g,b]=rgb(color),w=canvas.width,h=canvas.height;
-    while(stack.length){const i=stack.pop();if(boundary[i])continue;data[i*4]=r;data[i*4+1]=g;data[i*4+2]=b;data[i*4+3]=255;count++;const x=i%w,y=(i/w)|0;const neighbors=[];if(x>0)neighbors.push(i-1);if(x<w-1)neighbors.push(i+1);if(y>0)neighbors.push(i-w);if(y<h-1)neighbors.push(i+w);neighbors.forEach(n=>{if(!visited[n]&&!boundary[n]){visited[n]=1;stack.push(n);}});}
-    if(count<8){history.pop();undo.disabled=!history.length;status.textContent='Ese espacio es muy pequeño. Prueba en el centro de la zona.';return;}
+    const visited=new Uint8Array(boundary.length),stack=[first],region=[];visited[first]=1;const w=canvas.width,h=canvas.height;
+    while(stack.length){const i=stack.pop();if(boundary[i])continue;region.push(i);const x=i%w,y=(i/w)|0;if(x>0&&!visited[i-1]&&!boundary[i-1]){visited[i-1]=1;stack.push(i-1);}if(x<w-1&&!visited[i+1]&&!boundary[i+1]){visited[i+1]=1;stack.push(i+1);}if(y>0&&!visited[i-w]&&!boundary[i-w]){visited[i-w]=1;stack.push(i-w);}if(y<h-1&&!visited[i+w]&&!boundary[i+w]){visited[i+w]=1;stack.push(i+w);}}
+    if(region.length<8){status.textContent='Ese espacio es muy pequeño. Prueba en el centro de la zona.';return;}
+    if(region.length>canvas.width*canvas.height*.18){status.textContent='Esa zona se conecta con el fondo. Toca dentro de un objeto delimitado por sus líneas.';return;}
+    saveState();const image=pctx.getImageData(0,0,paint.width,paint.height),data=image.data,[r,g,b]=rgb(color);
+    region.forEach(i=>{data[i*4]=r;data[i*4+1]=g;data[i*4+2]=b;data[i*4+3]=255;});
     pctx.putImageData(image,0,0);template();status.textContent='Zona rellenada. Puedes elegir otro color o tocar otra parte.';
   }
   function begin(e){e.preventDefault();const pt=point(e);if(tool==='bucket'){fillRegion(pt);return;}saveState();drawing=true;last=pt;canvas.setPointerCapture?.(e.pointerId);}
