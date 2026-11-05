@@ -1,0 +1,14 @@
+# Perfiles y capturas técnicas locales de validación
+qa/
+qa-edge/
+qa-profile/
+
+# Salidas locales de auditoría y generación
+tmp/
+__pycache__/
+*.pyc
+_archivo_variantes_visuales_*/
+
+# Archivos temporales del sistema
+Thumbs.db
+.DS_Store

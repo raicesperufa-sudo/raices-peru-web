@@ -4,7 +4,41 @@
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
   let installPrompt = null;
 
-  if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+  const updatePanel = $('#app-update');
+  const updateButton = $('[data-update-app]');
+  let waitingWorker = null;
+  let reloadingForUpdate = false;
+  const offerUpdate = (worker) => {
+    waitingWorker = worker;
+    if (updatePanel) updatePanel.hidden = false;
+  };
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', async () => {
+      try {
+        const registration = await navigator.serviceWorker.register('sw.js');
+        if (registration.waiting) offerUpdate(registration.waiting);
+        registration.addEventListener('updatefound', () => {
+          const worker = registration.installing;
+          if (!worker) return;
+          worker.addEventListener('statechange', () => {
+            if (worker.state === 'installed' && navigator.serviceWorker.controller) offerUpdate(worker);
+          });
+        });
+      } catch (_) {}
+    });
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (reloadingForUpdate) return;
+      reloadingForUpdate = true;
+      window.location.reload();
+    });
+  }
+  updateButton?.addEventListener('click', () => {
+    if (!waitingWorker) return;
+    updateButton.disabled = true;
+    updateButton.textContent = 'Actualizando…';
+    waitingWorker.postMessage({ type: 'SKIP_WAITING' });
+  });
 
   const now = new Date();
   const hour = now.getHours();
@@ -15,7 +49,11 @@
     ['raices-juegos-ludicos-progreso', 17],
     ['raices-activacion-mental-progreso', 19],
     ['raices-lectoescritura-progreso', 17],
-    ['raices-gimnasia-progreso', 11]
+    ['raices-gimnasia-progreso', 11],
+    ['raices-matematicas-progreso', 30],
+    ['raices-aventuras-progreso', 3],
+    ['raices-cuerpo-progreso', 6],
+    ['raices-mindfulness-progreso', 5]
   ];
   const completed = stores.reduce((sum, [key]) => {
     try { return sum + new Set(JSON.parse(localStorage.getItem(key) || '[]')).size; } catch (_) { return sum; }
@@ -60,5 +98,15 @@
   }));
 
   const players = $$('audio');
-  players.forEach((player) => player.addEventListener('play', () => players.forEach((other) => { if (other !== player) other.pause(); })));
+  players.forEach((player,index) => {
+    const tier=index<2?'libre':'plus';
+    const card=player.closest('.calm-card');
+    card?.insertAdjacentHTML('afterbegin',`<small class="access-tier">${tier==='libre'?'Libre':'Familia Plus'}</small>`);
+    player.addEventListener('play', () => {
+      if(!(window.RaicesAccess?.require(tier,card?.querySelector('h3')?.textContent||'Esta experiencia sonora')??tier==='libre')){player.pause();player.currentTime=0;return;}
+      players.forEach((other) => { if (other !== player) other.pause(); });
+    });
+  });
+
+  $('[data-quenal-intro]')?.addEventListener('click', () => window.RaicesVoice?.introduce(true));
 })();

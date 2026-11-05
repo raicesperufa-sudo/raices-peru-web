@@ -16,11 +16,67 @@ if (nav) {
   appLinks.slice(1).forEach((link) => link.remove());
 }
 
-// Voz común de RAÍCES: española, cálida, pausada y con volumen amable.
+// Control local de acceso para la beta. La cuenta, el plan y la vigencia se
+// validan en este dispositivo; una versión comercial necesitará servidor.
+(() => {
+  const STORAGE = 'raices-beta-accounts-v1';
+  const SESSION = 'raices-beta-session-v1';
+  const fullPlans = new Set(['beta-fundadora', 'familia-plus-mensual', 'familia-plus-anual', 'cortesia', 'administracion-total']);
+  const readAccounts = () => { try { return JSON.parse(localStorage.getItem(STORAGE) || '[]'); } catch (_) { return []; } };
+  const current = () => readAccounts().find((account) => account.id === localStorage.getItem(SESSION)) || null;
+  const expired = (account) => Boolean(account?.validUntil && Date.now() > new Date(account.validUntil).getTime());
+  const hasTotal = () => {
+    const account = current();
+    return Boolean(account && !expired(account) && (account.role === 'admin' || account.accessLevel === 'total' || fullPlans.has(account.plan)));
+  };
+  let accessDialog;
+  const showAccessDialog = (feature = 'Esta actividad') => {
+    if (!accessDialog) {
+      accessDialog = document.createElement('dialog');
+      accessDialog.className = 'raices-access-dialog';
+      accessDialog.innerHTML = '<button type="button" class="raices-access-close" aria-label="Cerrar">×</button><p class="raices-access-kicker">Familia Plus</p><h2>Continúa con acceso total</h2><p data-access-message></p><p>Las actividades libres siempre permanecen disponibles. La persona adulta administra planes y perfiles fuera del espacio infantil.</p><div><a href="zona-adulta.html">Entrar o importar activación</a><button type="button" data-access-cancel>Seguir con actividades libres</button></div>';
+      document.body.append(accessDialog);
+      accessDialog.querySelector('.raices-access-close').addEventListener('click', () => accessDialog.close());
+      accessDialog.querySelector('[data-access-cancel]').addEventListener('click', () => accessDialog.close());
+      accessDialog.addEventListener('click', (event) => { if (event.target === accessDialog) accessDialog.close(); });
+    }
+    accessDialog.querySelector('[data-access-message]').textContent = `${feature} forma parte de la colección completa.`;
+    accessDialog.showModal();
+  };
+  window.RaicesAccess = {
+    current,
+    expired,
+    hasTotal,
+    level() { return hasTotal() ? 'total' : 'libre'; },
+    canUse(tier = 'libre') { return tier !== 'plus' || hasTotal(); },
+    require(tier = 'libre', feature = 'Esta actividad') { if (this.canUse(tier)) return true; showAccessDialog(feature); return false; },
+    show: showAccessDialog
+  };
+})();
+
+// Voz común de RAÍCES. Queñal acompaña por defecto con una voz adulta
+// joven, cálida y ligeramente pausada. Las preferencias quedan solo en este
+// dispositivo y siempre existe un control visible para detenerla.
 (() => {
   const supported = 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
-  const preferredNames = /elvira|helena|laura|m[oó]nica|paulina|sabina|dalia|luciana|female|mujer|woman|google espa[nñ]ol/i;
+  const settingsKey = 'raices-voice-settings-v2';
+  const defaults = { enabled: true, rate: .76, volume: .88, pitch: .98 };
+  const preferredNames = /elvira|helena|laura|m[oó]nica|paulina|sabina|dalia|luciana|sofia|female|mujer|woman|google espa[nñ]ol/i;
+  const pageIntroductions = {
+    'app-raices.html': 'Hola, soy Queñal. Vamos a divertirnos. Mira, escucha, toca, compara, prueba y vuelve a intentar.',
+    'mente-en-raices.html': 'Hola, soy Queñal. Elige una aventura. Yo leeré las instrucciones y te acompañaré paso a paso.',
+    'juegos-ludicos.html': 'Hola, soy Queñal. Vamos a observar, comparar y descubrir jugando.',
+    'activacion-mental.html': 'Hola, soy Queñal. Prepararemos el cuerpo y la mente con retos breves.',
+    'juegos-lectoescritura.html': 'Hola, soy Queñal. Escucharemos sonidos, formaremos palabras y leeremos a nuestro ritmo.',
+    'gimnasia-cerebral.html': 'Hola, soy Queñal. Mueve tus manos y tu cuerpo con calma. Puedes hacer una pausa cuando quieras.',
+    'matematicas-raices.html': 'Hola, soy Queñal. En matemáticas primero miramos, después representamos y al final usamos números.',
+    'pintar-mandalas.html': 'Hola, soy Queñal. Elige un color y toca una zona para rellenarla. También puedes usar el pincel.'
+  };
   let voices = [];
+  let settings = { ...defaults };
+  try { settings = { ...defaults, ...JSON.parse(localStorage.getItem(settingsKey) || '{}') }; } catch (_) {}
+
+  const save = () => localStorage.setItem(settingsKey, JSON.stringify(settings));
   const refreshVoices = () => { if (supported) voices = window.speechSynthesis.getVoices(); };
   const chooseVoice = () => {
     const spanish = voices.filter((voice) => /^es(?:-|_)/i.test(voice.lang));
@@ -31,23 +87,58 @@ if (nav) {
       || spanish[0]
       || null;
   };
+  const pageName = location.pathname.split('/').pop() || 'app-raices.html';
+  const pageIntroduction = pageIntroductions[pageName];
+
   refreshVoices();
   if (supported) window.speechSynthesis.addEventListener?.('voiceschanged', refreshVoices);
   window.RaicesVoice = {
     supported,
+    getSettings() { return { ...settings }; },
+    updateSettings(next = {}) {
+      settings = { ...settings, ...next };
+      settings.rate = Math.min(.95, Math.max(.62, Number(settings.rate) || defaults.rate));
+      settings.volume = Math.min(1, Math.max(.35, Number(settings.volume) || defaults.volume));
+      save();
+      document.dispatchEvent(new CustomEvent('raicesvoicechange', { detail: { ...settings } }));
+      return { ...settings };
+    },
     stop() { if (supported) window.speechSynthesis.cancel(); },
     speak(text, options = {}) {
-      if (!supported || !text) return;
+      if (!supported || !text || (!settings.enabled && !options.force)) return false;
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(String(text).replace(/\s+/g, ' ').trim());
       utterance.lang = 'es-PE';
-      utterance.rate = options.rate || .76;
-      utterance.pitch = options.pitch || .98;
-      utterance.volume = options.volume || .88;
+      utterance.rate = Number(options.rate) || settings.rate;
+      utterance.pitch = Number(options.pitch) || settings.pitch;
+      utterance.volume = Number(options.volume) || settings.volume;
       utterance.voice = chooseVoice();
       window.speechSynthesis.speak(utterance);
+      return true;
+    },
+    introduce(force = false) {
+      if (!pageIntroduction) return false;
+      return this.speak(pageIntroduction, { force });
     }
   };
+
+  if (!pageIntroduction) return;
+  const controls = document.createElement('aside');
+  controls.className = 'quenal-voice-dock';
+  controls.setAttribute('aria-label', 'Voz de Queñal');
+  controls.innerHTML = `<button type="button" data-quenal-listen aria-label="Escuchar a Queñal">🔊 <span>Queñal</span></button><button type="button" data-quenal-toggle aria-pressed="${settings.enabled}">${settings.enabled ? 'Voz activa' : 'Voz apagada'}</button><button type="button" data-quenal-stop aria-label="Detener voz">■</button>`;
+  document.body.append(controls);
+  const toggle = controls.querySelector('[data-quenal-toggle]');
+  controls.querySelector('[data-quenal-listen]').addEventListener('click', () => window.RaicesVoice.introduce(true));
+  controls.querySelector('[data-quenal-stop]').addEventListener('click', () => window.RaicesVoice.stop());
+  toggle.addEventListener('click', () => {
+    const next = !settings.enabled;
+    window.RaicesVoice.updateSettings({ enabled: next });
+    toggle.textContent = next ? 'Voz activa' : 'Voz apagada';
+    toggle.setAttribute('aria-pressed', String(next));
+    if (next) window.RaicesVoice.introduce(true);
+    else window.RaicesVoice.stop();
+  });
 })();
 
 if (nav && !nav.querySelector('a[href="blog.html"]')) {

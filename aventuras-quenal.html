@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#075c70"><meta name="description" content="Aventuras con Queñal: lectura acompañada, voz opcional y desafíos amables dentro de la App RAÍCES.">
+  <title>Aventuras con Queñal · RAÍCES Perú</title>
+  <link rel="stylesheet" href="assets/aventuras-quenal.css?v=20261105-1">
+  <script defer src="assets/site.js?v=20261105-1"></script><script defer src="assets/pedagogia-raices.js?v=20261105-1"></script><script defer src="assets/aventuras-quenal.js?v=20261105-1"></script>
+</head>
+<body>
+  <a class="skip" href="#aventura">Saltar a la aventura</a>
+  <header class="topbar"><a class="brand" href="app-raices.html"><img src="assets/isotipo-raices.webp" alt=""><span><b>RAÍCES</b><small>Aventuras con Queñal</small></span></a><a class="back" href="app-raices.html#jugar">← Volver a Jugar</a></header>
+  <main id="aventura">
+    <section class="adventure-hero"><div><p class="eyebrow">Lectura acompañada · 3 escenas</p><h1>La semilla que esperaba</h1><p>Escucha, observa y decide cuándo avanzar. Puedes pausar, volver a leer o pedir una pista sin perder lo que ya hiciste.</p></div><img src="assets/personaje-quenal-v2.webp" alt="Queñal acompaña la lectura"></section>
+
+    <section class="reader" aria-live="polite">
+      <div class="reader-progress"><span id="scene-label">Escena 1 de 3</span><div><i id="scene-progress"></i></div><span id="reader-status">Lista para comenzar</span></div>
+      <article class="scene-layout">
+        <figure class="scene-figure"><img id="scene-image" src="assets/quenual-ilustrado.webp" alt=""><figcaption id="scene-caption"></figcaption></figure>
+        <div class="scene-copy">
+          <p class="eyebrow" id="scene-kicker"></p><h2 id="scene-title"></h2>
+          <p class="narration" id="scene-narration"></p>
+          <div class="reading-controls" aria-label="Controles de lectura"><button type="button" id="listen">▶ Escuchar</button><button type="button" id="pause" disabled>Ⅱ Pausar</button><button type="button" id="repeat">↻ Leer otra vez</button><label>Velocidad <select id="voice-rate"><option value="0.78">Lenta</option><option value="0.9" selected>Suave</option><option value="1">Normal</option></select></label></div>
+          <button class="challenge-button" type="button" id="show-challenge">Ya escuché · Ver desafío</button>
+        </div>
+      </article>
+
+      <section class="challenge" id="challenge" hidden><div><p class="eyebrow">Desafío amable</p><h3 id="question"></h3><button class="question-voice" type="button" id="listen-question">🔊 Escuchar pregunta</button></div><div class="answers" id="answers"></div><div class="challenge-actions"><button type="button" id="hint">Quiero una pista</button><button type="button" id="think">Necesito tiempo</button></div><p class="feedback" id="feedback"></p><button class="next" type="button" id="next-scene" hidden>Siguiente escena →</button></section>
+    </section>
+
+    <section class="scope"><h2>Lo que registra esta demostración</h2><p>Solo guarda temporalmente acciones de esta actividad: escuchar, pausar, intentar, pedir una pista y responder. No asigna diagnósticos, notas ni capacidades generales. La persona adulta decide si guarda una copia local o exporta el informe.</p><a href="informe-familiar.html">Abrir informe familiar de esta sesión</a></section>
+  </main>
+  <nav class="bottom-nav" aria-label="Navegación"><a href="app-raices.html"><span>⌂</span>Inicio</a><a href="app-raices.html#jugar"><span>◇</span>Jugar</a><a href="app-raices.html#calma"><span>◌</span>Calma</a><a href="informe-familiar.html"><span>♙</span>Adultos</a></nav>
+</body>
+</html>

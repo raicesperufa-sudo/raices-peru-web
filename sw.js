@@ -1,14 +1,22 @@
-const CACHE = 'raices-app-v2';
+const CACHE = 'raices-app-v6';
 const APP_SHELL = [
   './app-raices.html',
+  './zona-adulta.html',
   './mente-en-raices.html',
   './juegos-ludicos.html',
   './activacion-mental.html',
   './juegos-lectoescritura.html',
   './pintar-mandalas.html',
   './gimnasia-cerebral.html',
+  './matematicas-raices.html',
+  './aventuras-quenal.html',
+  './cuerpo-raices.html',
+  './mindfulness-ninos.html',
+  './informe-familiar.html',
   './assets/app-raices.css',
   './assets/app-raices.js',
+  './assets/zona-adulta.css',
+  './assets/zona-adulta.js',
   './assets/styles.css',
   './assets/mente-raices-v2.css',
   './assets/juegos-colecciones.css',
@@ -18,8 +26,22 @@ const APP_SHELL = [
   './assets/mandalas-color.js',
   './assets/gimnasia-cerebral.css',
   './assets/gimnasia-cerebral.js',
+  './assets/matematicas-raices.css',
+  './assets/matematicas-raices.js',
+  './assets/pedagogia-raices.js',
+  './assets/motor-pedagogico.js',
+  './assets/aventuras-quenal.css',
+  './assets/aventuras-quenal.js',
+  './assets/cuerpo-raices.css',
+  './assets/cuerpo-raices.js',
+  './assets/mindfulness-ninos.css',
+  './assets/mindfulness-ninos.js',
+  './assets/informe-familiar.css',
+  './assets/informe-familiar.js',
   './assets/gym-piezas-raices-sprite.png',
   './assets/personaje-quenal-v2.webp',
+  './assets/quenual-ilustrado.webp',
+  './assets/historia-queni-amigos.webp',
   './assets/isotipo-raices.webp',
   './assets/app-icons/app-icon-192.png',
   './assets/app-icons/app-icon-512.png',
@@ -30,11 +52,15 @@ const APP_SHELL = [
 ];
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));
+  event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(APP_SHELL)));
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(caches.keys().then((keys) => Promise.all(keys.filter((key) => key.startsWith('raices-app-') && key !== CACHE).map((key) => caches.delete(key)))).then(() => self.clients.claim()));
+});
+
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') self.skipWaiting();
 });
 
 self.addEventListener('fetch', (event) => {

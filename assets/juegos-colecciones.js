@@ -404,6 +404,11 @@
   const collectionKey = document.body.dataset.collection;
   const config = collections[collectionKey];
   if (!config) return;
+  const freeGroups = new Set();
+  config.games.forEach((item) => {
+    item.tier = freeGroups.has(item.group) ? 'plus' : 'libre';
+    freeGroups.add(item.group);
+  });
 
   const $ = selector => document.querySelector(selector);
   const dialog = $('#collection-dialog');
@@ -506,6 +511,7 @@
     dialogBody.innerHTML=base(round,`<label class="collection-input"><span>Tu respuesta</span><input type="text" autocomplete="off" placeholder="Escribe aquí"></label><div class="collection-actions"><button type="button" class="collection-action primary" data-check>Comprobar</button></div>`);bindGuide(round);const input=dialogBody.querySelector('input'),check=dialogBody.querySelector('[data-check]');const verify=()=>{if(round.answers.map(normalize).includes(normalize(input.value))){input.disabled=true;check.disabled=true;success('¡La palabra quedó completa!')}else{input.focus();coach('Revisa el sonido o el orden de las letras y vuelve a intentar.')}};check.onclick=verify;input.onkeydown=event=>{if(event.key==='Enter')verify()};
   }
   function openGame(item){
+    if (!(window.RaicesAccess?.require(item.tier,item.title) ?? item.tier==='libre')) return;
     currentGame=item;currentRound=0;$('#collection-dialog-title').textContent=item.title;$('#collection-dialog-meta').textContent=`${config.label} · ${config.groups[item.group]}`;dialog.hidden=false;document.body.classList.add('mind-dialog-open');renderRound();setTimeout(()=>$('#collection-close').focus(),20);
   }
   function closeDialog(){cleanRound();cleanRound=()=>{};if(window.RaicesVoice)window.RaicesVoice.stop();else if(canSpeak)speechSynthesis.cancel();dialog.hidden=true;document.body.classList.remove('mind-dialog-open')}
@@ -514,7 +520,7 @@
     holder.querySelectorAll('button').forEach(button=>button.onclick=()=>{activeFilter=button.dataset.filter;holder.querySelectorAll('button').forEach(item=>item.classList.toggle('is-active',item===button));renderCards(activeFilter)});
   }
   function renderCards(filter='all'){
-    const grid=$('#collection-grid');grid.innerHTML='';config.games.filter(item=>filter==='all'||item.group===filter).forEach((item,index)=>{const card=document.createElement('article');card.className=`collection-card${saved.has(item.id)?' is-done':''}`;card.style.setProperty('--card-soft',['#e5f1ee','#f7eadb','#eaf0f7','#f5e8f2'][index%4]);card.innerHTML=`<span class="collection-card-icon">${item.icon}</span><p class="collection-card-meta">${config.groups[item.group]} · ${item.rounds.length} retos</p><h3>${item.title}</h3><p>${item.description}</p><button type="button">${saved.has(item.id)?'Volver a jugar':'Abrir juego'}</button><span class="collection-card-status">✓ Completado</span>`;card.querySelector('button').onclick=()=>openGame(item);grid.append(card)});
+    const grid=$('#collection-grid');grid.innerHTML='';config.games.filter(item=>filter==='all'||item.group===filter).forEach((item,index)=>{const available=window.RaicesAccess?.canUse(item.tier)??item.tier==='libre';const card=document.createElement('article');card.className=`collection-card${saved.has(item.id)?' is-done':''}${item.tier==='plus'?' is-plus':''}`;card.style.setProperty('--card-soft',['#e5f1ee','#f7eadb','#eaf0f7','#f5e8f2'][index%4]);card.innerHTML=`<span class="collection-card-icon">${item.icon}</span><p class="collection-card-meta">${config.groups[item.group]} · ${item.rounds.length} retos · ${item.tier==='libre'?'Libre':'Familia Plus'}</p><h3>${item.title}</h3><p>${item.description}</p><button type="button">${available?(saved.has(item.id)?'Volver a jugar':'Abrir juego'):'🔒 Requiere acceso total'}</button><span class="collection-card-status">✓ Completado</span>`;card.querySelector('button').onclick=()=>openGame(item);grid.append(card)});
   }
   function updateProgress(){
     const total=config.games.length,count=saved.size;$('#collection-progress-count').textContent=count;$('#collection-progress-total').textContent=total;$('#collection-progress-bar').style.width=`${count/total*100}%`;$('#collection-diploma').hidden=count<total;

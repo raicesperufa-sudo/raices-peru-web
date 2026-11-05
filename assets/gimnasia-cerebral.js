@@ -81,9 +81,11 @@
 
   function renderCards(){
     $('#station-grid').innerHTML=stations.map((s,i)=>{
+      s.tier=i<3?'libre':'plus';
       const done=completed.has(s.id); const saved=Math.min(5,Number(levels[s.id]||0));
-      const status=done?'✓ Estación completada':saved?`Continuar en nivel ${Math.min(5,saved+1)}`:'Comenzar · 5 niveles';
-      return `<button class="station-card${done?' done':''}" type="button" data-station="${s.id}"><span class="station-icon">${s.icon}</span><span class="station-content"><small>${String(i+1).padStart(2,'0')} · ${s.family}</small><h3>${s.title}</h3><p>${s.text}</p><span class="station-status">${status}</span></span></button>`;
+      const available=window.RaicesAccess?.canUse(s.tier)??s.tier==='libre';
+      const status=!available?'🔒 Requiere acceso total':done?'✓ Estación completada':saved?`Continuar en nivel ${Math.min(5,saved+1)}`:'Comenzar · 5 niveles';
+      return `<button class="station-card${done?' done':''}${s.tier==='plus'?' is-plus':''}" type="button" data-station="${s.id}"><span class="station-icon">${s.icon}</span><span class="station-content"><small>${String(i+1).padStart(2,'0')} · ${s.family} · ${s.tier==='libre'?'Libre':'Familia Plus'}</small><h3>${s.title}</h3><p>${s.text}</p><span class="station-status">${status}</span></span></button>`;
     }).join('');
     $$('[data-station]').forEach(b=>b.addEventListener('click',()=>openStation(b.dataset.station)));
     const count=completed.size; $('#completed-count').textContent=count; $('#journey-fill').style.width=`${Math.round(count/stations.length*100)}%`;
@@ -100,6 +102,7 @@
 
   function openStation(id){
     active=stations.find(s=>s.id===id); if(!active)return;
+    if(!(window.RaicesAccess?.require(active.tier,active.title)??active.tier==='libre'))return;
     const saved=Number(levels[id]||0);
     levelIndex=completed.has(id)?0:(saved>0?Math.min(4,saved):profile.difficulty-1);
     $('#game-dialog').showModal(); document.body.style.overflow='hidden'; renderLevel();

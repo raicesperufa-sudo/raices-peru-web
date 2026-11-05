@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#075f73">
+  <meta name="description" content="Misiones de matemática divertida con Queñal: cantidad, operaciones, tablas, división, patrones y problemas.">
+  <title>Matemáticas con Queñal · App RAÍCES</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/isotipo-raices.webp">
+  <link rel="stylesheet" href="assets/matematicas-raices.css?v=20261105-1">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+  <header class="math-topbar">
+    <a class="brand" href="app-raices.html" aria-label="Volver a la App RAÍCES"><img src="assets/isotipo-raices.webp" alt=""><span>RAÍCES PERÚ<small>Matemáticas con Queñal</small></span></a>
+    <div class="top-actions"><button type="button" id="voice-toggle" aria-pressed="true">🔊 Voz activa</button><a href="app-raices.html">← App</a></div>
+  </header>
+
+  <main id="contenido">
+    <section class="hero">
+      <div><p class="eyebrow">Aprendo a mi ritmo</p><h1>Matemáticas con Queñal</h1><p>Primero lo vemos, luego lo representamos y al final usamos números. No hay carreras ni notas: cada intento ayuda.</p><div class="hero-actions"><button class="primary" id="start-route" type="button">Empezar mi misión</button><button class="secondary" id="hear-welcome" type="button">▶ Escuchar a Queñal</button></div></div>
+      <figure><img src="assets/personaje-quenal-v2.webp" alt="Queñal acompaña las misiones matemáticas"><figcaption>“Mira, prueba y descubre. Yo te acompaño”.</figcaption></figure>
+    </section>
+
+    <section class="setup" aria-labelledby="setup-title">
+      <div><p class="eyebrow">Antes de jugar</p><h2 id="setup-title">Prepara una ruta cómoda</h2></div>
+      <div class="setup-grid">
+        <fieldset><legend>¿Cómo practicamos?</legend><label><input type="radio" name="support" value="ayuda" checked> Exploro con ayuda</label><label><input type="radio" name="support" value="practico"> Practico</label><label><input type="radio" name="support" value="desafio"> Me desafío</label></fieldset>
+        <fieldset><legend>Duración aproximada</legend><label><input type="radio" name="length" value="5" checked> 5 minutos</label><label><input type="radio" name="length" value="10"> 10 minutos</label><label><input type="radio" name="length" value="15"> 15 minutos</label></fieldset>
+      </div>
+      <p class="privacy-note">La elección y el avance se guardan solamente en este dispositivo. Puedes parar cuando quieras.</p>
+    </section>
+
+    <section class="routes" id="rutas" aria-labelledby="routes-title">
+      <div class="section-title"><div><p class="eyebrow">Seis caminos · 30 misiones</p><h2 id="routes-title">Elige lo que quieres descubrir</h2></div><div class="total-progress"><span id="total-count">0/30</span><progress id="total-progress" max="30" value="0">0 de 30</progress></div></div>
+      <div class="route-grid" id="route-grid"></div>
+    </section>
+
+    <section class="adult-note">
+      <div><p class="eyebrow">Zona para personas adultas</p><h2>¿Necesitas una ruta personalizada?</h2><p>La versión libre incluye la primera ruta de 5 misiones. Familia Plus abre las 6 rutas y sus 30 misiones. La persona adulta puede solicitar un recorrido ajustado a edad aproximada, ritmo, objetivo e intereses.</p></div>
+      <a href="zona-adulta.html#personalizar">Consultar personalización</a>
+    </section>
+  </main>
+
+  <div class="mission-shell" id="mission-shell" hidden>
+    <div class="mission-backdrop" data-close></div>
+    <section class="mission" role="dialog" aria-modal="true" aria-labelledby="mission-title">
+      <header><div><small id="mission-route">Ruta</small><h2 id="mission-title">Misión</h2></div><button type="button" data-close aria-label="Cerrar misión">Cerrar ×</button></header>
+      <div class="mission-progress"><span id="mission-level">Misión 1</span><progress id="route-progress" max="5" value="0"></progress><span id="mission-score">0/5</span></div>
+      <div class="voice-row"><button type="button" id="hear-mission">🔊 Escuchar</button><button type="button" id="stop-voice">Detener</button></div>
+      <div class="challenge">
+        <p class="instruction" id="mission-instruction"></p>
+        <div class="model" id="mission-model" aria-label="Representación visual"></div>
+        <p class="question" id="mission-question"></p>
+        <div class="answers" id="mission-answers"></div>
+        <div class="feedback" id="mission-feedback" role="status" aria-live="polite"><span class="signal" aria-hidden="true"></span><p>Elige una respuesta cuando estés listo.</p></div>
+        <div class="hint" id="mission-hint" hidden></div>
+      </div>
+      <footer><button class="secondary" id="show-hint" type="button">Ver una pista</button><button class="primary" id="next-mission" type="button" disabled>Siguiente misión →</button></footer>
+    </section>
+  </div>
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+
+  <script src="assets/site.js?v=20261105-1"></script>
+  <script src="assets/matematicas-raices.js?v=20261105-1"></script>
+</body>
+</html>

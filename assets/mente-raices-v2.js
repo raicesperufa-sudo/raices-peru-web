@@ -39,7 +39,12 @@
     ['Mi caja de estrategias','metacognicion','Elige lo que te ayudó hoy.','strategies'],
     ['Así pensé','metacognicion','Cuenta tu camino, no solo la respuesta.','reflection']
   ];
-  const games = gameRows.map((row, index) => ({id:index + 1, title:row[0], group:row[1], intro:row[2], type:row[3]}));
+  const freeGroups = new Set();
+  const games = gameRows.map((row, index) => {
+    const tier = freeGroups.has(row[1]) ? 'plus' : 'libre';
+    freeGroups.add(row[1]);
+    return {id:index + 1, title:row[0], group:row[1], intro:row[2], type:row[3], tier};
+  });
 
   const $ = selector => document.querySelector(selector);
   const dialog = $('#mind-dialog');
@@ -213,8 +218,9 @@
     grid.innerHTML = '';
     games.filter(game => filter === 'all' || game.group === filter).forEach(game => {
       const card = document.createElement('article');
-      card.className = `mind-game-card${saved.has(game.id) ? ' is-done' : ''}`;
-      card.innerHTML = `<span>${String(game.id).padStart(2,'0')}</span><p>${groups[game.group]}</p><h3>${game.title}</h3><p>${game.intro}</p><button type="button">${saved.has(game.id) ? 'Volver a jugar' : 'Abrir aventura'}</button><b aria-label="Explorada">✓</b>`;
+      const available = window.RaicesAccess?.canUse(game.tier) ?? game.tier === 'libre';
+      card.className = `mind-game-card${saved.has(game.id) ? ' is-done' : ''}${game.tier === 'plus' ? ' is-plus' : ''}`;
+      card.innerHTML = `<span>${String(game.id).padStart(2,'0')}</span><p>${groups[game.group]} · ${game.tier === 'libre' ? 'Libre' : 'Familia Plus'}</p><h3>${game.title}</h3><p>${game.intro}</p><button type="button">${available ? (saved.has(game.id) ? 'Volver a jugar' : 'Abrir aventura') : '🔒 Requiere acceso total'}</button><b aria-label="Explorada">✓</b>`;
       card.querySelector('button').onclick = () => openGame(game);
       grid.append(card);
     });
@@ -229,6 +235,7 @@
   }
 
   function openGame(game) {
+    if (!(window.RaicesAccess?.require(game.tier, game.title) ?? game.tier === 'libre')) return;
     currentCleanup();
     currentCleanup = () => {};
     if (canSpeak) speechSynthesis.cancel();
