@@ -1,0 +1,44 @@
+.plans-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.plans-grid article {
+  display: flex;
+  flex-direction: column;
+}
+
+.plans-grid article > span {
+  align-self: flex-start;
+}
+
+.plans-grid .annual-plan > span {
+  background: #f9df9f;
+  color: #704b00;
+}
+
+.plan-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  margin-top: auto;
+  padding: .7rem 1rem;
+  border-radius: 14px;
+  background: var(--deep);
+  color: #fff;
+  font-weight: 900;
+  text-align: center;
+  text-decoration: none;
+}
+
+@media (max-width: 1050px) {
+  .plans-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .plans-grid {
+    grid-template-columns: 1fr;
+  }
+}
