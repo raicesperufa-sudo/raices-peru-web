@@ -10,7 +10,7 @@
   <link rel="icon" href="assets/app-icons/app-icon-192.png">
   <link rel="stylesheet" href="assets/zona-adulta.css?v=20261105-1">
   <link rel="stylesheet" href="assets/planes-raices.css?v=20261105-1">
-  <script defer src="assets/zona-adulta.js?v=20261105-1"></script>
+  <script defer src="assets/zona-adulta.js?v=20261106-1"></script>
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -33,10 +33,10 @@
     </section>
 
     <section class="adult-panel" data-panel="login">
-      <div class="panel-copy"><p class="kicker">Cuenta del adulto</p><h2>Entrar en este dispositivo</h2><p>Durante la beta, la cuenta se guarda localmente. Para usarla en otro equipo, exporta el respaldo e impórtalo allí.</p></div>
+      <div class="panel-copy"><p class="kicker">Cuenta del adulto</p><h2>Entrar en este dispositivo</h2><p>Escribe tu correo y clave numérica. La primera vez que uses un celular o computadora debes importar allí tu archivo privado de activación.</p></div>
       <form id="login-form" class="account-form">
         <label>Correo de la persona adulta<input type="email" name="email" autocomplete="email" required></label>
-        <label>PIN de 4 a 8 dígitos<input type="password" name="pin" inputmode="numeric" pattern="[0-9]{4,8}" autocomplete="current-password" required></label>
+        <label>Clave numérica de 4 a 8 dígitos<input type="password" name="pin" inputmode="numeric" pattern="[0-9]{4,8}" autocomplete="current-password" required></label>
         <button type="submit">Entrar</button><p class="form-status" id="login-status" role="status"></p>
       </form>
     </section>
@@ -53,7 +53,7 @@
           <label class="consent"><input type="checkbox" name="consent" required><span>Confirmo que soy la persona adulta responsable de esta cuenta y acepto guardar únicamente los datos necesarios.</span></label>
           <button type="submit">Guardar cuenta en este dispositivo</button><p class="form-status" id="activation-status" role="status"></p>
         </form>
-        <article class="import-card"><h3>¿Ya tienes una activación?</h3><p>Importa el archivo privado recibido de RAÍCES. Luego crea tu PIN en este equipo.</p><label class="file-button">Elegir archivo JSON<input type="file" id="import-file" accept="application/json,.json"></label><p class="form-status" id="import-status" role="status"></p></article>
+        <article class="import-card"><h3>¿Es la primera vez en este dispositivo?</h3><p>Importa el archivo privado recibido de RAÍCES. Las cuentas de prueba ya incluyen su clave numérica; los respaldos personales pueden pedirte crear una.</p><label class="file-button">Elegir archivo JSON<input type="file" id="import-file" accept="application/json,.json"></label><p class="form-status" id="import-status" role="status"></p></article>
       </div>
     </section>
 

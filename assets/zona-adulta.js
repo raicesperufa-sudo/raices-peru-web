@@ -132,7 +132,7 @@
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const account = readAccounts().find((item) => normalizeEmail(item.email) === normalizeEmail(data.get('email')));
-    if (!account || account.pinHash !== await hashPin(String(data.get('pin')))) { setStatus($('#login-status'), 'Revisa el correo y el PIN o importa primero tu activación.', true); return; }
+    if (!account || account.pinHash !== await hashPin(String(data.get('pin')))) { setStatus($('#login-status'), 'Revisa el correo y la clave numérica. En un dispositivo nuevo debes importar primero tu activación privada.', true); return; }
     if (expired(account)) { setStatus($('#login-status'), 'Esta activación venció. Solicita su renovación al soporte de RAÍCES.', true); return; }
     localStorage.setItem(SESSION, account.id); setStatus($('#login-status'), 'Sesión iniciada.'); showDashboard(account);
   });
@@ -147,12 +147,17 @@
       if (expired(imported)) throw new Error('expired');
       const expectedLimit = PLAN_RULES[imported.plan]?.maxChildren ?? 1;
       if (imported.role !== 'admin' && imported.children.length > expectedLimit) throw new Error('profiles');
-      const pin = window.prompt('Crea un PIN de 4 a 8 dígitos para este dispositivo:');
-      if (!/^[0-9]{4,8}$/.test(pin || '')) throw new Error('pin');
+      const includedPinHash = /^[a-f0-9]{64}$/i.test(imported.pinHash || '') ? imported.pinHash : '';
+      let pinHash = includedPinHash;
+      if (!pinHash) {
+        const pin = window.prompt('Crea una clave numérica de 4 a 8 dígitos para este dispositivo:');
+        if (!/^[0-9]{4,8}$/.test(pin || '')) throw new Error('pin');
+        pinHash = await hashPin(pin);
+      }
       const accounts = readAccounts();
-      const account = { ...imported, id: imported.id || id(), pinHash: await hashPin(pin), importedAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
+      const account = { ...imported, id: imported.id || id(), pinHash, importedAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
       writeAccounts([...accounts.filter((item) => normalizeEmail(item.email) !== account.email), account]);
-      localStorage.setItem(SESSION, account.id); setStatus($('#import-status'), 'Activación importada. La cuenta quedó lista en este dispositivo.'); showDashboard(account);
+      localStorage.setItem(SESSION, account.id); setStatus($('#import-status'), includedPinHash ? 'Activación importada. Ya puedes entrar con el correo y la clave numérica entregada por RAÍCES.' : 'Activación importada. La cuenta quedó lista en este dispositivo.'); showDashboard(account);
     } catch (error) {
       const messages = { pin: 'El PIN debe tener entre 4 y 8 dígitos.', expired: 'Esta activación ya venció.', profiles: 'La activación supera el número de perfiles permitido.' };
       setStatus($('#import-status'), messages[error.message] || 'El archivo no es una activación válida de RAÍCES.', true);
