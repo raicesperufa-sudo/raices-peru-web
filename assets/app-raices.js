@@ -53,7 +53,8 @@
     ['raices-matematicas-progreso', 30],
     ['raices-aventuras-progreso', 3],
     ['raices-cuerpo-progreso', 6],
-    ['raices-mindfulness-progreso', 5]
+    ['raices-mindfulness-progreso', 5],
+    ['raices-sonora-progreso', 16]
   ];
   const completed = stores.reduce((sum, [key]) => {
     try { return sum + new Set(JSON.parse(localStorage.getItem(key) || '[]')).size; } catch (_) { return sum; }

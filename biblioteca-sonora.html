@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#325f5b"><meta name="description" content="Biblioteca Sonora RAÍCES: 16 experiencias originales de descanso, confianza, conexión y bienestar para Familia Plus.">
+  <title>Biblioteca Sonora · RAÍCES Perú</title>
+  <link rel="stylesheet" href="assets/biblioteca-sonora.css?v=20261105-1"><link rel="stylesheet" href="assets/access-dialog.css?v=20261105-2">
+  <script defer src="assets/site.js?v=20261105-1"></script><script defer src="assets/pedagogia-raices.js?v=20261105-2"></script><script defer src="assets/biblioteca-sonora.js?v=20261105-1"></script>
+</head>
+<body>
+  <a class="skip" href="#catalogo">Saltar al catálogo</a>
+  <header class="topbar"><a class="brand" href="app-raices.html"><img src="assets/isotipo-raices.webp" alt=""><span><b>RAÍCES</b><small>Calma · Biblioteca sonora</small></span></a><a class="back" href="app-raices.html#calma">← Volver a Calma</a></header>
+  <main>
+    <section class="sound-hero"><div><p class="eyebrow">Familia Plus · 16 experiencias originales</p><h1>Un momento para escucharme</h1><p>Narración pausada con la voz disponible en tu dispositivo, silencios programados y libertad para detenerse. Elige una experiencia sin exigirte dormir, relajarte ni sentir algo determinado.</p><a href="#catalogo">Explorar biblioteca</a></div><img src="assets/biblioteca-sonora/a01-v1.webp" alt="Queñal acompaña a una persona adulta durante una pausa tranquila"></section>
+
+    <section class="safety-note" aria-labelledby="safety-title"><span>♡</span><div><h2 id="safety-title">Acompañar, no imponer</h2><p>Estas experiencias son de bienestar, no tratamientos. Usa un volumen cómodo, mantén la opción de silencio y detén la escucha si incomoda. En menores, la persona adulta acompaña y respeta si el niño o adolescente no desea continuar.</p></div></section>
+
+    <section class="catalog" id="catalogo">
+      <div class="section-heading"><div><p class="eyebrow">Elige para quién o para qué momento</p><h2>Biblioteca sonora RAÍCES</h2></div><p id="filter-note">Comenzamos con experiencias para personas adultas.</p></div>
+      <nav class="sound-filters" aria-label="Públicos de la biblioteca">
+        <button type="button" data-filter="adultos" class="is-active">Adultos</button>
+        <button type="button" data-filter="familias">Familias</button>
+        <button type="button" data-filter="ninos">Niños</button>
+        <button type="button" data-filter="adolescentes">Adolescentes</button>
+        <button type="button" data-filter="personal-fe">Personal y fe <small>voluntario</small></button>
+      </nav>
+      <div class="sound-grid" id="sound-grid" aria-live="polite"><p>Cargando experiencias…</p></div>
+    </section>
+
+    <section class="editorial-note"><div><p class="eyebrow">Controles editoriales</p><h2>Lo que RAÍCES no promete</h2></div><ul><li>No cura enfermedades ni reemplaza medicamentos o atención profesional.</li><li>No utiliza sugestiones ocultas ni enseña contenidos durante el sueño.</li><li>No atribuye diagnósticos, dificultades o historias privadas a ninguna persona.</li><li>Las prácticas de fe son opcionales y están separadas del contenido general.</li></ul></section>
+  </main>
+
+  <dialog class="sound-dialog" id="sound-dialog" aria-labelledby="sound-title">
+    <button class="dialog-close" type="button" data-close aria-label="Cerrar">×</button>
+    <div class="dialog-layout">
+      <figure><img id="sound-image" alt=""><figcaption id="sound-purpose"></figcaption></figure>
+      <div class="sound-player">
+        <p class="eyebrow" id="sound-meta"></p><h2 id="sound-title"></h2>
+        <p class="player-choice">Puedes escuchar, leer en silencio o cerrar. Ninguna opción es obligatoria.</p>
+        <audio id="recorded-audio" preload="none"></audio>
+        <div class="player-controls"><button type="button" id="play-sound">▶ Escuchar</button><button type="button" id="pause-sound" disabled>Ⅱ Pausar</button><button type="button" id="stop-sound" disabled>■ Detener</button></div>
+        <div class="player-progress"><div><i id="sound-progress"></i></div><span id="sound-status">Lista para comenzar</span></div>
+        <label class="timer-label">Temporizador<select id="sound-timer"><option value="0">Hasta terminar</option><option value="300">Detener en 5 minutos</option><option value="600">Detener en 10 minutos</option><option value="900">Detener en 15 minutos</option></select></label>
+        <button class="transcript-toggle" type="button" id="transcript-toggle" aria-expanded="false">Leer transcripción</button>
+        <div class="transcript" id="transcript" hidden></div>
+        <fieldset class="reflection"><legend>¿Cómo fue para ti?</legend><button type="button" data-reflection="ayudo">Me ayudó</button><button type="button" data-reflection="igual">Me resultó igual</button><button type="button" data-reflection="no-gusto">No me gustó</button><button type="button" data-reflection="otra">Prefiero otra</button></fieldset>
+      </div>
+    </div>
+  </dialog>
+  <nav class="bottom-nav" aria-label="Navegación"><a href="app-raices.html"><span>⌂</span>Inicio</a><a href="app-raices.html#jugar"><span>◇</span>Jugar</a><a href="app-raices.html#calma"><span>◌</span>Calma</a><a href="zona-adulta.html"><span>♙</span>Adultos</a></nav>
+</body>
+</html>
