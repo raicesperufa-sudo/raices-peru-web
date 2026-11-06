@@ -45,6 +45,100 @@
   gap: .9rem;
 }
 
+.universe-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: .8rem;
+}
+
+.universe-grid button {
+  position: relative;
+  overflow: hidden;
+  min-height: 220px;
+  padding: 0;
+  border: 2px solid #d0dfdc;
+  border-radius: 22px;
+  background: #f8fbfa;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.universe-grid button:hover,
+.universe-grid button:focus-visible,
+.universe-grid button[aria-pressed="true"] {
+  transform: translateY(-4px);
+  border-color: var(--coral);
+  box-shadow: 0 14px 30px rgba(18, 59, 74, .13);
+}
+
+.universe-grid img {
+  width: 100%;
+  height: 126px;
+  object-fit: cover;
+}
+
+.universe-grid span {
+  display: grid;
+  gap: .22rem;
+  padding: .8rem;
+}
+
+.universe-grid b {
+  font-size: 1.05rem;
+}
+
+.universe-grid small {
+  color: #657b80;
+  line-height: 1.35;
+}
+
+.topic-step {
+  margin-top: 1.15rem;
+  padding: 1rem;
+  border: 1px solid #d5e5e1;
+  border-radius: 22px;
+  background: #f7fbfa;
+}
+
+.topic-step[hidden],
+.interest-grid button[hidden],
+.other-interest[hidden] {
+  display: none;
+}
+
+.topic-step-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: .8rem;
+}
+
+.topic-step-heading p,
+.topic-step-heading h3 {
+  margin: 0;
+}
+
+.topic-step-heading h3 {
+  margin-top: .2rem;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+}
+
+#change-universe {
+  min-height: 44px;
+  padding: .6rem .85rem;
+  border: 1px solid #bcd2ce;
+  border-radius: 13px;
+  background: #fff;
+  color: var(--deep);
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
 .interest-grid button {
   position: relative;
   display: grid;
@@ -184,12 +278,33 @@
 }
 
 @media (max-width: 900px) {
+  .universe-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .interest-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 600px) {
+  .universe-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .universe-grid button {
+    min-height: 190px;
+  }
+
+  .universe-grid img {
+    height: 105px;
+  }
+
+  .topic-step-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
   .interest-heading {
     grid-template-columns: 1fr;
   }
@@ -228,7 +343,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .interest-grid button {
+  .interest-grid button,
+  .universe-grid button {
     transition: none;
   }
 }

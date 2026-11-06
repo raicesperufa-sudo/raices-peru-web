@@ -1,4 +1,4 @@
-const CACHE = 'raices-app-v9';
+const CACHE = 'raices-app-v10';
 const APP_SHELL = [
   './app-raices.html',
   './zona-adulta.html',

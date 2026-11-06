@@ -4,8 +4,8 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#075c70"><meta name="description" content="Aprendiendo con Queñal: intereses, lectura acompañada y desafíos adaptativos dentro de la App RAÍCES.">
   <title>Aprendiendo con Queñal · RAÍCES Perú</title>
-  <link rel="stylesheet" href="assets/aventuras-quenal.css?v=20261105-3"><link rel="stylesheet" href="assets/experiencias-polish.css?v=20261105-2"><link rel="stylesheet" href="assets/access-dialog.css?v=20261105-2"><link rel="stylesheet" href="assets/aventuras-adaptativo.css?v=20261105-1">
-  <script defer src="assets/site.js?v=20261105-1"></script><script defer src="assets/pedagogia-raices.js?v=20261105-2"></script><script defer src="assets/aventuras-quenal-adaptativo.js?v=20261105-1"></script>
+  <link rel="stylesheet" href="assets/aventuras-quenal.css?v=20261105-3"><link rel="stylesheet" href="assets/experiencias-polish.css?v=20261105-2"><link rel="stylesheet" href="assets/access-dialog.css?v=20261105-2"><link rel="stylesheet" href="assets/aventuras-adaptativo.css?v=20261105-2">
+  <script defer src="assets/site.js?v=20261105-1"></script><script defer src="assets/pedagogia-raices.js?v=20261105-2"></script><script defer src="assets/aventuras-quenal-adaptativo.js?v=20261105-2"></script>
 </head>
 <body>
   <a class="skip" href="#aventura">Saltar a la aventura</a>
@@ -14,14 +14,24 @@
     <section class="adventure-hero"><div><p class="eyebrow" id="adventure-eyebrow">Intereses que abren caminos</p><h1 id="adventure-title">¿Qué te gustaría explorar hoy?</h1><p id="adventure-intro">Elige algo que te cause curiosidad. Queñal empezará con tres momentos y podrá proponer más cuando la experiencia lo justifique.</p></div><img src="assets/personaje-quenal-v2.webp" alt="Queñal acompaña la exploración"></section>
 
     <section class="interest-picker" id="interest-picker" aria-labelledby="interest-title">
-      <div class="interest-heading"><p class="eyebrow">Primero te escuchamos</p><h2 id="interest-title">Hoy quiero descubrir…</h2><p>No es una prueba. Puedes cambiar de tema cuando quieras.</p></div>
-      <div class="interest-grid">
-        <button type="button" data-topic="caballos"><img src="assets/ilustraciones-raices/aventura-caballos-01-v1.webp" alt="Queñal observa un caballo"><span><b>Caballos</b><small>Observar, cuidar y planear</small></span></button>
-        <button type="button" data-topic="cohetes"><img src="assets/ilustraciones-raices/aventura-cohetes-01-v1.webp" alt="Queñal observa un cohete de juguete"><span><b>Cohetes</b><small>Secuencias, rutas y diseño</small></span></button>
-        <button type="button" data-topic="estrellas"><img src="assets/ilustraciones-raices/aventura-estrellas-01-v1.webp" alt="Queñal observa grupos de estrellas"><span><b>Estrellas</b><small>Patrones, formas e historias</small></span></button>
-        <button type="button" data-topic="semilla"><img src="assets/ilustraciones-raices/aventura-semilla-01-v2.webp" alt="Queñal observa una semilla"><span><b>Plantas y semillas</b><small>La aventura original de prueba</small></span></button>
+      <div class="interest-heading"><p class="eyebrow">Primero te escuchamos</p><h2 id="interest-title">¿Por qué puerta empezamos?</h2><p>Elige un universo. Verás pocos temas a la vez y podrás cambiar cuando quieras.</p></div>
+      <div class="universe-grid" id="universe-grid" aria-label="Universos para explorar">
+        <button type="button" data-category="naturaleza"><img src="assets/ilustraciones-raices/aventura-caballos-01-v1.webp" alt="Queñal explora la naturaleza"><span><b>Naturaleza</b><small>Animales, plantas y ambientes</small></span></button>
+        <button type="button" data-category="tecnologia"><img src="assets/ilustraciones-raices/aventura-cohetes-01-v1.webp" alt="Queñal observa una creación tecnológica"><span><b>Tecnología</b><small>Objetos, diseños y soluciones</small></span></button>
+        <button type="button" data-category="ciencia"><img src="assets/ilustraciones-raices/aventura-semilla-02-v2.webp" alt="Queñal compara condiciones para investigar"><span><b>Ciencia</b><small>Preguntas, pruebas y cambios</small></span></button>
+        <button type="button" data-category="espacio"><img src="assets/ilustraciones-raices/aventura-estrellas-01-v1.webp" alt="Queñal contempla el espacio"><span><b>Espacio</b><small>Estrellas, planetas y misiones</small></span></button>
+        <button type="button" data-category="propio"><img src="assets/personaje-quenal-v2.webp" alt="Queñal escucha una idea nueva"><span><b>Mi propio tema</b><small>Cuéntale a Queñal qué te interesa</small></span></button>
       </div>
-      <form class="other-interest" id="other-interest"><label for="custom-interest">¿Te interesa otra cosa?</label><div><input id="custom-interest" maxlength="40" autocomplete="off" placeholder="Por ejemplo: trenes, océanos, música"><button type="submit">Explorar mi tema</button></div><p>No escribas nombres, colegio ni datos personales.</p></form>
+      <section class="topic-step" id="topic-step" aria-labelledby="topic-title" hidden>
+        <div class="topic-step-heading"><div><p class="eyebrow" id="topic-universe"></p><h3 id="topic-title">Elige un tema para comenzar</h3></div><button type="button" id="change-universe">← Cambiar universo</button></div>
+        <div class="interest-grid" id="topic-grid">
+          <button type="button" data-topic="caballos" data-categories="naturaleza"><img src="assets/ilustraciones-raices/aventura-caballos-01-v1.webp" alt="Queñal observa un caballo"><span><b>Caballos</b><small>Observar, cuidar y planear</small></span></button>
+          <button type="button" data-topic="cohetes" data-categories="tecnologia espacio"><img src="assets/ilustraciones-raices/aventura-cohetes-01-v1.webp" alt="Queñal observa un cohete de juguete"><span><b>Cohetes</b><small>Secuencias, rutas y diseño</small></span></button>
+          <button type="button" data-topic="estrellas" data-categories="ciencia espacio"><img src="assets/ilustraciones-raices/aventura-estrellas-01-v1.webp" alt="Queñal observa grupos de estrellas"><span><b>Estrellas</b><small>Patrones, formas e historias</small></span></button>
+          <button type="button" data-topic="semilla" data-categories="naturaleza ciencia"><img src="assets/ilustraciones-raices/aventura-semilla-01-v2.webp" alt="Queñal observa una semilla"><span><b>Plantas y semillas</b><small>Observar condiciones y cambios</small></span></button>
+        </div>
+        <form class="other-interest" id="other-interest" hidden><label for="custom-interest">¿Qué tema tienes en mente?</label><div><input id="custom-interest" maxlength="40" autocomplete="off" placeholder="Por ejemplo: trenes, océanos, música"><button type="submit">Explorar mi tema</button></div><p>No escribas nombres, colegio ni datos personales. Esta primera ruta tendrá tres momentos.</p></form>
+      </section>
       <p class="interest-memory" id="interest-memory"></p>
     </section>
 

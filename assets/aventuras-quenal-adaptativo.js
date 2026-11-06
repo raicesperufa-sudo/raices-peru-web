@@ -5,6 +5,13 @@
   const PROFILE_KEY = 'raices-quenal-interests-v1';
   const safeText = (value, max = 40) => String(value || '').replace(/[<>]/g, '').replace(/\s+/g, ' ').trim().slice(0, max);
   const image = (topic, number, version = 'v1') => `assets/ilustraciones-raices/aventura-${topic}-${String(number).padStart(2, '0')}-${version}.webp`;
+  const categories = {
+    naturaleza: { label:'Naturaleza', prompt:'Elige entre animales o plantas para comenzar.' },
+    tecnologia: { label:'Tecnología', prompt:'Elige una creación para observar cómo funciona y cómo podría mejorar.' },
+    ciencia: { label:'Ciencia', prompt:'Elige un fenómeno para observar, comparar y hacer preguntas.' },
+    espacio: { label:'Espacio', prompt:'Elige entre una misión o los patrones del cielo.' },
+    propio: { label:'Mi propio tema', prompt:'Cuéntale a Queñal qué te causa curiosidad.' }
+  };
 
   const packs = {
     caballos: {
@@ -69,6 +76,7 @@
 
   let pack = null;
   let topicId = null;
+  let selectedCategory = null;
   let index = 0;
   let routeLimit = 3;
   let utterance = null;
@@ -94,6 +102,11 @@
     const profile = readProfile(); profile.choices ||= {}; profile.choices[id] = (profile.choices[id] || 0) + 1; profile.lastChosenAt = new Date().toISOString();
     writeProfile(profile);
   };
+  const rememberUniverse = (id) => {
+    if (!categories[id]) return;
+    const profile = readProfile(); profile.universes ||= {}; profile.universes[id] = (profile.universes[id] || 0) + 1;
+    writeProfile(profile);
+  };
   const rememberCompletion = (id, steps) => {
     const profile = readProfile(); profile.completed ||= {}; profile.completed[id] = (profile.completed[id] || 0) + 1; profile.lastRouteLength = steps; profile.lastCompletedAt = new Date().toISOString();
     writeProfile(profile);
@@ -108,7 +121,32 @@
   const words = (text) => { let offset=0; return text.split(/(\s+)/).map((part) => { if (/\s+/.test(part)) { offset += part.length; return part; } const start=offset; offset += part.length; return `<span data-start="${start}">${part}</span>`; }).join(''); };
   const calmVoice = () => { const voices=speechSynthesis.getVoices(); const spanish=voices.filter((voice)=>/^es(?:-|_)/i.test(voice.lang)); return spanish.find((voice)=>/^es-PE/i.test(voice.lang)&&/female|mujer|elvira|helena|laura|mónica|paulina|sabina|sofia/i.test(voice.name)) || spanish.find((voice)=>/female|mujer|elvira|helena|laura|mónica|paulina|sabina|sofia/i.test(voice.name)) || spanish.find((voice)=>/^es-PE/i.test(voice.lang)) || spanish[0] || null; };
   const currentScene = () => pack.scenes[index];
-  const log = (type, detail, support='none') => pedagogy()?.record({ activityId:`aventura-${topicId}`, activityTitle:pack.title, sceneId:currentScene()?.id || 'general', type, detail, support, context:`interes:${topicId};pasos:${routeLimit}` });
+  const log = (type, detail, support='none') => pedagogy()?.record({ activityId:`aventura-${topicId}`, activityTitle:pack.title, sceneId:currentScene()?.id || 'general', type, detail, support, context:`universo:${selectedCategory || 'propio'};interes:${topicId};pasos:${routeLimit}` });
+
+  function showCategory(id) {
+    const category = categories[id];
+    if (!category) return;
+    selectedCategory = id;
+    document.querySelectorAll('[data-category]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.category === id)));
+    $('#topic-step').hidden = false;
+    $('#topic-universe').textContent = category.label;
+    $('#topic-title').textContent = category.prompt;
+    const custom = id === 'propio';
+    $('#topic-grid').hidden = custom;
+    $('#other-interest').hidden = !custom;
+    document.querySelectorAll('[data-topic]').forEach((button) => {
+      button.hidden = custom || !String(button.dataset.categories || '').split(/\s+/).includes(id);
+    });
+    $('#topic-step').scrollIntoView({ behavior:'smooth', block:'nearest' });
+    if (custom) setTimeout(() => $('#custom-interest').focus(), 250);
+  }
+
+  function changeUniverse() {
+    selectedCategory = null;
+    $('#topic-step').hidden = true;
+    document.querySelectorAll('[data-category]').forEach((button) => button.setAttribute('aria-pressed', 'false'));
+    $('#universe-grid').scrollIntoView({ behavior:'smooth', block:'center' });
+  }
 
   function speak(text, illuminate=false) {
     stopVoice();
@@ -123,13 +161,15 @@
     speechSynthesis.speak(utterance);
   }
 
-  function startAdventure(nextPack, id) {
+  function startAdventure(nextPack, id, categoryId = selectedCategory) {
+    selectedCategory = categories[categoryId] ? categoryId : 'propio';
     pack=nextPack; topicId=id; index=0; routeLimit=Math.min(3,pack.scenes.length); stats={attempts:0,wrong:0,hints:0,pauses:0,independent:0}; completed=false;
     rememberChoice(packs[id] ? id : 'otro');
+    rememberUniverse(selectedCategory);
     $('#adventure-eyebrow').textContent='Aprendiendo con Queñal · ruta adaptativa'; $('#adventure-title').textContent=pack.title; $('#adventure-intro').textContent=pack.intro;
     $('#interest-picker').hidden=true; $('#reader').hidden=false;
     pedagogy()?.start({id:`aventura-${id}`,title:pack.title});
-    log('interes',`Tema elegido voluntariamente: ${packs[id]?.label || 'otro tema propuesto'}.`);
+    log('interes',`Universo ${categories[selectedCategory].label}; tema elegido voluntariamente: ${packs[id]?.label || 'otro tema propuesto'}.`);
     render(); $('#reader').scrollIntoView({behavior:'smooth',block:'start'});
   }
 
@@ -189,11 +229,13 @@
   }
 
   function resetToInterests() {
-    stopVoice(); pack=null; topicId=null; completed=false; $('#reader').hidden=true; $('#interest-picker').hidden=false; $('#adventure-eyebrow').textContent='Intereses que abren caminos'; $('#adventure-title').textContent='¿Qué te gustaría explorar hoy?'; $('#adventure-intro').textContent='Elige algo que te cause curiosidad. Queñal empezará con tres momentos y podrá proponer más cuando la experiencia lo justifique.'; updateInterestMemory(); $('#interest-picker').scrollIntoView({behavior:'smooth',block:'start'});
+    stopVoice(); pack=null; topicId=null; completed=false; $('#reader').hidden=true; $('#interest-picker').hidden=false; $('#adventure-eyebrow').textContent='Intereses que abren caminos'; $('#adventure-title').textContent='¿Qué te gustaría explorar hoy?'; $('#adventure-intro').textContent='Elige algo que te cause curiosidad. Queñal empezará con tres momentos y podrá proponer más cuando la experiencia lo justifique.'; changeUniverse(); updateInterestMemory(); $('#interest-picker').scrollIntoView({behavior:'smooth',block:'start'});
   }
 
-  document.querySelectorAll('[data-topic]').forEach((button)=>button.addEventListener('click',()=>startAdventure(packs[button.dataset.topic],button.dataset.topic)));
-  $('#other-interest').addEventListener('submit',(event)=>{event.preventDefault();const interest=safeText($('#custom-interest').value);if(interest.length<2){$('#custom-interest').focus();return;}startAdventure(customPack(interest),'otro');});
+  document.querySelectorAll('[data-category]').forEach((button)=>{button.setAttribute('aria-pressed','false');button.addEventListener('click',()=>showCategory(button.dataset.category));});
+  $('#change-universe').addEventListener('click',changeUniverse);
+  document.querySelectorAll('[data-topic]').forEach((button)=>button.addEventListener('click',()=>startAdventure(packs[button.dataset.topic],button.dataset.topic,selectedCategory)));
+  $('#other-interest').addEventListener('submit',(event)=>{event.preventDefault();const interest=safeText($('#custom-interest').value);if(interest.length<2){$('#custom-interest').focus();return;}startAdventure(customPack(interest),'otro','propio');});
   $('#listen').addEventListener('click',()=>{log('lectura','Se inició la narración.');speak(currentScene().narration,true);});
   $('#repeat').addEventListener('click',()=>{log('lectura','Se solicitó volver a escuchar.');speak(currentScene().narration,true);});
   $('#pause').addEventListener('click',()=>{if(!utterance)return;if(paused){speechSynthesis.resume();paused=false;$('#pause').textContent='Ⅱ Pausar';log('reanudacion','Narración reanudada.');}else{speechSynthesis.pause();paused=true;stats.pauses+=1;$('#pause').textContent='▶ Continuar';log('pausa','Narración pausada.');}});
