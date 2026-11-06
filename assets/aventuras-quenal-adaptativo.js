@@ -162,6 +162,9 @@
   }
 
   function startAdventure(nextPack, id, categoryId = selectedCategory) {
+    const tier = id === 'semilla' ? 'libre' : 'plus';
+    const feature = packs[id]?.title || 'La ruta personalizada de Aprendiendo con Queñal';
+    if (!(window.RaicesAccess?.require(tier, feature) ?? tier === 'libre')) return;
     selectedCategory = categories[categoryId] ? categoryId : 'propio';
     pack=nextPack; topicId=id; index=0; routeLimit=Math.min(3,pack.scenes.length); stats={attempts:0,wrong:0,hints:0,pauses:0,independent:0}; completed=false;
     rememberChoice(packs[id] ? id : 'otro');
