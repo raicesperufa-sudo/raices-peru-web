@@ -4,7 +4,7 @@
   const SESSION_KEY = 'raices-demo-evidence-v1';
   const HISTORY_KEY = 'raices-demo-family-history-v1';
   const SCHEMA = 'raices.demo.evidence.v1';
-  const allowedTypes = new Set(['inicio', 'lectura', 'pausa', 'reanudacion', 'intento', 'pista', 'respuesta', 'decision', 'cierre', 'movimiento', 'calma']);
+  const allowedTypes = new Set(['inicio', 'lectura', 'pausa', 'reanudacion', 'intento', 'pista', 'respuesta', 'decision', 'cierre', 'movimiento', 'calma', 'interes', 'estrategia', 'creacion', 'transferencia']);
 
   const clean = (value, max = 240) => String(value ?? '').replace(/[<>]/g, '').trim().slice(0, max);
   const read = (storage, key, fallback) => {
@@ -85,6 +85,10 @@
     });
     const responses = events.filter((event) => event.type === 'respuesta');
     const hints = events.filter((event) => event.type === 'pista');
+    const interests = events.filter((event) => event.type === 'interes');
+    const strategies = events.filter((event) => event.type === 'estrategia');
+    const creations = events.filter((event) => event.type === 'creacion');
+    const transfers = events.filter((event) => event.type === 'transferencia');
     const autonomy = !responses.length ? 'INSUFFICIENT_EVIDENCE' : hints.length ? 'VARIABLE' : 'STABLE';
     return {
       total: events.length,
@@ -92,6 +96,10 @@
       hints: hints.length,
       pauses: events.filter((event) => event.type === 'pausa').length,
       responses: responses.length,
+      interests: interests.length,
+      strategies: strategies.length,
+      creations: creations.length,
+      transfers: transfers.length,
       autonomy,
       byScene,
       uncertainty: responses.length ? 'Hay evidencia contextual de esta sesión; no permite inferir una capacidad general.' : 'Faltan respuestas pertinentes para formular una interpretación.'
@@ -128,6 +136,7 @@
         'RAÍCES PERÚ - Resumen familiar de demostración',
         `Actividad: ${session.activity.title}`,
         `Eventos: ${summary.total} | Respuestas: ${summary.responses} | Pistas: ${summary.hints} | Pausas: ${summary.pauses}`,
+        `Intereses expresados: ${summary.interests} | Estrategias elegidas: ${summary.strategies} | Creaciones: ${summary.creations} | Transferencias: ${summary.transfers}`,
         `Autonomía contextual: ${summary.autonomy}`,
         `Incertidumbre: ${summary.uncertainty}`,
         '',

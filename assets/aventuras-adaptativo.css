@@ -1,0 +1,234 @@
+.interest-picker {
+  margin: 1rem 0 1.5rem;
+  padding: clamp(1.2rem, 4vw, 2.4rem);
+  border: 1px solid #cedfdb;
+  border-radius: 30px;
+  background: #fff;
+  box-shadow: 0 22px 60px rgba(18, 59, 74, .1);
+}
+
+.interest-picker[hidden],
+.reader[hidden] {
+  display: none;
+}
+
+.interest-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, .7fr);
+  gap: .25rem 2rem;
+  align-items: end;
+  margin-bottom: 1.2rem;
+}
+
+.interest-heading .eyebrow,
+.interest-heading h2 {
+  grid-column: 1;
+}
+
+.interest-heading h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1;
+  letter-spacing: -.04em;
+}
+
+.interest-heading > p:last-child {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  margin: 0;
+  color: #60787d;
+}
+
+.interest-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .9rem;
+}
+
+.interest-grid button {
+  position: relative;
+  display: grid;
+  grid-template-rows: 150px auto;
+  overflow: hidden;
+  padding: 0;
+  border: 2px solid #d0dfdc;
+  border-radius: 22px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.interest-grid button:hover,
+.interest-grid button:focus-visible {
+  transform: translateY(-4px);
+  border-color: var(--coral);
+  box-shadow: 0 14px 30px rgba(18, 59, 74, .13);
+}
+
+.interest-grid button.is-familiar {
+  border-color: #77a68a;
+}
+
+.interest-grid button.is-familiar::after {
+  position: absolute;
+  top: .65rem;
+  right: .65rem;
+  padding: .28rem .5rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .94);
+  color: #3b7050;
+  content: "Elegido antes";
+  font-size: .68rem;
+  font-weight: 900;
+}
+
+.interest-grid img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.interest-grid span {
+  display: grid;
+  gap: .2rem;
+  padding: .9rem;
+}
+
+.interest-grid b {
+  font-size: 1.12rem;
+}
+
+.interest-grid small {
+  color: #657b80;
+  line-height: 1.35;
+}
+
+.other-interest {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 20px;
+  background: #eef6f3;
+}
+
+.other-interest label {
+  display: block;
+  margin-bottom: .45rem;
+  font-weight: 900;
+}
+
+.other-interest > div {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: .55rem;
+}
+
+.other-interest input,
+.other-interest button {
+  min-height: 48px;
+  padding: .7rem .85rem;
+  border-radius: 13px;
+  font: inherit;
+}
+
+.other-interest input {
+  border: 1px solid #bcd2ce;
+  background: #fff;
+}
+
+.other-interest button {
+  border: 0;
+  background: var(--deep);
+  color: #fff;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.other-interest p,
+.interest-memory {
+  margin: .55rem 0 0;
+  color: #647a7e;
+  font-size: .78rem;
+}
+
+.interest-memory {
+  padding-inline: .25rem;
+}
+
+.scene-figure img {
+  aspect-ratio: 4 / 3 !important;
+}
+
+.route-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .7rem;
+}
+
+.finish-route {
+  min-height: 48px;
+  padding: .7rem 1rem;
+  border: 1px solid #abc8c2;
+  border-radius: 14px;
+  background: #fff;
+  color: var(--deep);
+  font: inherit;
+  font-weight: 900;
+}
+
+.route-actions .next {
+  margin-left: 0;
+}
+
+@media (max-width: 900px) {
+  .interest-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .interest-heading {
+    grid-template-columns: 1fr;
+  }
+
+  .interest-heading > p:last-child {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .interest-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .interest-grid button {
+    grid-template-columns: 120px 1fr;
+    grid-template-rows: 120px;
+  }
+
+  .interest-grid img {
+    height: 120px;
+  }
+
+  .interest-grid span {
+    align-content: center;
+  }
+
+  .other-interest > div,
+  .route-actions {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
+  .route-actions button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .interest-grid button {
+    transition: none;
+  }
+}

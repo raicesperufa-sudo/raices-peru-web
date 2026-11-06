@@ -2,18 +2,30 @@
 <html lang="es">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#075c70"><meta name="description" content="Aventuras con Queñal: lectura acompañada, voz opcional y desafíos amables dentro de la App RAÍCES.">
-  <title>Aventuras con Queñal · RAÍCES Perú</title>
-  <link rel="stylesheet" href="assets/aventuras-quenal.css?v=20261105-2"><link rel="stylesheet" href="assets/experiencias-polish.css?v=20261105-2"><link rel="stylesheet" href="assets/access-dialog.css?v=20261105-2">
-  <script defer src="assets/site.js?v=20261105-1"></script><script defer src="assets/pedagogia-raices.js?v=20261105-1"></script><script defer src="assets/aventuras-quenal.js?v=20261105-2"></script>
+  <meta name="theme-color" content="#075c70"><meta name="description" content="Aprendiendo con Queñal: intereses, lectura acompañada y desafíos adaptativos dentro de la App RAÍCES.">
+  <title>Aprendiendo con Queñal · RAÍCES Perú</title>
+  <link rel="stylesheet" href="assets/aventuras-quenal.css?v=20261105-3"><link rel="stylesheet" href="assets/experiencias-polish.css?v=20261105-2"><link rel="stylesheet" href="assets/access-dialog.css?v=20261105-2"><link rel="stylesheet" href="assets/aventuras-adaptativo.css?v=20261105-1">
+  <script defer src="assets/site.js?v=20261105-1"></script><script defer src="assets/pedagogia-raices.js?v=20261105-2"></script><script defer src="assets/aventuras-quenal-adaptativo.js?v=20261105-1"></script>
 </head>
 <body>
   <a class="skip" href="#aventura">Saltar a la aventura</a>
-  <header class="topbar"><a class="brand" href="app-raices.html"><img src="assets/isotipo-raices.webp" alt=""><span><b>RAÍCES</b><small>Aventuras con Queñal</small></span></a><a class="back" href="app-raices.html#jugar">← Volver a Jugar</a></header>
+  <header class="topbar"><a class="brand" href="app-raices.html"><img src="assets/isotipo-raices.webp" alt=""><span><b>RAÍCES</b><small>Aprendiendo con Queñal</small></span></a><a class="back" href="app-raices.html#jugar">← Volver a Jugar</a></header>
   <main id="aventura">
-    <section class="adventure-hero"><div><p class="eyebrow">Lectura acompañada · 3 escenas</p><h1>La semilla que esperaba</h1><p>Escucha, observa y decide cuándo avanzar. Puedes pausar, volver a leer o pedir una pista sin perder lo que ya hiciste.</p></div><img src="assets/personaje-quenal-v2.webp" alt="Queñal acompaña la lectura"></section>
+    <section class="adventure-hero"><div><p class="eyebrow" id="adventure-eyebrow">Intereses que abren caminos</p><h1 id="adventure-title">¿Qué te gustaría explorar hoy?</h1><p id="adventure-intro">Elige algo que te cause curiosidad. Queñal empezará con tres momentos y podrá proponer más cuando la experiencia lo justifique.</p></div><img src="assets/personaje-quenal-v2.webp" alt="Queñal acompaña la exploración"></section>
 
-    <section class="reader" aria-live="polite">
+    <section class="interest-picker" id="interest-picker" aria-labelledby="interest-title">
+      <div class="interest-heading"><p class="eyebrow">Primero te escuchamos</p><h2 id="interest-title">Hoy quiero descubrir…</h2><p>No es una prueba. Puedes cambiar de tema cuando quieras.</p></div>
+      <div class="interest-grid">
+        <button type="button" data-topic="caballos"><img src="assets/ilustraciones-raices/aventura-caballos-01-v1.webp" alt="Queñal observa un caballo"><span><b>Caballos</b><small>Observar, cuidar y planear</small></span></button>
+        <button type="button" data-topic="cohetes"><img src="assets/ilustraciones-raices/aventura-cohetes-01-v1.webp" alt="Queñal observa un cohete de juguete"><span><b>Cohetes</b><small>Secuencias, rutas y diseño</small></span></button>
+        <button type="button" data-topic="estrellas"><img src="assets/ilustraciones-raices/aventura-estrellas-01-v1.webp" alt="Queñal observa grupos de estrellas"><span><b>Estrellas</b><small>Patrones, formas e historias</small></span></button>
+        <button type="button" data-topic="semilla"><img src="assets/ilustraciones-raices/aventura-semilla-01-v2.webp" alt="Queñal observa una semilla"><span><b>Plantas y semillas</b><small>La aventura original de prueba</small></span></button>
+      </div>
+      <form class="other-interest" id="other-interest"><label for="custom-interest">¿Te interesa otra cosa?</label><div><input id="custom-interest" maxlength="40" autocomplete="off" placeholder="Por ejemplo: trenes, océanos, música"><button type="submit">Explorar mi tema</button></div><p>No escribas nombres, colegio ni datos personales.</p></form>
+      <p class="interest-memory" id="interest-memory"></p>
+    </section>
+
+    <section class="reader" id="reader" aria-live="polite" hidden>
       <div class="reader-progress"><span id="scene-label">Escena 1 de 3</span><div><i id="scene-progress"></i></div><span id="reader-status">Lista para comenzar</span></div>
       <article class="scene-layout">
         <figure class="scene-figure"><img id="scene-image" src="assets/quenual-ilustrado.webp" alt=""><figcaption id="scene-caption"></figcaption></figure>
@@ -25,10 +37,10 @@
         </div>
       </article>
 
-      <section class="challenge" id="challenge" hidden><div><p class="eyebrow">Desafío amable</p><h3 id="question"></h3><button class="question-voice" type="button" id="listen-question">🔊 Escuchar pregunta</button></div><div class="answers" id="answers"></div><div class="challenge-actions"><button type="button" id="hint">Quiero una pista</button><button type="button" id="think">Necesito tiempo</button></div><p class="feedback" id="feedback"></p><button class="next" type="button" id="next-scene" hidden>Siguiente escena →</button></section>
+      <section class="challenge" id="challenge" hidden><div><p class="eyebrow">Desafío amable</p><h3 id="question"></h3><button class="question-voice" type="button" id="listen-question">🔊 Escuchar pregunta</button></div><div class="answers" id="answers"></div><div class="challenge-actions"><button type="button" id="hint">Quiero una pista</button><button type="button" id="think">Necesito tiempo</button></div><p class="feedback" id="feedback"></p><div class="route-actions"><button class="finish-route" type="button" id="finish-route" hidden>Cerrar por hoy</button><button class="next" type="button" id="next-scene" hidden>Siguiente momento →</button></div></section>
     </section>
 
-    <section class="scope"><h2>Lo que registra esta demostración</h2><p>Solo guarda temporalmente acciones de esta actividad: escuchar, pausar, intentar, pedir una pista y responder. No asigna diagnósticos, notas ni capacidades generales. La persona adulta decide si guarda una copia local o exporta el informe.</p><a href="informe-familiar.html">Abrir informe familiar de esta sesión</a></section>
+    <section class="scope"><h2>Lo que aprende el motor</h2><p>Registra localmente el tema elegido y evidencias de esta actividad: escuchar, pausar, intentar, pedir apoyo, responder, crear o transferir. El interés orienta la experiencia, pero no se convierte en talento, diagnóstico ni calificación. La persona adulta decide si guarda o exporta el informe.</p><a href="informe-familiar.html">Abrir informe familiar de esta sesión</a></section>
   </main>
   <nav class="bottom-nav" aria-label="Navegación"><a href="app-raices.html"><span>⌂</span>Inicio</a><a href="app-raices.html#jugar"><span>◇</span>Jugar</a><a href="app-raices.html#calma"><span>◌</span>Calma</a><a href="informe-familiar.html"><span>♙</span>Adultos</a></nav>
 </body>
