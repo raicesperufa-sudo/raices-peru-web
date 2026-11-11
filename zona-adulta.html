@@ -10,7 +10,7 @@
   <link rel="icon" href="assets/app-icons/app-icon-192.png">
   <link rel="stylesheet" href="assets/zona-adulta.css?v=20261105-1">
   <link rel="stylesheet" href="assets/planes-raices.css?v=20261106-2">
-  <script defer src="assets/zona-adulta.js?v=20261106-1"></script>
+  <script defer src="assets/zona-adulta.js?v=20261111-1"></script>
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -22,7 +22,7 @@
   <main id="contenido">
     <section class="adult-hero">
       <div><p class="kicker">Administración familiar</p><h1>La infancia juega. La persona adulta decide y administra.</h1><p>Perfiles, privacidad, planes y solicitudes viven aquí, separados de las actividades infantiles. RAÍCES no muestra publicidad ni mensajes de compra dentro de los juegos.</p></div>
-      <aside><strong>Beta fundadora · 8 semanas</strong><p>El contenido terminado queda abierto, sin tarjeta. Recogeremos opiniones y métricas generales para mejorar.</p></aside>
+      <aside><strong>Prueba gratuita · 3 meses</strong><p>Las familias invitadas pueden evaluar el acceso completo sin tarjeta ni renovación automática. Recogeremos opiniones y métricas generales para mejorar.</p></aside>
     </section>
 
     <section class="adult-tabs" aria-label="Opciones de cuenta">
@@ -42,12 +42,13 @@
     </section>
 
     <section class="adult-panel" data-panel="activation" hidden>
-      <div class="panel-copy"><p class="kicker">Activación beta</p><h2>Crear o importar una cuenta familiar</h2><p>La persona adulta puede usar alias para niñas, niños o adolescentes. No solicitamos diagnóstico, colegio, fotografías ni nombre completo del menor.</p></div>
+      <div class="panel-copy"><p class="kicker">Activación beta</p><h2>Crear o importar una cuenta familiar</h2><p>Con el código gratuito de invitación, una persona adulta puede crear su propia cuenta de prueba por 3 meses y elegir su PIN. Puede usar un alias para el perfil infantil; no solicitamos diagnóstico, colegio, fotografías ni nombre completo del menor.</p></div>
       <div class="activation-grid">
         <form id="activation-form" class="account-form">
           <label>Nombre de la persona adulta<input name="adultName" autocomplete="name" maxlength="80" required></label>
           <label>Correo<input type="email" name="email" autocomplete="email" required></label>
-          <label>Plan<select name="plan"><option value="libre">RAÍCES Libre</option></select><small>Los planes con acceso total se habilitan importando una activación privada emitida por RAÍCES.</small></label>
+          <label>Plan<select name="plan"><option value="prueba-invitada">Prueba gratuita · 3 meses</option></select><small>Acceso total temporal para evaluación, sin cobro y con un perfil infantil.</small></label>
+          <label>Código gratuito de invitación<input type="password" name="inviteCode" inputmode="numeric" pattern="[0-9]{8}" autocomplete="one-time-code" maxlength="8" required><small>Solicita el código vigente al equipo RAÍCES. No concede permisos administrativos ni crea una suscripción.</small></label>
           <label>PIN de 4 a 8 dígitos<input type="password" name="pin" inputmode="numeric" pattern="[0-9]{4,8}" autocomplete="new-password" required></label>
           <fieldset><legend>Perfiles opcionales</legend><div id="children-fields"></div><button class="secondary" type="button" id="add-child">Añadir alias</button></fieldset>
           <label class="consent"><input type="checkbox" name="consent" required><span>Confirmo que soy la persona adulta responsable de esta cuenta y acepto guardar únicamente los datos necesarios.</span></label>

@@ -2,8 +2,10 @@
   'use strict';
   const STORAGE = 'raices-beta-accounts-v1';
   const SESSION = 'raices-beta-session-v1';
+  const FREE_INVITE_HASH = 'ac6256fab6aff4a1b344e1a8bf6a5f403f763d45eaf2c5fd9373d9146a8df309';
   const PLAN_RULES = {
     libre: { label: 'RAÍCES Libre', maxChildren: 1, accessLevel: 'libre' },
+    'prueba-invitada': { label: 'Prueba gratuita · 3 meses', maxChildren: 1, accessLevel: 'total' },
     'beta-fundadora': { label: 'Beta fundadora', maxChildren: 2, accessLevel: 'total' },
     'familia-plus-mensual': { label: 'Familia Plus mensual', maxChildren: 1, accessLevel: 'total' },
     'familia-plus-anual': { label: 'Familia Plus anual', maxChildren: 2, accessLevel: 'total' },
@@ -23,6 +25,7 @@
     const role = source.role === 'admin' ? 'admin' : 'family';
     const maxChildren = role === 'admin' ? 0 : rule.maxChildren;
     let validUntil = source.validUntil ?? null;
+    if (!validUntil && plan === 'prueba-invitada') validUntil = addMonths(source.validFrom || issuedAt, 3);
     if (!validUntil && plan === 'familia-plus-mensual') validUntil = addMonths(source.validFrom || issuedAt, 1);
     if (!validUntil && plan === 'familia-plus-anual') validUntil = addMonths(source.validFrom || issuedAt, 12);
     return {
@@ -38,6 +41,12 @@
   const expired = (account) => Boolean(account?.validUntil && Date.now() > new Date(account.validUntil).getTime());
   const hashPin = async (pin) => {
     const bytes = new TextEncoder().encode(`raices-beta:${pin}`);
+    const digest = await crypto.subtle.digest('SHA-256', bytes);
+    return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, '0')).join('');
+  };
+  const hashInviteCode = async (code) => {
+    const normalized = String(code || '').trim();
+    const bytes = new TextEncoder().encode(`raices-invite-v1:${normalized}`);
     const digest = await crypto.subtle.digest('SHA-256', bytes);
     return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, '0')).join('');
   };
@@ -112,8 +121,11 @@
     const aliases = $$('[name="childAlias"]', form);
     const ages = $$('[name="childAge"]', form);
     const children = aliases.map((input, index) => ({ alias: input.value.trim(), age: Number(ages[index].value) || null })).filter((child) => child.alias);
-    const plan = String(data.get('plan') || 'libre');
+    // La autoactivación siempre crea una prueba temporal, aunque el formulario sea manipulado.
+    const plan = 'prueba-invitada';
     const rule = PLAN_RULES[plan] || PLAN_RULES.libre;
+    const invitationIsValid = await hashInviteCode(data.get('inviteCode')) === FREE_INVITE_HASH;
+    if (!invitationIsValid) { setStatus($('#activation-status'), 'El código gratuito de invitación no es válido. Solicita el código vigente al equipo RAÍCES.', true); return; }
     if (children.length > rule.maxChildren) { setStatus($('#activation-status'), `Este plan admite hasta ${rule.maxChildren} perfil infantil.`, true); return; }
     const accounts = readAccounts();
     const existing = accounts.find((account) => normalizeEmail(account.email) === email);
@@ -124,7 +136,8 @@
     });
     writeAccounts([...accounts.filter((item) => normalizeEmail(item.email) !== email), account]);
     localStorage.setItem(SESSION, account.id);
-    setStatus($('#activation-status'), 'Cuenta guardada. Ya puedes abrir el panel familiar.');
+    form.reset();
+    setStatus($('#activation-status'), 'Cuenta de prueba creada por 3 meses. Ya puedes abrir el panel familiar y entrar después con tu correo y PIN.');
     showDashboard(account);
   });
 
