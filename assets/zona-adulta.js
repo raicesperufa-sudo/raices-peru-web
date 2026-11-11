@@ -3,6 +3,7 @@
   const STORAGE = 'raices-beta-accounts-v1';
   const SESSION = 'raices-beta-session-v1';
   const FREE_INVITE_HASH = 'ac6256fab6aff4a1b344e1a8bf6a5f403f763d45eaf2c5fd9373d9146a8df309';
+  const RESERVED_ADMIN_EMAILS = new Set(['raicesperu.fa@gmail.com']);
   const PLAN_RULES = {
     libre: { label: 'RAÍCES Libre', maxChildren: 1, accessLevel: 'libre' },
     'prueba-invitada': { label: 'Prueba gratuita · 3 meses', maxChildren: 1, accessLevel: 'total' },
@@ -124,13 +125,15 @@
     // La autoactivación siempre crea una prueba temporal, aunque el formulario sea manipulado.
     const plan = 'prueba-invitada';
     const rule = PLAN_RULES[plan] || PLAN_RULES.libre;
+    if (RESERVED_ADMIN_EMAILS.has(email)) { setStatus($('#activation-status'), 'Este correo está reservado para la administración de RAÍCES. Usa otro correo para crear una cuenta familiar de prueba.', true); return; }
     const invitationIsValid = await hashInviteCode(data.get('inviteCode')) === FREE_INVITE_HASH;
     if (!invitationIsValid) { setStatus($('#activation-status'), 'El código gratuito de invitación no es válido. Solicita el código vigente al equipo RAÍCES.', true); return; }
     if (children.length > rule.maxChildren) { setStatus($('#activation-status'), `Este plan admite hasta ${rule.maxChildren} perfil infantil.`, true); return; }
     const accounts = readAccounts();
     const existing = accounts.find((account) => normalizeEmail(account.email) === email);
+    if (existing) { setStatus($('#activation-status'), 'Ya existe una cuenta con este correo en el dispositivo. Entra con su PIN o importa una activación autorizada; la invitación no reemplazará la cuenta existente.', true); return; }
     const account = normalizeAccount({
-      id: existing?.id || id(), adultName: String(data.get('adultName')).trim(), email,
+      id: id(), adultName: String(data.get('adultName')).trim(), email,
       role: 'family', plan, children,
       pinHash: await hashPin(String(data.get('pin'))), consentAt: new Date().toISOString(), updatedAt: new Date().toISOString()
     });
@@ -144,7 +147,9 @@
   $('#login-form').addEventListener('submit', async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const account = readAccounts().find((item) => normalizeEmail(item.email) === normalizeEmail(data.get('email')));
+    const email = normalizeEmail(data.get('email'));
+    const account = readAccounts().find((item) => normalizeEmail(item.email) === email);
+    if (RESERVED_ADMIN_EMAILS.has(email) && account && account.role !== 'admin') { setStatus($('#login-status'), 'La copia local de este correo no corresponde a la cuenta administradora. Vuelve a importar el archivo privado de administración.', true); return; }
     if (!account || account.pinHash !== await hashPin(String(data.get('pin')))) { setStatus($('#login-status'), 'Revisa el correo y la clave numérica. En un dispositivo nuevo debes importar primero tu activación privada.', true); return; }
     if (expired(account)) { setStatus($('#login-status'), 'Esta activación venció. Solicita su renovación al soporte de RAÍCES.', true); return; }
     localStorage.setItem(SESSION, account.id); setStatus($('#login-status'), 'Sesión iniciada.'); showDashboard(account);

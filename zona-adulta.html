@@ -10,7 +10,7 @@
   <link rel="icon" href="assets/app-icons/app-icon-192.png">
   <link rel="stylesheet" href="assets/zona-adulta.css?v=20261105-1">
   <link rel="stylesheet" href="assets/planes-raices.css?v=20261106-2">
-  <script defer src="assets/zona-adulta.js?v=20261111-1"></script>
+  <script defer src="assets/zona-adulta.js?v=20261111-2"></script>
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -48,7 +48,7 @@
           <label>Nombre de la persona adulta<input name="adultName" autocomplete="name" maxlength="80" required></label>
           <label>Correo<input type="email" name="email" autocomplete="email" required></label>
           <label>Plan<select name="plan"><option value="prueba-invitada">Prueba gratuita · 3 meses</option></select><small>Acceso total temporal para evaluación, sin cobro y con un perfil infantil.</small></label>
-          <label>Código gratuito de invitación<input type="password" name="inviteCode" inputmode="numeric" pattern="[0-9]{8}" autocomplete="one-time-code" maxlength="8" required><small>Solicita el código vigente al equipo RAÍCES. No concede permisos administrativos ni crea una suscripción.</small></label>
+          <label>Código gratuito de invitación<input type="password" name="inviteCode" inputmode="numeric" pattern="[0-9]{8}" autocomplete="one-time-code" maxlength="8" required><small>Solicita el código vigente al equipo RAÍCES. No concede permisos administrativos, no reemplaza cuentas existentes ni crea una suscripción.</small></label>
           <label>PIN de 4 a 8 dígitos<input type="password" name="pin" inputmode="numeric" pattern="[0-9]{4,8}" autocomplete="new-password" required></label>
           <fieldset><legend>Perfiles opcionales</legend><div id="children-fields"></div><button class="secondary" type="button" id="add-child">Añadir alias</button></fieldset>
           <label class="consent"><input type="checkbox" name="consent" required><span>Confirmo que soy la persona adulta responsable de esta cuenta y acepto guardar únicamente los datos necesarios.</span></label>
