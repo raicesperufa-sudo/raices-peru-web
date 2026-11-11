@@ -1,5 +1,6 @@
 (() => {
   'use strict';
+  if (window.RAICES_SUPABASE?.enabled) return;
   const STORAGE = 'raices-beta-accounts-v1';
   const SESSION = 'raices-beta-session-v1';
   const FREE_INVITE_HASH = 'ac6256fab6aff4a1b344e1a8bf6a5f403f763d45eaf2c5fd9373d9146a8df309';
