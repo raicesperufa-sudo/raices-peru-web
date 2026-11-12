@@ -1,4 +1,4 @@
-const CACHE = 'raices-app-v17';
+const CACHE = 'raices-app-v18';
 const APP_SHELL = [
   './app-raices.html',
   './zona-adulta.html',
@@ -9,6 +9,8 @@ const APP_SHELL = [
   './pintar-mandalas.html',
   './gimnasia-cerebral.html',
   './matematicas-raices.html',
+  './tablas-quenal.html',
+  './mapa-emociones.html',
   './aventuras-quenal.html',
   './cuerpo-raices.html',
   './mindfulness-ninos.html',
@@ -32,6 +34,11 @@ const APP_SHELL = [
   './assets/gimnasia-cerebral.js',
   './assets/matematicas-raices.css',
   './assets/matematicas-raices.js',
+  './assets/matematicas-tablas-feature.css',
+  './assets/tablas-quenal.css',
+  './assets/tablas-quenal.js',
+  './assets/mapa-emociones.css',
+  './assets/mapa-emociones.js',
   './assets/pedagogia-raices.js',
   './assets/motor-pedagogico.js',
   './assets/aventuras-quenal.css',
@@ -52,6 +59,7 @@ const APP_SHELL = [
   './assets/informe-familiar.js',
   './assets/gym-piezas-raices-sprite.png',
   './assets/personaje-quenal-v2.webp',
+  './assets/ilustraciones-raices/quenal-mapa-emociones-v1.png',
   './assets/quenual-ilustrado.webp',
   './assets/historia-queni-amigos.webp',
   './assets/ilustraciones-raices/aventura-semilla-01-v2.webp',
