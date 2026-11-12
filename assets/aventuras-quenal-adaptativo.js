@@ -10,6 +10,9 @@
     tecnologia: { label:'Tecnología', prompt:'Elige una creación para observar cómo funciona y cómo podría mejorar.' },
     ciencia: { label:'Ciencia', prompt:'Elige un fenómeno para observar, comparar y hacer preguntas.' },
     espacio: { label:'Espacio', prompt:'Elige entre una misión o los patrones del cielo.' },
+    historias: { label:'Historias y palabras', prompt:'Elige entre lectura, humor, cartas, biografías o mundos imaginados.' },
+    numeros: { label:'Números y patrones', prompt:'Elige una ruta para representar, comparar y explicar relaciones matemáticas.' },
+    cuerpo: { label:'Cuerpo y emociones', prompt:'Elige una ruta para comprender sistemas, señales y recursos de cuidado.' },
     propio: { label:'Mi propio tema', prompt:'Cuéntale a Queñal qué te causa curiosidad.' }
   };
 
@@ -63,6 +66,11 @@
       ]
     }
   };
+
+  if (window.RaicesTopicLibrary) {
+    Object.assign(packs, window.RaicesTopicLibrary.packs);
+    window.RaicesTopicLibrary.mount($('#topic-grid'));
+  }
 
   const customPack = (interest) => ({
     title: `Una expedición sobre ${interest}`, label:interest, maxSteps:3,

@@ -53,7 +53,7 @@
     ['raices-gimnasia-progreso', 11],
     ['raices-matematicas-progreso', 30],
     ['raices-tablas-progreso-v1', 55],
-    ['raices-aventuras-progreso', 3],
+    ['raices-aventuras-progreso', 164],
     ['raices-cuerpo-progreso', 6],
     ['raices-mindfulness-progreso', 5],
     ['raices-sonora-progreso', 16]

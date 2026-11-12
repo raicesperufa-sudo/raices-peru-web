@@ -1,4 +1,4 @@
-const CACHE = 'raices-app-v18';
+const CACHE = 'raices-app-v19';
 const APP_SHELL = [
   './app-raices.html',
   './zona-adulta.html',
@@ -43,6 +43,7 @@ const APP_SHELL = [
   './assets/motor-pedagogico.js',
   './assets/aventuras-quenal.css',
   './assets/aventuras-quenal.js',
+  './assets/aventuras-biblioteca-temas.js',
   './assets/aventuras-quenal-adaptativo.js',
   './assets/aventuras-adaptativo.css',
   './assets/cuerpo-raices.css',
