@@ -1,11 +1,12 @@
 (() => {
   'use strict';
+  const extraStyles=document.createElement('link');extraStyles.rel='stylesheet';extraStyles.href='assets/biblioteca-sonora-v2.css?v=20261112-1';document.head.append(extraStyles);
   const $=(selector,root=document)=>root.querySelector(selector);
   const $$=(selector,root=document)=>[...root.querySelectorAll(selector)];
   const dialog=$('#sound-dialog');
   const recorded=$('#recorded-audio');
   const notes={adultos:'Descanso, confianza, autocuidado, relaciones y futuro.',familias:'Conexión familiar y escucha entre generaciones.',ninos:'Experiencias breves, voluntarias y acompañadas por una persona adulta.',adolescentes:'Autonomía, voz propia y relación amable con los errores.','personal-fe':'Contenido personal y espiritual, visible solo por elección expresa.'};
-  let tracks=[];let unlockedTracks=null;let unlockPromise=null;let active=null;let filter='adultos';let parts=[];let partIndex=0;let utterance=null;let pauseTimer=null;let stopTimer=null;let paused=false;let startedAt=0;let progressTimer=null;
+  let tracks=[];let unlockedTracks=null;let unlockPromise=null;let active=null;let filter='adultos';let parts=[];let partIndex=0;let utterance=null;let pauseTimer=null;let stopTimer=null;let paused=false;let startedAt=0;let progressTimer=null;let ambientContext=null;let ambientNodes=[];
 
   const calmVoice=()=>{const voices=speechSynthesis.getVoices();const spanish=voices.filter(v=>/^es(?:-|_)/i.test(v.lang));return spanish.find(v=>/^es-(PE|MX|CO|US)/i.test(v.lang)&&/female|mujer|leonor|diana|sofia|paulina|sabina|helena/i.test(v.name))||spanish.find(v=>/^es-(PE|MX|CO|US)/i.test(v.lang))||spanish[0]||null;};
   const log=(type,detail)=>window.RaicesPedagogy?.record({activityId:`biblioteca-sonora-${active?.id||'catalogo'}`,activityTitle:active?.title||'Biblioteca Sonora RAÍCES',sceneId:active?.id||filter,type,detail,context:`biblioteca-sonora;grupo:${active?.group||filter}`});
@@ -17,6 +18,18 @@
   const accountKey=()=>window.RaicesAccess?.current?.()?.contentKeys?.sonoraV1||'';
   const bytesFromBase64=(value)=>Uint8Array.from(atob(value),character=>character.charCodeAt(0));
 
+  function startAmbient(){
+    if(ambientNodes.length)return;
+    try{
+      ambientContext=ambientContext||new (window.AudioContext||window.webkitAudioContext)();
+      if(ambientContext.state==='suspended')ambientContext.resume();
+      const master=ambientContext.createGain();master.gain.value=.012;master.connect(ambientContext.destination);
+      [174,261.6].forEach((frequency,index)=>{const oscillator=ambientContext.createOscillator(),gain=ambientContext.createGain();oscillator.type='sine';oscillator.frequency.value=frequency;gain.gain.value=index?0.22:0.34;oscillator.connect(gain).connect(master);oscillator.start();ambientNodes.push(oscillator,gain);});
+      ambientNodes.push(master);$('#ambient-wave').classList.add('is-active');$('#ambient-wave b').textContent='Fondo sonoro suave activo';
+    }catch(_){$('#ambient-wave b').textContent='Fondo suave no disponible en este dispositivo';}
+  }
+  function stopAmbient(){ambientNodes.forEach(node=>{try{if(typeof node.stop==='function')node.stop();else node.disconnect();}catch(_){}});ambientNodes=[];$('#ambient-wave').classList.remove('is-active');$('#ambient-wave b').textContent='Fondo sonoro suave en espera';}
+
   async function unlockCatalog(){
     if(unlockedTracks)return unlockedTracks;
     if(unlockPromise)return unlockPromise;
@@ -25,20 +38,20 @@
   }
 
   function stopAll(message='Escucha detenida. Puedes elegir silencio o probar otra experiencia.'){
-    clearTimers();if('speechSynthesis'in window)speechSynthesis.cancel();recorded.pause();recorded.removeAttribute('src');utterance=null;parts=[];partIndex=0;paused=false;enableControls(false);$('#pause-sound').textContent='Ⅱ Pausar';updateProgress(0,message);if(active)log('pausa','La escucha fue detenida por la persona.');
+    clearTimers();stopAmbient();if('speechSynthesis'in window)speechSynthesis.cancel();recorded.pause();recorded.removeAttribute('src');utterance=null;parts=[];partIndex=0;paused=false;enableControls(false);$('#pause-sound').textContent='Ⅱ Pausar';updateProgress(0,message);if(active)log('pausa','La escucha fue detenida por la persona.');
   }
   function scheduleLimit(){const seconds=Number($('#sound-timer').value);if(seconds>0)stopTimer=setTimeout(()=>stopAll('El temporizador terminó. El silencio continúa disponible.'),seconds*1000);}
-  function finish(){clearTimers();enableControls(false);updateProgress(100,'La experiencia terminó. Nota qué necesitas ahora.');try{const key='raices-sonora-progreso';const list=JSON.parse(localStorage.getItem(key)||'[]');localStorage.setItem(key,JSON.stringify([...new Set([...list,active.id])]));}catch(_){}log('calma','Narración escuchada hasta el final.');}
-  function runPart(){if(partIndex>=parts.length){finish();return;}const part=parts[partIndex];if(part.pause){updateProgress(partIndex/parts.length*100,`Pausa tranquila · ${part.pause} s`);pauseTimer=setTimeout(()=>{partIndex++;runPart();},part.pause*1000);return;}utterance=new SpeechSynthesisUtterance(part.text);utterance.lang='es-PE';utterance.rate=.78;utterance.pitch=.98;utterance.volume=.88;utterance.voice=calmVoice();utterance.onstart=()=>updateProgress(partIndex/parts.length*100,'La narración continúa despacio');utterance.onend=()=>{utterance=null;partIndex++;runPart();};utterance.onerror=()=>stopAll('La voz del navegador no está disponible. Puedes leer la transcripción.');speechSynthesis.speak(utterance);}
+  function finish(){clearTimers();stopAmbient();enableControls(false);updateProgress(100,'La experiencia terminó. Nota qué necesitas ahora.');try{const key='raices-sonora-progreso';const list=JSON.parse(localStorage.getItem(key)||'[]');localStorage.setItem(key,JSON.stringify([...new Set([...list,active.id])]));}catch(_){}log('calma','Narración escuchada hasta el final.');}
+  function runPart(){if(partIndex>=parts.length){finish();return;}const part=parts[partIndex];if(part.pause){updateProgress(partIndex/parts.length*100,`Pausa tranquila · el fondo suave continúa · ${part.pause} s`);pauseTimer=setTimeout(()=>{partIndex++;runPart();},part.pause*1000);return;}utterance=new SpeechSynthesisUtterance(part.text);utterance.lang='es-PE';utterance.rate=.78;utterance.pitch=.98;utterance.volume=.88;utterance.voice=calmVoice();utterance.onstart=()=>updateProgress(partIndex/parts.length*100,'La narración continúa despacio');utterance.onend=()=>{utterance=null;partIndex++;runPart();};utterance.onerror=()=>stopAll('La voz del navegador no está disponible. Puedes leer la transcripción.');speechSynthesis.speak(utterance);}
   function play(){
-    if(!active)return;stopAll('Preparando escucha…');startedAt=Date.now();enableControls(true);scheduleLimit();log('inicio','Se inició la experiencia sonora.');
+    if(!active)return;stopAll('Preparando escucha…');startAmbient();startedAt=Date.now();enableControls(true);scheduleLimit();log('inicio','Se inició la experiencia sonora con fondo suave continuo.');
     if(active.audio){recorded.src=active.audio;recorded.play().catch(()=>stopAll('No se pudo iniciar el audio. Puedes leer la transcripción.'));recorded.onended=finish;progressTimer=setInterval(()=>{if(recorded.duration)updateProgress(recorded.currentTime/recorded.duration*100,'Narración grabada en reproducción');},500);return;}
     if(!('speechSynthesis'in window)){stopAll('La voz no está disponible en este navegador. Puedes leer la transcripción.');return;}
     parts=splitParts(active.transcript);partIndex=0;runPart();
   }
   function togglePause(){
-    if(!active)return;if(paused){paused=false;$('#pause-sound').textContent='Ⅱ Pausar';if(active.audio)recorded.play();else if(utterance)speechSynthesis.resume();else runPart();$('#sound-status').textContent='Escucha reanudada';log('reanudacion','La escucha fue reanudada.');}
-    else{paused=true;$('#pause-sound').textContent='▶ Continuar';if(active.audio)recorded.pause();else if(utterance)speechSynthesis.pause();else clearTimeout(pauseTimer);$('#sound-status').textContent='En pausa. Puedes continuar o detener.';log('pausa','La escucha fue pausada.');}
+    if(!active)return;if(paused){paused=false;startAmbient();$('#pause-sound').textContent='Ⅱ Pausar';if(active.audio)recorded.play();else if(utterance)speechSynthesis.resume();else runPart();$('#sound-status').textContent='Escucha reanudada';log('reanudacion','La escucha fue reanudada.');}
+    else{paused=true;stopAmbient();$('#pause-sound').textContent='▶ Continuar';if(active.audio)recorded.pause();else if(utterance)speechSynthesis.pause();else clearTimeout(pauseTimer);$('#sound-status').textContent='En pausa. Puedes continuar o detener.';log('pausa','La escucha fue pausada.');}
   }
   function render(){const available=Boolean(window.RaicesAccess?.hasTotal?.()&&accountKey());const visible=tracks.filter(track=>track.group===filter);$('#sound-grid').innerHTML=visible.map(track=>`<button class="sound-card" type="button" data-track="${track.id}"><img src="${track.image}" alt="" loading="lazy"><span><small>${track.code} · ${track.groupLabel} · ${track.durationLabel}</small><h3>${track.title}</h3><p>${track.purpose}</p><b>Familia Plus</b></span>${available?'':'<em>🔒 Acceso total</em>'}</button>`).join('');$$('[data-track]').forEach(button=>button.addEventListener('click',()=>openTrack(button.dataset.track)));}
   async function openTrack(id){const preview=tracks.find(item=>item.id===id);if(!preview)return;if(!(window.RaicesAccess?.require('plus',preview.title)??false))return;let full;try{full=await unlockCatalog();}catch(error){$('#filter-note').textContent=error.message==='missing-key'?'Tu cuenta tiene acceso total, pero necesita volver a importar la activación privada actualizada para abrir esta biblioteca.':'No se pudo abrir el contenido protegido. Actualiza la aplicación o vuelve a importar tu activación.';return;}const track=full.find(item=>item.id===id);if(!track)return;active=track;$('#sound-image').src=track.image;$('#sound-image').alt=`Ilustración RAÍCES para ${track.title}`;$('#sound-purpose').textContent=track.purpose;$('#sound-meta').textContent=`${track.code} · ${track.groupLabel} · ${track.durationLabel} · ${track.audio?'Narración grabada':'Voz del dispositivo'}${track.spiritual?' · Elección espiritual voluntaria':''}`;$('#sound-title').textContent=track.title;$('#transcript').innerHTML=transcriptHtml(track.transcript);$('#transcript').hidden=true;$('#transcript-toggle').textContent='Leer transcripción';$('#transcript-toggle').setAttribute('aria-expanded','false');$$('[data-reflection]').forEach(button=>button.classList.remove('is-selected'));updateProgress(0,'Lista para comenzar');enableControls(false);window.RaicesPedagogy?.start({id:`biblioteca-sonora-${track.id}`,title:track.title});dialog.showModal();log('inicio','Experiencia protegida abierta; aún no se inició la narración.');}

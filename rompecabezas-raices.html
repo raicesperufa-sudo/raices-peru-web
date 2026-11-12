@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#075c70"><meta name="description" content="Rompecabezas progresivos de Queñal y sus amigos, de 4 a 30 piezas.">
+  <title>Rompecabezas de Queñal · RAÍCES</title>
+  <link rel="stylesheet" href="assets/rompecabezas-raices.css?v=20261112-1"><link rel="stylesheet" href="assets/access-dialog.css?v=20261105-2">
+  <script defer src="assets/site.js?v=20261105-1"></script><script defer src="assets/rompecabezas-raices.js?v=20261112-1"></script>
+</head>
+<body>
+  <header class="puzzle-top"><a href="app-raices.html"><img src="assets/isotipo-raices.webp" alt=""><span><b>RAÍCES</b><small>Rompecabezas</small></span></a><a href="juegos-ludicos.html">← Volver a juegos</a></header>
+  <main>
+    <section class="puzzle-hero"><div><p class="eyebrow">Observar · reconstruir · celebrar</p><h1>Rompecabezas de Queñal</h1><p>Elige un amigo y avanza de 4 a 30 piezas. Toca dos piezas para intercambiarlas; no hay cronómetro ni calificación.</p><a href="#personajes">Elegir personaje</a></div><img src="assets/personaje-quenal-v2.webp" alt="Queñal invita a reconstruir imágenes"></section>
+    <section class="puzzle-note"><span>🧩</span><p><b>5 rompecabezas libres.</b> Queñal acompaña la progresión completa de 4, 6, 9, 16 y 30 piezas. Cada amigo conserva después el mismo recorrido en Familia Plus.</p></section>
+    <section id="personajes"><div class="section-heading"><div><p class="eyebrow">9 personajes · 5 niveles cada uno</p><h2>Elige con quién jugar</h2></div><p>4, 6, 9, 16 y 30 piezas. Puedes repetir un nivel todas las veces que quieras.</p></div><div class="character-grid" id="character-grid"></div></section>
+  </main>
+  <dialog id="puzzle-dialog"><div class="dialog-card"><header><div><p id="puzzle-meta"></p><h2 id="puzzle-title"></h2></div><button type="button" id="puzzle-close" aria-label="Cerrar">✕</button></header><div class="puzzle-layout"><aside><img id="puzzle-preview" alt="Imagen completa de referencia"><p>Mira la imagen completa cuando lo necesites.</p><div class="puzzle-stats"><span><b id="move-count">0</b> movimientos</span><span><b id="piece-count">4</b> piezas</span></div><button id="puzzle-listen" type="button">🔊 Escuchar guía</button><button id="puzzle-restart" type="button">Mezclar otra vez</button></aside><div><p id="puzzle-instruction">Toca una pieza y luego otra para intercambiarlas.</p><div id="puzzle-board" class="puzzle-board" aria-label="Tablero de rompecabezas"></div><p id="puzzle-feedback" aria-live="polite"></p></div></div></div></dialog>
+</body></html>

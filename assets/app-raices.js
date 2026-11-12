@@ -48,6 +48,7 @@
     ['raices-mente-progreso', 30],
     ['raices-juegos-ludicos-progreso', 17],
     ['raices-activacion-mental-progreso', 19],
+    ['raices-rompecabezas-progreso-v1', 45],
     ['raices-lectoescritura-progreso', 17],
     ['raices-gimnasia-progreso', 11],
     ['raices-matematicas-progreso', 30],

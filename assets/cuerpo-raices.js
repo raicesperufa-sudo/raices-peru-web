@@ -1,5 +1,6 @@
 (() => {
   'use strict';
+  const extraStyles=document.createElement('link');extraStyles.rel='stylesheet';extraStyles.href='assets/cuerpo-rutinas-v3.css?v=20261112-1';document.head.append(extraStyles);
   const $=(s,r=document)=>r.querySelector(s); const $$=(s,r=document)=>[...r.querySelectorAll(s)];
   const svg=(kind)=>{
     const common='viewBox="0 0 320 260" role="img" aria-hidden="true"';
@@ -19,7 +20,9 @@
     {id:'espiral',title:'Espirales de Queñal',family:'Trazos simultáneos',tier:'plus',seconds:35,image:'assets/ilustraciones-raices/cuerpo-03-v2.webp',alt:'Queñal mueve ambos brazos siguiendo dos espirales',text:'Dibuja dos espirales en el aire, una con cada mano.',steps:['Empieza con círculos pequeños.','Haz crecer ambas espirales lentamente.','Prueba que una vaya hacia dentro y otra hacia fuera.']},
     {id:'circulos',title:'Círculos compañeros',family:'Ritmo bilateral',tier:'plus',seconds:35,image:'assets/ilustraciones-raices/cuerpo-04-v2.webp',alt:'Queñal extiende los brazos y dibuja círculos cómodos',text:'Haz círculos cómodos con ambos brazos.',steps:['Dibuja círculos hacia delante.','Pausa cuando quieras.','Cambia la dirección sin forzar los hombros.']},
     {id:'ritmo',title:'Cuatro puntos',family:'Secuencia corporal',tier:'plus',seconds:40,image:'assets/ilustraciones-raices/cuerpo-05-v2.webp',alt:'Queñal sigue una secuencia hacia cuatro puntos de colores',text:'Sigue una secuencia visual de cuatro posiciones.',steps:['Toca arriba a la izquierda y arriba a la derecha.','Continúa abajo a la izquierda y abajo a la derecha.','Repite o inventa otro orden.']},
-    {id:'arbol',title:'Árbol que despierta',family:'Equilibrio y respiración',tier:'plus',seconds:40,image:'assets/ilustraciones-raices/cuerpo-06-v2.webp',alt:'Queñal mantiene una postura de árbol con los brazos arriba',text:'Crece como un árbol y vuelve a una postura cómoda.',steps:['Siente los pies o el apoyo de la silla.','Sube los brazos al inhalar sin forzar.','Bájalos al soltar el aire y nota cómo te sientes.']}
+    {id:'arbol',title:'Árbol que despierta',family:'Equilibrio y respiración',tier:'plus',seconds:40,image:'assets/ilustraciones-raices/cuerpo-06-v2.webp',alt:'Queñal mantiene una postura de árbol con los brazos arriba',text:'Crece como un árbol y vuelve a una postura cómoda.',steps:['Siente los pies o el apoyo de la silla.','Sube los brazos al inhalar sin forzar.','Bájalos al soltar el aire y nota cómo te sientes.']},
+    {id:'animales',title:'Amigos que se mueven',family:'Animales y control corporal',tier:'plus',seconds:70,image:'assets/ilustraciones-raices/cuerpo-animales-rutina-v1.png',alt:'Queñal representa seis movimientos inspirados en animales',text:'Explora seis movimientos y elige los que se sientan cómodos.',steps:['Abre y baja los brazos como alas de ave.','Une las manos y balancea suavemente una trompa de elefante.','Prueba el flamenco junto a una silla firme; también puedes dejar ambos pies apoyados.','Da pasos lentos como oso o cangrejo solo si el espacio y tus manos lo permiten.','Flexiona un poco las rodillas como rana y vuelve a crecer, sin obligarte a saltar.','Termina de pie o sentado y nota cómo está tu cuerpo.']},
+    {id:'despertar',title:'Despertar neuronal en cuatro pasos',family:'Rutina guiada',tier:'plus',seconds:60,image:'assets/ilustraciones-raices/despertar-neuronal-rutina-v1.png',alt:'Queñal muestra una rutina de cuatro pasos para despertar cuerpo y atención',text:'Conecta movimiento y atención con una secuencia corta y predecible.',steps:['Da una palma y toca suavemente los muslos.','Cruza la mano derecha hacia la rodilla izquierda; cambia de lado.','Con ambos pies apoyados, dibuja dos círculos amplios con los brazos.','Pon una mano en el pecho y otra en el abdomen; respira a tu manera.','Repite una vez solo si quieres.']}
   ];
   let active=null,timer=null,remaining=0,paused=false;
   const markProgress=(routine)=>{try{const key='raices-cuerpo-progreso';const list=JSON.parse(localStorage.getItem(key)||'[]');localStorage.setItem(key,JSON.stringify([...new Set([...list,routine])]));}catch(_){}};
@@ -37,5 +40,6 @@
   $('#finish-routine').addEventListener('click',()=>{clearInterval(timer);timer=null;$('#routine-feedback').textContent='Gracias por escuchar a tu cuerpo. Esta experiencia quedó registrada sin calificación.';log('cierre','La persona terminó la rutina a su manera.');markProgress(active.id);window.RaicesPedagogy?.finish('EXPLORING');});
   function close(){clearInterval(timer);timer=null;window.speechSynthesis?.cancel();$('#routine-dialog').close();active=null;}
   $('#close-routine').addEventListener('click',close);$('#routine-dialog').addEventListener('cancel',(e)=>{e.preventDefault();close();});
+  $$('[data-feature-routine]').forEach(button=>button.addEventListener('click',()=>open(button.dataset.featureRoutine)));
   window.RaicesPedagogy?.start({id:'cuerpo-despertar',title:'Cuerpo y despertar neuronal'});renderCards();
 })();

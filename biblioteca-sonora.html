@@ -39,6 +39,7 @@
         <p class="player-choice">Puedes escuchar, leer en silencio o cerrar. Ninguna opción es obligatoria.</p>
         <audio id="recorded-audio" preload="none"></audio>
         <div class="player-controls"><button type="button" id="play-sound">▶ Escuchar</button><button type="button" id="pause-sound" disabled>Ⅱ Pausar</button><button type="button" id="stop-sound" disabled>■ Detener</button></div>
+        <div class="ambient-wave" id="ambient-wave" aria-live="polite"><span></span><span></span><span></span><span></span><span></span><b>Fondo sonoro suave en espera</b></div>
         <div class="player-progress"><div><i id="sound-progress"></i></div><span id="sound-status">Lista para comenzar</span></div>
         <label class="timer-label">Temporizador<select id="sound-timer"><option value="0">Hasta terminar</option><option value="300">Detener en 5 minutos</option><option value="600">Detener en 10 minutos</option><option value="900">Detener en 15 minutos</option></select></label>
         <button class="transcript-toggle" type="button" id="transcript-toggle" aria-expanded="false">Leer transcripción</button>
