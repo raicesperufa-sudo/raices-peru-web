@@ -1,4 +1,4 @@
-const CACHE = 'raices-app-v19';
+const CACHE = 'raices-app-v20';
 const APP_SHELL = [
   './app-raices.html',
   './zona-adulta.html',
@@ -61,6 +61,7 @@ const APP_SHELL = [
   './assets/gym-piezas-raices-sprite.png',
   './assets/personaje-quenal-v2.webp',
   './assets/ilustraciones-raices/quenal-mapa-emociones-v1.png',
+  './assets/ilustraciones-raices/quenal-taller-inventores-v1.png',
   './assets/quenual-ilustrado.webp',
   './assets/historia-queni-amigos.webp',
   './assets/ilustraciones-raices/aventura-semilla-01-v2.webp',
