@@ -236,8 +236,8 @@
     $('#feedback').textContent=`Hoy completaste ${routeLimit} momentos con el apoyo que necesitabas. Esta pregunta ayuda a observar intereses a lo largo del tiempo; una sola elección no define una capacidad ni un talento.`;
     const mappedTopics=new Set(['caballos','cohetes','estrellas','semilla',...(window.RaicesTopicLibrary?.topics||[]).map(topic=>topic.id)]);
     if (mappedTopics.has(topicId)) $('#feedback').insertAdjacentHTML('beforeend',`<br><a class="map-link" href="mapas-quenal.html#${topicId}">Abrir mapa visual de este tema</a>`);
-    const prototypeTopics=new Set(['inventos-prototipos','ingenieria-pequena','experimentos-casa','robots-movimiento','luz-sonido','ajustes-pruebas','materiales-reciclados','reto-inventor']);
-    if (prototypeTopics.has(topicId)) $('#feedback').insertAdjacentHTML('beforeend',`<br><a class="map-link" href="taller-prototipo.html#${topicId}">Armar mi propuesta de prototipo</a>`);
+    const prototypeTopics=new Set(['cohetes','inventos-prototipos','ingenieria-pequena','experimentos-casa','robots-movimiento','luz-sonido','ajustes-pruebas','materiales-reciclados','reto-inventor']);
+    if (prototypeTopics.has(topicId)) $('#feedback').insertAdjacentHTML('beforeend',`<br><a class="map-link" href="taller-prototipo.html#${topicId}">Construir un proyecto físico paso a paso</a>`);
     document.querySelectorAll('[data-reflection]').forEach((button)=>button.addEventListener('click',()=>{ document.querySelectorAll('[data-reflection]').forEach((item)=>item.classList.remove('correct')); button.classList.add('correct'); rememberReflection(topicId,button.dataset.reflection); log('interes',`Reflexión voluntaria al cierre: ${button.dataset.reflection}.`); }));
     $('#next-scene').hidden=false; $('#next-scene').textContent='Elegir otro tema'; log('cierre',`Ruta finalizada con ${routeLimit} momentos.`);
     $('#challenge').scrollIntoView({behavior:'smooth',block:'center'});

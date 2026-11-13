@@ -1,4 +1,4 @@
-const CACHE = 'raices-app-v22';
+const CACHE = 'raices-app-v23';
 const APP_SHELL = [
   './app-raices.html',
   './zona-adulta.html',
@@ -60,6 +60,8 @@ const APP_SHELL = [
   './assets/diversion-quenal.js',
   './assets/ondas-raices.js',
   './assets/taller-prototipo.js',
+  './assets/taller-prototipo-v2.js',
+  './assets/taller-prototipo-v2.css',
   './assets/cuerpo-raices.css',
   './assets/cuerpo-raices.js',
   './assets/mindfulness-ninos.css',
@@ -77,6 +79,8 @@ const APP_SHELL = [
   './assets/personaje-quenal-v2.webp',
   './assets/ilustraciones-raices/quenal-mapa-emociones-v1.png',
   './assets/ilustraciones-raices/quenal-taller-inventores-v1.png',
+  './assets/ilustraciones-raices/quenal-guia-puente-v1.webp',
+  './assets/ilustraciones-raices/quenal-guia-vehiculo-v1.webp',
   './assets/quenual-ilustrado.webp',
   './assets/historia-queni-amigos.webp',
   './assets/ilustraciones-raices/aventura-semilla-01-v2.webp',
