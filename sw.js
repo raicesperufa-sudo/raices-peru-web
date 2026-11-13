@@ -1,4 +1,4 @@
-const CACHE = 'raices-app-v23';
+const CACHE = 'raices-app-v24';
 const APP_SHELL = [
   './app-raices.html',
   './zona-adulta.html',
@@ -22,6 +22,7 @@ const APP_SHELL = [
   './biblioteca-sonora.html',
   './informe-familiar.html',
   './assets/app-raices.css',
+  './assets/app-risas.css',
   './assets/app-raices.js',
   './assets/zona-adulta.css',
   './assets/planes-raices.css',
@@ -57,7 +58,7 @@ const APP_SHELL = [
   './assets/mapas-quenal.css',
   './assets/mapas-quenal.js',
   './assets/modulos-quenal.css',
-  './assets/diversion-quenal.js',
+  './assets/diversion-quenal-v2.js',
   './assets/ondas-raices.js',
   './assets/taller-prototipo.js',
   './assets/taller-prototipo-v2.js',
