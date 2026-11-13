@@ -1,4 +1,4 @@
-const CACHE = 'raices-app-v20';
+const CACHE = 'raices-app-v21';
 const APP_SHELL = [
   './app-raices.html',
   './zona-adulta.html',
@@ -10,8 +10,10 @@ const APP_SHELL = [
   './gimnasia-cerebral.html',
   './matematicas-raices.html',
   './tablas-quenal.html',
+  './laboratorio-operaciones.html',
   './mapa-emociones.html',
   './aventuras-quenal.html',
+  './mapas-quenal.html',
   './cuerpo-raices.html',
   './mindfulness-ninos.html',
   './biblioteca-sonora.html',
@@ -37,6 +39,9 @@ const APP_SHELL = [
   './assets/matematicas-tablas-feature.css',
   './assets/tablas-quenal.css',
   './assets/tablas-quenal.js',
+  './assets/laboratorio-operaciones.css',
+  './assets/laboratorio-operaciones-polish.css',
+  './assets/laboratorio-operaciones.js',
   './assets/mapa-emociones.css',
   './assets/mapa-emociones.js',
   './assets/pedagogia-raices.js',
@@ -46,6 +51,8 @@ const APP_SHELL = [
   './assets/aventuras-biblioteca-temas.js',
   './assets/aventuras-quenal-adaptativo.js',
   './assets/aventuras-adaptativo.css',
+  './assets/mapas-quenal.css',
+  './assets/mapas-quenal.js',
   './assets/cuerpo-raices.css',
   './assets/cuerpo-raices.js',
   './assets/mindfulness-ninos.css',

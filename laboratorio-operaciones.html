@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#075f73">
+  <meta name="description" content="Laboratorio matemático interactivo de RAÍCES: representa operaciones, forma grupos y explora conjuntos con Queñal.">
+  <title>Laboratorio de operaciones · RAÍCES</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/isotipo-raices.webp">
+  <link rel="stylesheet" href="assets/laboratorio-operaciones.css?v=20261112-1">
+  <link rel="stylesheet" href="assets/laboratorio-operaciones-polish.css?v=20261112-1">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al laboratorio</a>
+  <header class="lab-topbar">
+    <a class="brand" href="matematicas-raices.html"><img src="assets/isotipo-raices.webp" alt=""><span>RAÍCES PERÚ<small>Laboratorio de operaciones</small></span></a>
+    <div><button type="button" id="voice-toggle" aria-pressed="true">🔊 Voz activa</button><a href="matematicas-raices.html">← Matemáticas</a></div>
+  </header>
+
+  <main id="contenido">
+    <section class="lab-hero">
+      <div><p class="eyebrow">Toca · representa · explica</p><h1>Las operaciones se pueden ver</h1><p>Queñal no pide adivinar. Primero construyes la situación con fichas, luego escribes el resultado y al final compruebas si ambos cuentan la misma historia.</p></div>
+      <img src="assets/personaje-quenal-v2.webp" alt="Queñal acompaña una exploración matemática">
+    </section>
+
+    <section class="route-picker" aria-labelledby="route-title">
+      <div class="section-head"><div><p class="eyebrow">15 desafíos</p><h2 id="route-title">Elige un laboratorio</h2></div><p><strong id="progress-count">0/15</strong> completados en este dispositivo</p></div>
+      <div class="route-grid">
+        <button type="button" data-mode="operations"><span>➕</span><small>Libre · 5 desafíos</small><b>Juntar y quitar</b><em>Construye sumas y restas con fichas.</em></button>
+        <button type="button" data-mode="groups"><span>🧺</span><small>Familia Plus · 5 desafíos</small><b>Grupos y reparto</b><em>Forma multiplicaciones y divisiones iguales.</em></button>
+        <button type="button" data-mode="sets"><span>⭕</span><small>Familia Plus · 5 desafíos</small><b>Conjuntos que se cruzan</b><em>Clasifica, une y encuentra intersecciones.</em></button>
+      </div>
+    </section>
+
+    <section class="workbench" id="workbench" hidden aria-live="polite">
+      <header><div><p class="eyebrow" id="mission-kicker">Desafío 1</p><h2 id="mission-title"></h2><p id="mission-prompt"></p></div><button type="button" id="close-workbench">Cambiar laboratorio</button></header>
+      <div class="stage" id="stage"></div>
+      <div class="equation" id="equation"></div>
+      <div class="result-row" id="result-row"><label for="result-input">¿Qué resultado cuenta lo mismo?</label><input id="result-input" type="number" inputmode="numeric" autocomplete="off"><button type="button" id="check-result">Comprobar</button></div>
+      <p class="feedback" id="feedback" role="status">Construye la representación antes de comprobar.</p>
+      <div class="work-actions"><button type="button" id="hear-mission">🔊 Escuchar</button><button type="button" id="show-hint">Ver una pista</button><button type="button" id="next-mission" disabled>Siguiente desafío →</button></div>
+    </section>
+
+    <section class="adult-note"><p><strong>Para acompañar:</strong> pregunta “¿qué representa cada ficha?” y “¿cómo lo comprobarías de otra manera?”. El registro describe estrategias y apoyos; no produce calificaciones ni diagnósticos.</p></section>
+  </main>
+  <script src="assets/site.js?v=20261105-1"></script>
+  <script src="assets/pedagogia-raices.js?v=20261105-1"></script>
+  <script src="assets/laboratorio-operaciones.js?v=20261112-1"></script>
+</body>
+</html>

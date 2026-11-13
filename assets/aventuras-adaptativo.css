@@ -11,6 +11,7 @@
 .reader[hidden] {
   display: none;
 }
+.atlas-promo{display:grid;grid-template-columns:1.15fr .85fr;gap:1rem;align-items:center;margin:1.2rem 0 2rem;border-radius:28px;overflow:hidden;background:linear-gradient(135deg,#e7f4f1,#f8ead8);border:1px solid #c9ded8}.atlas-promo>div{padding:clamp(1.2rem,4vw,2.5rem)}.atlas-promo h2{font-size:clamp(1.8rem,4vw,3rem);margin:.2rem 0}.atlas-promo p:not(.eyebrow){line-height:1.6;color:#52696e}.atlas-promo a,.map-link{display:inline-block;background:#075f73;color:#fff;text-decoration:none;border-radius:13px;padding:.8rem 1rem;font-weight:900}.atlas-promo img{width:100%;height:100%;min-height:280px;object-fit:cover}@media(max-width:720px){.atlas-promo{grid-template-columns:1fr}.atlas-promo img{height:260px;min-height:0}}
 
 .interest-heading {
   display: grid;

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#075f73">
+  <meta name="description" content="Mapas de descubrimiento RAÍCES: cierres visuales y aplicables de los temas explorados con Queñal.">
+  <title>Mapas de descubrimiento · RAÍCES</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/isotipo-raices.webp">
+  <link rel="stylesheet" href="assets/mapas-quenal.css?v=20261112-1">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+  <header class="map-topbar"><a class="brand" href="aventuras-quenal.html"><img src="assets/isotipo-raices.webp" alt=""><span>RAÍCES PERÚ<small>Mapas de descubrimiento</small></span></a><div><button id="voice-toggle" type="button" aria-pressed="true">🔊 Voz activa</button><a href="aventuras-quenal.html">← Aprendiendo</a></div></header>
+  <main id="contenido">
+    <section class="map-hero"><div><p class="eyebrow">Comprender · conectar · aplicar</p><h1>Una idea clara para volver a usar</h1><p>Cada mapa reúne lo esencial de un tema después de explorarlo. No reemplaza la experiencia: ayuda a recordar relaciones, reconocer una confusión frecuente y llevar la idea a otro contexto.</p></div><img src="assets/ilustraciones-raices/quenal-taller-inventores-v1.png" alt="Queñal organiza observaciones y preguntas en un taller contemporáneo"></section>
+    <section class="catalog" aria-labelledby="catalog-title"><div class="catalog-head"><div><p class="eyebrow">25 mapas · Familia Plus</p><h2 id="catalog-title">Elige un tema</h2></div><label>Filtrar<select id="category-filter"><option value="all">Todos</option><option value="naturaleza">Naturaleza</option><option value="tecnologia">Tecnología</option><option value="ciencia">Ciencia</option><option value="espacio">Espacio</option><option value="historias">Historias</option><option value="numeros">Números</option><option value="cuerpo">Cuerpo y emociones</option></select></label></div><div class="map-grid" id="map-grid"></div></section>
+    <section class="map-detail" id="map-detail" hidden aria-live="polite"><header><div><p class="eyebrow">Mapa de descubrimiento</p><h2 id="detail-title"></h2><p id="detail-summary"></p></div><button id="close-detail" type="button">Volver al catálogo</button></header><div class="map-sheet"><figure><img id="detail-image" src="" alt=""><figcaption>Una imagen orienta la conversación; la explicación y la experiencia completan el aprendizaje.</figcaption></figure><div class="map-cells"><article class="idea"><small>1 · Idea clave</small><p id="detail-fact"></p></article><article><small>2 · Conecta</small><p id="detail-compare"></p></article><article><small>3 · Pasos mentales</small><ol><li>Observa una relación.</li><li>Represéntala con palabras, objetos o dibujo.</li><li>Comprueba con otro caso y explica qué cambió.</li></ol></article><article class="alert"><small>4 · Atención</small><p>No confundas el modelo con toda la realidad ni elijas una respuesta sin explicar qué evidencia la sostiene.</p></article><article class="apply"><small>5 · Llévalo a la vida</small><p id="detail-action"></p></article><article><small>6 · Nueva situación</small><p id="detail-transfer"></p></article></div></div><div class="detail-actions"><button id="hear-map" type="button">🔊 Escuchar mapa</button><button id="mark-map" type="button">Guardar como revisado</button><a id="explore-topic" href="aventuras-quenal.html">Volver a explorar con Queñal</a></div><p id="detail-feedback" role="status"></p></section>
+  </main>
+  <script src="assets/site.js?v=20261105-1"></script>
+  <script src="assets/pedagogia-raices.js?v=20261105-1"></script>
+  <script src="assets/aventuras-biblioteca-temas.js?v=20261112-2"></script>
+  <script src="assets/mapas-quenal.js?v=20261112-1"></script>
+</body>
+</html>
