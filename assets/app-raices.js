@@ -46,16 +46,17 @@
 
   const stores = [
     ['raices-mente-progreso', 30],
-    ['raices-juegos-ludicos-progreso', 17],
+    ['raices-juegos-ludicos-progreso', 18],
     ['raices-activacion-mental-progreso', 19],
     ['raices-rompecabezas-progreso-v1', 45],
     ['raices-lectoescritura-progreso', 17],
     ['raices-gimnasia-progreso', 11],
     ['raices-matematicas-progreso', 30],
     ['raices-tablas-progreso-v1', 55],
-    ['raices-laboratorio-matematico-progreso-v1', 15],
-    ['raices-aventuras-progreso', 199],
-    ['raices-mapas-progreso-v1', 25],
+    ['raices-laboratorio-matematico-progreso-v1', 20],
+    ['raices-aventuras-progreso', 178],
+    ['raices-mapas-progreso-v1', 29],
+    ['raices-diversion-progreso-v1', 12],
     ['raices-cuerpo-progreso', 6],
     ['raices-mindfulness-progreso', 5],
     ['raices-sonora-progreso', 16]

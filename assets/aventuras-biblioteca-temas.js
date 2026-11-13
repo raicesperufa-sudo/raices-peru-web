@@ -55,9 +55,10 @@
   }
 
   const packs=Object.fromEntries(topics.map(topic=>[topic.id,makePack(topic)]));
+  const learningTopics=topics.filter(topic=>!['humor-lenguaje','anatomia-sistemas','emociones-recursos'].includes(topic.id));
   function mount(root) {
     if (!root) return;
-    root.insertAdjacentHTML('beforeend',topics.map(topic=>`<button type="button" data-topic="${topic.id}" data-categories="${topic.categories}"><img src="${art[topic.family][0]}" alt="Queñal invita a explorar ${topic.label.toLowerCase()}"><span><b>${topic.label}</b><small>Familia Plus · ${topic.summary}</small></span></button>`).join(''));
+    root.insertAdjacentHTML('beforeend',learningTopics.map(topic=>`<button type="button" data-topic="${topic.id}" data-categories="${topic.categories}"><img src="${art[topic.family][0]}" alt="Queñal invita a explorar ${topic.label.toLowerCase()}"><span><b>${topic.label}</b><small>Familia Plus · ${topic.summary}</small></span></button>`).join(''));
   }
-  window.RaicesTopicLibrary={topics,packs,mount};
+  window.RaicesTopicLibrary={topics,learningTopics,packs,mount};
 })();

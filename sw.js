@@ -1,4 +1,4 @@
-const CACHE = 'raices-app-v21';
+const CACHE = 'raices-app-v22';
 const APP_SHELL = [
   './app-raices.html',
   './zona-adulta.html',
@@ -14,6 +14,9 @@ const APP_SHELL = [
   './mapa-emociones.html',
   './aventuras-quenal.html',
   './mapas-quenal.html',
+  './diversion-quenal.html',
+  './ondas-raices.html',
+  './taller-prototipo.html',
   './cuerpo-raices.html',
   './mindfulness-ninos.html',
   './biblioteca-sonora.html',
@@ -53,11 +56,16 @@ const APP_SHELL = [
   './assets/aventuras-adaptativo.css',
   './assets/mapas-quenal.css',
   './assets/mapas-quenal.js',
+  './assets/modulos-quenal.css',
+  './assets/diversion-quenal.js',
+  './assets/ondas-raices.js',
+  './assets/taller-prototipo.js',
   './assets/cuerpo-raices.css',
   './assets/cuerpo-raices.js',
   './assets/mindfulness-ninos.css',
   './assets/mindfulness-ninos.js',
   './assets/biblioteca-sonora.css',
+  './assets/biblioteca-sonora-v2.css',
   './assets/biblioteca-sonora.js',
   './assets/biblioteca-sonora/catalogo-publico-v1.json',
   './assets/biblioteca-sonora/catalogo-protegido-v1.json',

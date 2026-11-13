@@ -29,6 +29,13 @@ MUTED = "#607176"
 LINE = "#C9D9D6"
 WHITE = "#FFFFFF"
 
+STORYBOARDS = {
+    "pies-propiocepcion-infancia-ninez": "manuales/escenas-3d/pies-que-orientan-v1.png",
+    "equilibrio-seguro-infancia-ninez": "manuales/escenas-3d/equilibrio-en-juego-v1.png",
+    "manos-motricidad-fina-infancia-ninez": "manuales/escenas-3d/manos-que-exploran-v1.png",
+    "dedos-coordinacion-intramanual-infancia-ninez": "manuales/escenas-3d/dedos-en-accion-v1.png",
+}
+
 FONT_REG = Path("C:/Windows/Fonts/segoeui.ttf")
 FONT_SEMI = Path("C:/Windows/Fonts/seguisb.ttf")
 FONT_BLACK = Path("C:/Windows/Fonts/seguibl.ttf")
@@ -96,6 +103,20 @@ def image_panel(page, source, box, radius=30):
     mask = Image.new("L", crop.size, 0)
     md = ImageDraw.Draw(mask)
     md.rounded_rectangle((0, 0, crop.width, crop.height), radius=radius, fill=255)
+    page.paste(crop, (box[0], box[1]), mask)
+
+
+def storyboard_panel(page, slug, index, box, radius=26):
+    """Place one 3D Queñal scene from a 4 x 2 storyboard."""
+    source = Image.open(ASSETS / STORYBOARDS[slug]).convert("RGB")
+    cell_w, cell_h = source.width // 4, source.height // 2
+    col, row = index % 4, index // 4
+    inset = max(8, round(min(cell_w, cell_h) * 0.025))
+    scene = source.crop((col * cell_w + inset, row * cell_h + inset,
+                         (col + 1) * cell_w - inset, (row + 1) * cell_h - inset))
+    crop = cover_crop(scene, box)
+    mask = Image.new("L", crop.size, 0)
+    ImageDraw.Draw(mask).rounded_rectangle((0, 0, crop.width, crop.height), radius=radius, fill=255)
     page.paste(crop, (box[0], box[1]), mask)
 
 
@@ -472,7 +493,11 @@ def activity_page(manual, number, activity):
     name, goal, kind, steps, levels, note = activity
     page, d = base_page(number, manual)
     y = title(d, name, goal, size=39)
-    visual(d, kind, (58, y + 20, 812, y + 280), manual["accent"])
+    visual_box = (58, y + 20, 812, y + 280)
+    if manual["slug"] in STORYBOARDS:
+        storyboard_panel(page, manual["slug"], number - 3, visual_box)
+    else:
+        visual(d, kind, visual_box, manual["accent"])
     sy = y + 312
     colors = [TEAL, GREEN, TERRA]
     for i, (head, body) in enumerate(steps):

@@ -6,14 +6,22 @@
   const memory = (prompt, items, question, options, answer, cue = 'Mira, recuerda y responde cuando se cubran las tarjetas.') => ({type:'memory', prompt, items, question, options, answer, cue});
   const tap = (prompt, cells, targets, cue = 'Toca únicamente los elementos indicados.') => ({type:'tap', prompt, cells, targets, cue});
   const typing = (prompt, visual, answers, cue = 'Escribe la respuesta y luego comprueba.') => ({type:'typing', prompt, visual, answers, cue});
+  const match = (prompt, pieces, bins, answer, cue = 'Mueve cada pieza al lugar que le corresponde.') => ({type:'match', prompt, pieces, bins, answer, cue});
   const game = (id, title, icon, group, description, rounds) => ({id, title, icon, group, description, rounds});
 
   const collections = {
     ludicas: {
       label: 'Lúdicas interactivas',
       storage: 'raices-juegos-ludicos-progreso',
-      groups: {visual:'Atención visual', patrones:'Patrones', lenguaje:'Lenguaje', comprension:'Comprensión'},
+      groups: {manipulable:'Mover y juntar',visual:'Atención visual', patrones:'Patrones', lenguaje:'Lenguaje', comprension:'Comprensión'},
       games: [
+        game('l0','Junta las luces de Queñal','🔵','manipulable','Mueve círculos, compara propiedades y forma grupos visibles.',[
+          match('Lleva cada luz al grupo de su color.',['🔵','🔴','🔵','🔴'],['Azules','Rojas'],[0,1,0,1]),
+          match('Junta las luces por tamaño.',['●','•','●','•'],['Grandes','Pequeñas'],[0,1,0,1]),
+          match('Separa figuras redondas y figuras con puntas.',['🔵','⭐','🟢','🔺'],['Redondas','Con puntas'],[0,1,0,1]),
+          match('Forma dos colecciones según el número.',['1','2','3','4','5','6'],['Impares','Pares'],[0,1,0,1,0,1]),
+          match('Reto final: mira color y forma al mismo tiempo.',['🔵','🔷','🔴','🔶'],['Círculos','Rombos'],[0,1,0,1])
+        ]),
         game('l1','Detective de colores','🎨','visual','Sigue claves de color y descubre la respuesta.',[
           choice('¿Qué color resulta al mezclar azul y amarillo?','<span class="tile" style="background:#4b8fcb">🔵</span><b>+</b><span class="tile" style="background:#f3ca52">🟡</span>',['Verde','Naranja','Morado'],0),
           choice('Encuentra el color que no pertenece al grupo frío.','<span class="tile" style="background:#4b8fcb"></span><span class="tile" style="background:#60b7a7"></span><span class="tile" style="background:#ef8b55"></span><span class="tile" style="background:#8666b4"></span>',['Azul','Naranja','Morado'],1),
@@ -484,7 +492,7 @@
   }
   function renderRound(){
     cleanRound(); cleanRound=()=>{}; const round=currentGame.rounds[currentRound]; completeButton.disabled=true; completeButton.textContent='Completa los retos';
-    if(round.type==='choice') renderChoice(round); else if(round.type==='order') renderOrder(round); else if(round.type==='memory') renderMemory(round); else if(round.type==='tap') renderTap(round); else renderTyping(round);
+    if(round.type==='choice') renderChoice(round); else if(round.type==='order') renderOrder(round); else if(round.type==='memory') renderMemory(round); else if(round.type==='tap') renderTap(round); else if(round.type==='match') renderMatch(round); else renderTyping(round);
   }
   function base(round,inside){return `${guide(round.cue)}${levelBar()}<p class="collection-prompt">${round.prompt}</p>${round.visual?`<div class="collection-visual">${round.visual}</div>`:''}${inside}${feedback()}`}
   function renderChoice(round){
@@ -506,6 +514,14 @@
   function renderTap(round){
     dialogBody.innerHTML=base(round,`<div class="collection-tap-grid" style="--tap-cols:${Math.min(8,round.cells.length)};--tap-mobile-cols:${Math.min(5,round.cells.length)}">${round.cells.map((item,index)=>`<button type="button" data-cell="${index}">${item}</button>`).join('')}</div>`);bindGuide(round);const found=new Set();
     dialogBody.querySelectorAll('[data-cell]').forEach(button=>button.onclick=()=>{const index=Number(button.dataset.cell);if(round.targets.includes(index)){button.disabled=true;button.classList.add('selected');found.add(index);tone(420+found.size*40,.09);setFeedback(`Encontraste ${found.size} de ${round.targets.length}.`,found.size===round.targets.length?'success':'');if(found.size===round.targets.length)success('¡Los encontraste todos!')}else{button.classList.add('wrong');setTimeout(()=>button.classList.remove('wrong'),450);coach('Ese elemento no es el objetivo. Mira la consigna y continúa.')}});
+  }
+  function renderMatch(round){
+    const placed=Array(round.pieces.length).fill(null);let selected=null;
+    dialogBody.innerHTML=base(round,`<div class="match-workspace"><div class="match-pieces" aria-label="Piezas para mover">${round.pieces.map((item,index)=>`<button class="match-piece" type="button" draggable="true" data-piece="${index}"><span>${item}</span><small>Pieza ${index+1}</small></button>`).join('')}</div><div class="match-bins">${round.bins.map((bin,index)=>`<button class="match-bin" type="button" data-bin="${index}"><b>${bin}</b><span></span></button>`).join('')}</div></div><div class="collection-actions"><button class="collection-action primary" type="button" data-check-match>Comprobar grupos</button><button class="collection-action" type="button" data-reset-match>Volver a mover</button></div>`);bindGuide(round);
+    const paint=()=>{dialogBody.querySelectorAll('[data-piece]').forEach(button=>{const i=+button.dataset.piece;button.classList.toggle('is-selected',selected===i);button.classList.toggle('is-placed',placed[i]!==null);button.setAttribute('aria-pressed',String(selected===i))});dialogBody.querySelectorAll('[data-bin]').forEach(bin=>{const i=+bin.dataset.bin;bin.querySelector('span').innerHTML=placed.map((place,piece)=>place===i?`<i>${round.pieces[piece]}</i>`:'').join('')})};
+    const put=(bin)=>{if(selected===null)return;placed[selected]=bin;tone(360+bin*80,.08);selected=null;paint()};
+    dialogBody.querySelectorAll('[data-piece]').forEach(button=>{button.onclick=()=>{selected=+button.dataset.piece;paint()};button.ondragstart=e=>{selected=+button.dataset.piece;e.dataTransfer.setData('text/plain',button.dataset.piece)}});dialogBody.querySelectorAll('[data-bin]').forEach(bin=>{bin.onclick=()=>put(+bin.dataset.bin);bin.ondragover=e=>e.preventDefault();bin.ondrop=e=>{e.preventDefault();selected=Number(e.dataTransfer.getData('text/plain'));put(+bin.dataset.bin)}});
+    dialogBody.querySelector('[data-reset-match]').onclick=()=>{placed.fill(null);selected=null;paint()};dialogBody.querySelector('[data-check-match]').onclick=()=>{if(placed.some(x=>x===null)){coach('Todavía quedan piezas por mover. Elige una y toca su grupo.');return}if(placed.every((x,i)=>x===round.answer[i]))success('¡Cada pieza llegó a un grupo que explica su propiedad!');else coach('Algunas piezas pueden cambiar de grupo. Compara una propiedad a la vez.')} ;paint();
   }
   function renderTyping(round){
     dialogBody.innerHTML=base(round,`<label class="collection-input"><span>Tu respuesta</span><input type="text" autocomplete="off" placeholder="Escribe aquí"></label><div class="collection-actions"><button type="button" class="collection-action primary" data-check>Comprobar</button></div>`);bindGuide(round);const input=dialogBody.querySelector('input'),check=dialogBody.querySelector('[data-check]');const verify=()=>{if(round.answers.map(normalize).includes(normalize(input.value))){input.disabled=true;check.disabled=true;success('¡La palabra quedó completa!')}else{input.focus();coach('Revisa el sonido o el orden de las letras y vuelve a intentar.')}};check.onclick=verify;input.onkeydown=event=>{if(event.key==='Enter')verify()};
