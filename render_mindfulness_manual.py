@@ -244,14 +244,9 @@ def page_06():
     page, d = base_page(6, "Práctica 3")
     title(d, 110, "Un mapa del cuerpo", "sin corregirlo")
     text_block(d, (60, 240), "Recorra el cuerpo de abajo hacia arriba. En cada zona basta con notar una palabra: cómodo, tenso, caliente, frío, inquieto o sin señal clara.", font(19), INK, 740, 9)
-    # Simple body map illustration.
-    cx = 230
-    d.ellipse((cx - 42, 380, cx + 42, 464), outline=TEAL, width=8)
-    d.line((cx, 464, cx, 730), fill=TEAL, width=12)
-    d.line((cx, 520, cx - 105, 625), fill=TEAL, width=11)
-    d.line((cx, 520, cx + 105, 625), fill=TEAL, width=11)
-    d.line((cx, 728, cx - 80, 920), fill=TEAL, width=12)
-    d.line((cx, 728, cx + 80, 920), fill=TEAL, width=12)
+    image_panel(page, "ilustraciones-raices/cuerpo-01-v2.webp", (58, 390, 385, 835), 30)
+    round_rect(d, (78, 856, 365, 945), PALE_GREEN, None, 22)
+    text_block(d, (100, 880), "Recorre a Queñal desde los pies hasta el rostro.", font(15, bold=True), NAVY, 245, 5)
     zones = [
         ("PIES", "¿Necesitan apoyo o movimiento?", GREEN),
         ("ABDOMEN", "¿Hay espacio, presión o cambio?", TERRA),
