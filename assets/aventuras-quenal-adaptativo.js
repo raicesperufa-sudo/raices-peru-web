@@ -10,7 +10,7 @@
     tecnologia: { label:'Tecnología', prompt:'Elige una creación para observar cómo funciona y cómo podría mejorar.' },
     ciencia: { label:'Ciencia', prompt:'Elige un fenómeno para observar, comparar y hacer preguntas.' },
     espacio: { label:'Espacio', prompt:'Elige entre una misión o los patrones del cielo.' },
-    historias: { label:'Historias y palabras', prompt:'Elige entre lectura, humor, cartas, biografías o mundos imaginados.' },
+    historias: { label:'Historias y palabras', prompt:'Elige entre lectura, cartas, biografías o mundos imaginados. Los chistes viven en su propia sección de Risas.' },
     numeros: { label:'Números y patrones', prompt:'Elige una ruta para representar, comparar y explicar relaciones matemáticas.' },
     cuerpo: { label:'Cuerpo y emociones', prompt:'Elige una ruta para comprender sistemas, señales y recursos de cuidado.' },
     propio: { label:'Mi propio tema', prompt:'Cuéntale a Queñal qué te causa curiosidad.' }
@@ -100,6 +100,14 @@
   const profileLabel = (id) => packs[id]?.label || 'otros temas';
   const updateInterestMemory = () => {
     const profile = readProfile();
+    let cleaned = false;
+    ['choices','returnInterest','completed'].forEach((group) => {
+      if (profile[group]?.['humor-lenguaje'] !== undefined) {
+        delete profile[group]['humor-lenguaje'];
+        cleaned = true;
+      }
+    });
+    if (cleaned) writeProfile(profile);
     const choices = profile.choices || {};
     const returns = profile.returnInterest || {};
     const top = Object.keys(packs).map((id) => [id, (choices[id] || 0) + (returns[id] || 0) * 2]).sort((a,b) => b[1] - a[1])[0];

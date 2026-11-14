@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#075f73"><meta name="description" content="Repaso interactivo por grado con Queñal, sin notas ni comparaciones.">
+  <title>Repasando con Queñal · RAÍCES</title>
+  <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="assets/isotipo-raices.webp">
+  <link rel="stylesheet" href="assets/repasando-quenal.css?v=20261114-1">
+  <script defer src="assets/site.js?v=20261105-1"></script><script defer src="assets/repasando-quenal.js?v=20261114-1"></script>
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+  <header><a href="app-raices.html"><img src="assets/isotipo-raices.webp" alt=""><span>RAÍCES PERÚ<small>Repasando con Queñal</small></span></a><nav><a href="matematicas-raices.html">Matemáticas</a><a href="juegos-lectoescritura.html">Letras</a><a href="app-raices.html">App</a></nav></header>
+  <main id="contenido">
+    <section class="review-hero"><div><p class="eyebrow">Familia Plus · rutas por grado</p><h1>Repasando con Queñal</h1><p>Preguntas originales para recordar, representar y explicar. No hay nota, ranking ni cronómetro: cada respuesta abre una pista o el siguiente paso.</p></div><img src="assets/personaje-quenal-v2.webp" alt="Queñal acompaña un repaso escolar amable"></section>
+    <section class="review-setup" id="selector"><div><p class="eyebrow">Elige una ruta breve</p><h2>¿Qué quieres repasar hoy?</h2></div><label>Grado<select id="review-grade"><option value="1">1.º primaria</option><option value="2">2.º primaria</option><option value="3">3.º primaria</option><option value="4">4.º primaria</option><option value="5">5.º primaria</option><option value="6">6.º primaria</option></select></label><label>Área<select id="review-area"><option value="matematica">Matemática</option><option value="comunicacion">Comunicación</option><option value="ciencia">Ciencia y ambiente</option></select></label><button id="review-start" type="button">Comenzar 5 preguntas</button><p class="review-note">La selección orienta la dificultad aproximada; no evalúa ni diagnostica.</p></section>
+    <section class="review-game" id="review-game" hidden aria-live="polite"><div class="review-progress"><b id="review-route"></b><span id="review-step"></span><progress id="review-progress" max="5" value="1"></progress></div><div class="review-quenal"><img src="assets/personaje-quenal-v2.webp" alt=""><p id="review-guide">Mira la pregunta con calma.</p><button id="review-listen" type="button">🔊 Escuchar</button></div><div class="review-visual" id="review-visual"></div><h2 id="review-question"></h2><div class="review-options" id="review-options"></div><p class="review-feedback" id="review-feedback">Elige cuando estés listo.</p><button class="review-next" id="review-next" type="button" hidden>Siguiente pregunta</button></section>
+  </main>
+</body>
+</html>

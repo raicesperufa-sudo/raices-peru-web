@@ -7,6 +7,7 @@
   const tap = (prompt, cells, targets, cue = 'Toca únicamente los elementos indicados.') => ({type:'tap', prompt, cells, targets, cue});
   const typing = (prompt, visual, answers, cue = 'Escribe la respuesta y luego comprueba.') => ({type:'typing', prompt, visual, answers, cue});
   const match = (prompt, pieces, bins, answer, cue = 'Mueve cada pieza al lugar que le corresponde.') => ({type:'match', prompt, pieces, bins, answer, cue});
+  const pixel = (prompt, size, targets, cue = 'Mira el modelo y marca en la cuadrícula los mismos cuadrados.') => ({type:'pixel', prompt, size, targets, cue});
   const game = (id, title, icon, group, description, rounds) => ({id, title, icon, group, description, rounds});
 
   const collections = {
@@ -36,12 +37,12 @@
           tap('Toca solo las hojas.',['🍃','🌼','🍂','🍃','🌿','🌼','🍃','🍂','🌼','🍃','🌿','🍂'],[0,3,6,9]),
           tap('Encuentra las cinco lupas.',['🔍','🔎','🧭','🔍','🗝️','🔎','🔍','🧭','🔍','🔎','🗝️','🔍'],[0,3,6,8,11])
         ]),
-        game('l3','Patrones que crecen','🧩','patrones','Completa secuencias de figuras, colores y cantidades.',[
-          choice('¿Qué sigue?','<span class="tile">●</span><span class="tile">▲</span><span class="tile">●</span><span class="tile">▲</span><span class="tile">?</span>',['●','▲','■'],0),
-          choice('¿Qué sigue?','<span class="tile">🔴</span><span class="tile">🔴</span><span class="tile">🔵</span><span class="tile">🔴</span><span class="tile">🔴</span><span class="tile">?</span>',['🔵','🔴','🟢'],0),
-          choice('La cantidad aumenta de uno en uno.','<span class="tile">★</span><span class="tile">★★</span><span class="tile">★★★</span><span class="tile">?</span>',['★★★★','★★','★★★★★'],0),
-          choice('Observa el giro. ¿Qué posición sigue?','<span class="tile">↑</span><span class="tile">→</span><span class="tile">↓</span><span class="tile">?</span>',['←','↑','↗'],0),
-          choice('Combina color y forma.','<span class="tile">🔵</span><span class="tile">🔺</span><span class="tile">🟢</span><span class="tile">🔵</span><span class="tile">🔺</span><span class="tile">?</span>',['🟢','🔵','🔺'],0)
+        game('l3','Patrones en píxeles','🧩','patrones','Observa un modelo y reconstruye su forma marcando cuadrados.',[
+          pixel('Copia la escalera de cuatro píxeles.',4,[0,5,10,15]),
+          pixel('Reconstruye la flecha que apunta hacia arriba.',5,[2,6,7,8,12,17,22]),
+          pixel('Marca los cuadrados del marco abierto.',5,[0,1,2,3,4,5,9,10,14,15,19,20,24]),
+          pixel('Copia el patrón simétrico de Queñal.',6,[2,3,7,10,12,17,18,23,25,28,32,33]),
+          pixel('Reto final: reconstruye el pequeño queñual.',6,[2,3,7,8,9,10,14,15,20,21,25,28,31,34])
         ]),
         game('l4','Reto visual relámpago','👀','visual','Mira unos segundos y recupera la información.',[
           memory('Recuerda los tres objetos.',['🍎','🔑','🌙'],'¿Cuál estaba en el centro?',['🍎','🔑','🌙'],1),
@@ -279,6 +280,27 @@
           memory('Mira el ritmo.',['👏','🫳','👏','🫳'],'¿Qué gesto fue tercero?',['Palma','Mesa','Pausa'],0),
           order('Ordena el ritmo de cinco pasos.',['Pausa','Palma','Mesa','Palma','Mesa'],['Palma','Mesa','Palma','Pausa','Mesa']),
           memory('Ritmo final de seis pulsos.',['👏','🫳','🤫','👏','🫳','👏'],'¿Cuáles fueron los dos últimos?',['Mesa y palma','Palma y mesa','Pausa y palma'],0)
+        ]),
+        game('a20','Figura entre el fondo','🎯','atencion','Distingue una figura objetivo entre elementos que comparten rasgos.',[
+          tap('Encuentra los cuatro soles entre las flores.',['🌼','☀️','🌸','🌼','☀️','🌺','🌻','☀️','🌼','🌸','☀️','🌺'],[1,4,7,10]),
+          tap('Toca solamente los triángulos que apuntan arriba.',['▲','▼','◆','▲','▶','▼','▲','◀','◆','▲','▼','●'],[0,3,6,9]),
+          tap('Busca las cinco hojas iguales.',['🍃','🌿','🍂','🍃','🍀','🌿','🍃','🍂','🍃','🍀','🌿','🍃'],[0,3,6,8,11]),
+          tap('Encuentra las letras B entre las D y P.',['D','B','P','D','B','P','B','D','P','B','D','B'],[1,4,6,9,11]),
+          tap('Reto final: toca los cinco pares idénticos.',['●●','▲▼','★★','AB·BA','🍃🍃','12·21','■■','LR·RL','🌙🌙'],[0,2,4,6,8])
+        ]),
+        game('a21','Descubre la regla','🔍','codigos','Compara ejemplos y decide qué regla explica el grupo.',[
+          choice('Pertenecen al grupo: 2, 4, 6. ¿Cuál también pertenece?','<span class="big">2 · 4 · 6</span>',['7','8','9'],1),
+          choice('Pertenecen: sol, sal, silla. ¿Qué comparten?','<span class="big">SOL · SAL · SILLA</span>',['Empiezan con S','Tienen tres letras','Son objetos'],0),
+          choice('Pertenecen: 🔵 🟢 🟡. ¿Cuál completa el grupo?','<span class="big">🔵 🟢 🟡</span>',['🔴','🟧','🔺'],0),
+          choice('Pertenecen: 10, 20, 30. ¿Qué número continúa la regla?','<span class="big">10 · 20 · 30</span>',['31','35','40'],2),
+          choice('Reto final: A1, B2, C3. ¿Qué pareja sigue?','<span class="big">A1 · B2 · C3</span>',['D4','D3','E4'],0)
+        ]),
+        game('a22','Parejas de color y lugar','🎨','memoria','Recuerda simultáneamente qué viste y dónde estaba.',[
+          memory('Mira las tres posiciones.',['🔴','🟡','🔵'],'¿Qué color estaba al centro?',['Rojo','Amarillo','Azul'],1),
+          memory('Relaciona figura y color.',['🔵●','🟡▲','🟢■'],'¿Qué figura era verde?',['Círculo','Triángulo','Cuadrado'],2),
+          memory('Recuerda objeto y posición.',['🔑 izquierda','🌙 centro','🌿 derecha'],'¿Qué estaba a la izquierda?',['Llave','Luna','Hoja'],0),
+          memory('Mira la fila completa.',['A🔴','B🔵','C🟢','D🟡'],'¿Qué color acompañaba a C?',['Azul','Verde','Amarillo'],1),
+          memory('Reto final de cinco asociaciones.',['1🌟','2🌿','3💧','4🌙','5🔥'],'¿Qué imagen acompañaba al 4?',['Luna','Fuego','Estrella'],0)
         ])
       ]
     },
@@ -404,6 +426,13 @@
           choice('Empieza con C, termina con A y sirve para vivir.','<span class="big">C _ _ A</span>',['Casa','Cama','Copa'],0),
           choice('Tiene dos sílabas, empieza con LU y aparece de noche.','<span class="big">LU _ _</span>',['Luna','Lupa','Luz'],0),
           typing('Completa la palabra del dibujo.','<span class="big">🦙 LLA _ A</span>',['llama','ma'])
+        ]),
+        game('e18','Letras que cambian de lugar','🧭','vocales','Distingue p, b, d y q por su orientación y por el sonido inicial.',[
+          tap('Toca solamente las letras p.',['p','q','b','p','d','q','p','b','d','p'],[0,3,6,9]),
+          tap('Ahora toca solamente las letras b.',['d','b','q','p','b','d','b','q','p','b'],[1,4,6,9]),
+          choice('¿Con qué letra empieza PELOTA?','<span class="big">⚽ PELOTA</span>',['p','b','d'],0),
+          choice('¿Con qué letra empieza DADO?','<span class="big">🎲 DADO</span>',['q','d','b'],1),
+          tap('Reto final: toca las parejas exactamente iguales.',['pb·pb','dq·qd','bd·bd','qp·pq','pd·pd','qb·bq'],[0,2,4])
         ])
       ]
     }
@@ -492,7 +521,7 @@
   }
   function renderRound(){
     cleanRound(); cleanRound=()=>{}; const round=currentGame.rounds[currentRound]; completeButton.disabled=true; completeButton.textContent='Completa los retos';
-    if(round.type==='choice') renderChoice(round); else if(round.type==='order') renderOrder(round); else if(round.type==='memory') renderMemory(round); else if(round.type==='tap') renderTap(round); else if(round.type==='match') renderMatch(round); else renderTyping(round);
+    if(round.type==='choice') renderChoice(round); else if(round.type==='order') renderOrder(round); else if(round.type==='memory') renderMemory(round); else if(round.type==='tap') renderTap(round); else if(round.type==='match') renderMatch(round); else if(round.type==='pixel') renderPixel(round); else renderTyping(round);
   }
   function base(round,inside){return `${guide(round.cue)}${levelBar()}<p class="collection-prompt">${round.prompt}</p>${round.visual?`<div class="collection-visual">${round.visual}</div>`:''}${inside}${feedback()}`}
   function renderChoice(round){
@@ -514,6 +543,15 @@
   function renderTap(round){
     dialogBody.innerHTML=base(round,`<div class="collection-tap-grid" style="--tap-cols:${Math.min(8,round.cells.length)};--tap-mobile-cols:${Math.min(5,round.cells.length)}">${round.cells.map((item,index)=>`<button type="button" data-cell="${index}">${item}</button>`).join('')}</div>`);bindGuide(round);const found=new Set();
     dialogBody.querySelectorAll('[data-cell]').forEach(button=>button.onclick=()=>{const index=Number(button.dataset.cell);if(round.targets.includes(index)){button.disabled=true;button.classList.add('selected');found.add(index);tone(420+found.size*40,.09);setFeedback(`Encontraste ${found.size} de ${round.targets.length}.`,found.size===round.targets.length?'success':'');if(found.size===round.targets.length)success('¡Los encontraste todos!')}else{button.classList.add('wrong');setTimeout(()=>button.classList.remove('wrong'),450);coach('Ese elemento no es el objetivo. Mira la consigna y continúa.')}});
+  }
+  function renderPixel(round){
+    const cells=Array.from({length:round.size*round.size},(_,index)=>index);
+    dialogBody.innerHTML=base(round,`<div class="pixel-workspace"><div><b>Modelo</b><div class="pixel-board pixel-model" style="--pixel-size:${round.size}">${cells.map(index=>`<span class="${round.targets.includes(index)?'is-on':''}"></span>`).join('')}</div></div><div><b>Tu cuadrícula</b><div class="pixel-board pixel-play" style="--pixel-size:${round.size}">${cells.map(index=>`<button type="button" data-pixel="${index}" aria-label="Cuadrado ${index+1}" aria-pressed="false"></button>`).join('')}</div></div></div><div class="collection-actions"><button class="collection-action primary" type="button" data-check-pixels>Comprobar patrón</button><button class="collection-action" type="button" data-clear-pixels>Limpiar</button></div>`);bindGuide(round);
+    const selected=new Set();
+    const paint=()=>dialogBody.querySelectorAll('[data-pixel]').forEach(button=>{const on=selected.has(+button.dataset.pixel);button.classList.toggle('is-on',on);button.setAttribute('aria-pressed',String(on))});
+    dialogBody.querySelectorAll('[data-pixel]').forEach(button=>button.onclick=()=>{const index=+button.dataset.pixel;selected.has(index)?selected.delete(index):selected.add(index);tone(selected.has(index)?440:260,.07);paint()});
+    dialogBody.querySelector('[data-clear-pixels]').onclick=()=>{selected.clear();paint()};
+    dialogBody.querySelector('[data-check-pixels]').onclick=()=>{const exact=selected.size===round.targets.length&&round.targets.every(index=>selected.has(index));if(exact)success('¡Reconstruiste el patrón píxel por píxel!');else coach('Compara filas y columnas. Puedes encender o apagar cada cuadrado y volver a comprobar.')};
   }
   function renderMatch(round){
     const placed=Array(round.pieces.length).fill(null);let selected=null;

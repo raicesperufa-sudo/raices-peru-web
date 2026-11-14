@@ -12,6 +12,35 @@
     inventores: Array(7).fill('assets/ilustraciones-raices/quenal-taller-inventores-v1.png')
   };
 
+  // Cada tema necesita una portada propia. Las familias siguen compartiendo un
+  // lenguaje visual, pero el catálogo ya no repite la primera imagen del grupo.
+  const topicCovers = {
+    'animales-habitats':'assets/ilustraciones-raices/aventura-caballos-02-v1.webp',
+    'dinosaurios-evidencia':'assets/ilustraciones-raices/aventura-caballos-05-v1.webp',
+    'biologia-viva':'assets/ilustraciones-raices/cuerpo-02-v2.webp',
+    'fisica-cotidiana':'assets/ilustraciones-raices/aventura-cohetes-04-v1.webp',
+    'quimica-segura':'assets/ilustraciones-raices/aventura-semilla-03-v2.webp',
+    'geografia-mapas':'assets/ilustraciones-raices/aventura-caballos-04-v1.webp',
+    'astronomia-universo':'assets/ilustraciones-raices/aventura-estrellas-02-v1.webp',
+    'einstein-preguntas':'assets/biblioteca-sonora/n01-v1.webp',
+    'personajes-preguntaron':'assets/biblioteca-sonora/n02-v1.webp',
+    'inventos-prototipos':'assets/ilustraciones-raices/aventura-cohetes-03-v1.webp',
+    'ingenieria-pequena':'assets/ilustraciones-raices/quenal-guia-puente-v1.webp',
+    'experimentos-casa':'assets/ilustraciones-raices/aventura-semilla-02-v2.webp',
+    'historias-preguntas':'assets/ilustraciones-raices/aventura-estrellas-06-v1.webp',
+    'lectura-habito':'assets/ilustraciones-raices/aventura-caballos-03-v1.webp',
+    'cartas-patrones':'assets/ilustraciones-raices/aventura-estrellas-03-v1.webp',
+    'matematicas-patrones':'assets/ilustraciones-raices/aventura-estrellas-04-v1.webp',
+    'multiplicar-color':'assets/ilustraciones-raices/aventura-estrellas-05-v1.webp',
+    'anatomia-sistemas':'assets/ilustraciones-raices/cuerpo-01-v2.webp',
+    'emociones-recursos':'assets/ilustraciones-raices/quenal-mapa-emociones-v1.png',
+    'robots-movimiento':'assets/ilustraciones-raices/quenal-taller-inventores-v1.png',
+    'luz-sonido':'assets/ilustraciones-raices/quenal-guia-vehiculo-v1.webp',
+    'ajustes-pruebas':'assets/ilustraciones-raices/despertar-neuronal-rutina-v1.png',
+    'materiales-reciclados':'assets/ilustraciones-raices/cuerpo-animales-rutina-v1.png',
+    'reto-inventor':'assets/ilustraciones-raices/aventura-cohetes-07-v1.webp'
+  };
+
   const topics = [
     {id:'animales-habitats',label:'Animales y hábitats',categories:'naturaleza ciencia',family:'naturaleza',summary:'grupos, ambientes, récords y cuidado',focus:'cómo las características de un animal se relacionan con su ambiente',fact:'Los animales se agrupan por características compartidas, pero cada especie necesita observarse en su propio ambiente.',compare:'un pez y un mamífero pueden moverse de manera distinta porque su cuerpo y su ambiente plantean necesidades diferentes',action:'observar sin tocar, describir tres rasgos y relacionarlos con el lugar donde vive',transfer:'comparar otro animal sin decidir que uno es mejor'},
     {id:'dinosaurios-evidencia',label:'Dinosaurios y fósiles',categories:'naturaleza ciencia historias',family:'naturaleza',summary:'fósiles, tiempos y reconstrucciones',focus:'cómo la evidencia permite reconstruir seres del pasado',fact:'Los fósiles ofrecen pistas, pero una reconstrucción científica puede cambiar cuando aparece nueva evidencia.',compare:'un hueso, una huella y un nido fósil aportan tipos de información diferentes',action:'separar lo que la pista muestra de lo que todavía es una hipótesis',transfer:'revisar una explicación cuando aparece una pista nueva'},
@@ -40,7 +69,11 @@
   ];
 
   function makePack(topic) {
-    const images=art[topic.family] || art.ciencia;
+    const familyImages=art[topic.family] || art.ciencia;
+    const cover=topicCovers[topic.id] || familyImages[0];
+    const distinct=familyImages.filter(image=>image!==cover);
+    const images=[cover,...distinct];
+    while(images.length<7) images.push(familyImages[images.length%familyImages.length]);
     const base=(suffix,phase,title,narration,question,answers,hint,index,mode)=>({id:`${topic.id}-${suffix}`,phase,method:'pregunta, evidencia y transferencia',title,image:images[index],alt:`Queñal explora ${topic.label.toLowerCase()} mediante una actividad visual`,caption:`La imagen acompaña una exploración original sobre ${topic.focus}.`,narration,question,answers,...(mode?{mode}:{answer:0}),hint});
     return {title:`Queñal explora ${topic.label}`,label:topic.label,maxSteps:7,intro:`Una ruta original para investigar ${topic.focus}. Empieza con tres momentos y puede crecer hasta siete.`,scenes:[
       base('observar','Observar','Una pregunta abre el camino',`Queñal decidió investigar ${topic.focus}. Antes de buscar una respuesta rápida, reunió una idea inicial: ${topic.fact}`,`¿Qué forma de comenzar ayuda más?`,['Observar y formular una pregunta','Elegir una respuesta sin mirar','Memorizar una palabra sin relacionarla'],'Busca la opción que permita reunir información.',0),
@@ -57,7 +90,7 @@
   const learningTopics=topics.filter(topic=>!['anatomia-sistemas','emociones-recursos'].includes(topic.id));
   function mount(root) {
     if (!root) return;
-    root.insertAdjacentHTML('beforeend',learningTopics.map(topic=>`<button type="button" data-topic="${topic.id}" data-categories="${topic.categories}"><img src="${art[topic.family][0]}" alt="Queñal invita a explorar ${topic.label.toLowerCase()}"><span><b>${topic.label}</b><small>Familia Plus · ${topic.summary}</small></span></button>`).join(''));
+    root.insertAdjacentHTML('beforeend',learningTopics.map(topic=>`<button type="button" data-topic="${topic.id}" data-categories="${topic.categories}"><img src="${topicCovers[topic.id] || art[topic.family][0]}" alt="Queñal invita a explorar ${topic.label.toLowerCase()}"><span><b>${topic.label}</b><small>Familia Plus · ${topic.summary}</small></span></button>`).join(''));
   }
   window.RaicesTopicLibrary={topics,learningTopics,packs,mount};
 })();
