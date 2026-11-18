@@ -66,6 +66,7 @@ if (nav) {
     'app-raices.html': 'Hola, soy Queñal. Vamos a divertirnos. Mira, escucha, toca, compara, prueba y vuelve a intentar.',
     'mente-en-raices.html': 'Hola, soy Queñal. Elige una aventura. Yo leeré las instrucciones y te acompañaré paso a paso.',
     'juegos-ludicos.html': 'Hola, soy Queñal. Vamos a observar, comparar y descubrir jugando.',
+    'codigos-raices.html': 'Hola, soy Queñal. Mira la clave, elige una pieza y prueba dónde puede ir. Yo te acompañaré paso a paso.',
     'activacion-mental.html': 'Hola, soy Queñal. Prepararemos el cuerpo y la mente con retos breves.',
     'juegos-lectoescritura.html': 'Hola, soy Queñal. Escucharemos sonidos, formaremos palabras y leeremos a nuestro ritmo.',
     'gimnasia-cerebral.html': 'Hola, soy Queñal. Mueve tus manos y tu cuerpo con calma. Puedes hacer una pausa cuando quieras.',

@@ -1,9 +1,10 @@
-const CACHE = 'raices-app-v26';
+const CACHE = 'raices-app-v27';
 const APP_SHELL = [
   './app-raices.html',
   './zona-adulta.html',
   './mente-en-raices.html',
   './juegos-ludicos.html',
+  './codigos-raices.html',
   './activacion-mental.html',
   './juegos-lectoescritura.html',
   './pintar-mandalas.html',
@@ -36,6 +37,8 @@ const APP_SHELL = [
   './assets/site.js',
   './assets/mente-raices-v2.js',
   './assets/juegos-colecciones.js',
+  './assets/codigos-raices.css',
+  './assets/codigos-raices.js',
   './assets/mandalas-color.js',
   './assets/gimnasia-cerebral.css',
   './assets/gimnasia-cerebral.js',

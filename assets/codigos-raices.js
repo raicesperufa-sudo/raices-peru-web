@@ -1,0 +1,61 @@
+(() => {
+  'use strict';
+  const $ = selector => document.querySelector(selector);
+  const dialog = $('#codes-dialog');
+  const body = $('#codes-game-body');
+  const progressKey = 'raices-codigos-rutas-progreso-v1';
+  const completed = new Set(JSON.parse(localStorage.getItem(progressKey) || '[]'));
+  const codes = [['1','2','3','4'],['5','6','7','8'],['A','B','C','D'],['E','F','G','H']];
+  const palette = {
+    coral:{name:'Coral',hex:'#ef6c67'}, blue:{name:'Azul',hex:'#4389d8'}, yellow:{name:'Amarillo',hex:'#f4ce3e'}, green:{name:'Verde',hex:'#42ad75'},
+    pink:{name:'Rosado',hex:'#ee5a9b'}, aqua:{name:'Turquesa',hex:'#35c2bb'}, orange:{name:'Naranja',hex:'#f39a32'}, purple:{name:'Morado',hex:'#9a5bd0'}
+  };
+  const codeLevels = [
+    {name:'Primeras claves',shapes:['●','▲'],colors:['coral','blue'],cols:2,pattern:[[0,0],[1,1],[0,1],[1,0]]},
+    {name:'Tres pistas',shapes:['★','♥','⬟'],colors:['pink','aqua','orange'],cols:3,pattern:[[0,1],[1,0],[2,2],[1,1],[0,2],[2,0]]},
+    {name:'Formas que cambian',shapes:['▲','■','●','◆'],colors:['blue','yellow','coral','green'],cols:4,pattern:[[2,3],[0,0],[3,1],[1,2],[2,0],[0,3],[1,1],[3,2]]},
+    {name:'Clave experta',shapes:['★','⬟','⬢','✚'],colors:['purple','aqua','orange','pink'],cols:5,pattern:[[2,0],[0,1],[3,3],[1,2],[0,0],[2,1],[1,3],[3,2],[0,3],[2,2]]},
+    {name:'Mosaico final',shapes:['★','♥','⬟','⬢'],colors:['pink','aqua','orange','purple'],cols:4,pattern:[[0,0],[1,1],[2,2],[3,3],[0,2],[1,3],[2,0],[3,1],[0,1],[1,0],[2,3],[3,2]]}
+  ];
+  const arrowLevels = [
+    {name:'Cuatro direcciones',map:{'→':'pink','←':'purple','↑':'aqua','↓':'orange'},cols:4,items:['→','↑','←','↓']},
+    {name:'Ruta corta',map:{'→':'blue','←':'yellow','↑':'green','↓':'coral'},cols:4,items:['→','↑','←','↓','↓','→','↑','←']},
+    {name:'Dos filas',map:{'→':'orange','←':'aqua','↑':'purple','↓':'pink'},cols:5,items:['→','↑','←','↓','→','↓','←','→','↑','←']},
+    {name:'Cambio de clave',map:{'→':'green','←':'coral','↑':'blue','↓':'yellow'},cols:4,items:['↑','→','↓','←','→','←','↑','↓','↓','→','←','↑','→','↓','←','↑']},
+    {name:'Ruta final',map:{'→':'pink','←':'aqua','↑':'orange','↓':'purple'},cols:5,items:['→','↑','←','↓','→','↓','←','→','↑','←','↑','→','↓','←','↑','←','↓','↑','→','↓']}
+  ];
+  let game = null, level = 0;
+  const shuffle = items => { const copy=[...items]; for(let i=copy.length-1;i>0;i-=1){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]]} return copy; };
+  const speak = text => { if(window.RaicesVoice?.speak){window.RaicesVoice.speak(text,{force:true,rate:.78});return} if(!('speechSynthesis' in window))return; speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='es-PE';u.rate=.78;speechSynthesis.speak(u); };
+  const guide = text => `<div class="codes-guide"><img src="assets/personaje-quenal-v2.webp" alt="Queñal"><p><b>Queñal te acompaña</b><br>${text}</p><button type="button" data-listen>🔊 Escuchar</button></div>`;
+  const feedback = () => '<p class="codes-feedback" aria-live="polite">Elige una pieza y prueba.</p>';
+  function setFeedback(text,kind=''){const box=body.querySelector('.codes-feedback');if(box){box.className=`codes-feedback ${kind}`;box.textContent=text} speak(text)}
+  function updateProgress(){const count=['codes','arrows'].filter(id=>completed.has(id)).length;$('#codes-progress').textContent=count;$('#codes-progress-bar').style.width=`${count/2*100}%`;document.querySelectorAll('[data-start]').forEach(button=>{if(completed.has(button.dataset.start))button.textContent='Volver a jugar · completado ✓'})}
+  function setLevel(){const levels=game==='codes'?codeLevels:arrowLevels;$('#codes-level-name').textContent=levels[level].name;$('#codes-level-count').textContent=`Nivel ${level+1} de ${levels.length}`;$('#codes-level-bar').style.width=`${(level+1)/levels.length*100}%`;$('#codes-dialog-title').textContent=game==='codes'?'Claves de formas':'Rutas de color';$('#codes-dialog-meta').textContent='Familia Plus · actividad interactiva'}
+  function bindCommon(instruction){body.querySelector('[data-listen]')?.addEventListener('click',()=>speak(instruction));body.querySelector('[data-next]')?.addEventListener('click',nextLevel)}
+  function succeed(message){setFeedback(message,'success');body.querySelectorAll('[data-check], [data-reset]').forEach(button=>button.disabled=true);const next=document.createElement('button');next.type='button';next.className='codes-next';next.dataset.next='';next.textContent=level===(game==='codes'?codeLevels:arrowLevels).length-1?'Ver mi logro':'Siguiente nivel';body.append(next);next.addEventListener('click',nextLevel)}
+  function nextLevel(){const levels=game==='codes'?codeLevels:arrowLevels;level+=1;if(level>=levels.length){completed.add(game);localStorage.setItem(progressKey,JSON.stringify([...completed]));updateProgress();body.innerHTML=`${guide('Completaste esta ruta. Puedes volver cuando quieras.')}<div class="codes-finish"><span>🏆</span><h3>¡Ruta completada!</h3><p>Observaste claves, comparaste posibilidades y corregiste tus propios intentos.</p></div>`;bindCommon('Completaste esta ruta. Queñal celebra tu esfuerzo.');speak('¡Ruta completada! Queñal celebra tu esfuerzo.');return} render()}
+  function renderCodes(){
+    const round=codeLevels[level], answerCodes=round.pattern.map(([s,c])=>codes[s][c]);
+    const tokens=shuffle(answerCodes.map((value,index)=>({value,index}))), placed=Array(round.pattern.length).fill(null);let selected=null;
+    const keyCells=['<span aria-hidden="true">Forma</span>',...round.colors.map(color=>`<span class="codes-swatch" style="background:${palette[color].hex}" title="${palette[color].name}"></span>`)];
+    round.shapes.forEach((shape,s)=>{keyCells.push(`<span class="codes-shape">${shape}</span>`);round.colors.forEach((_,c)=>keyCells.push(`<span>${codes[s][c]}</span>`))});
+    const instruction='Combina la forma y el color. Busca el código en la tabla y mueve cada ficha a la casilla correspondiente.';
+    body.innerHTML=`${guide(instruction)}<p class="codes-prompt">${instruction}</p><div class="codes-key" style="--key-cols:${round.colors.length+1}">${keyCells.join('')}</div><div class="codes-translate-work"><section class="codes-panel"><b>Modelo</b><div class="codes-pattern" style="--pattern-cols:${round.cols}">${round.pattern.map(([s,c])=>`<span style="color:${palette[round.colors[c]].hex}" aria-label="${round.shapes[s]} ${palette[round.colors[c]].name}">${round.shapes[s]}</span>`).join('')}</div></section><section class="codes-panel"><b>Tu tablero</b><div class="codes-answer" style="--pattern-cols:${round.cols}">${round.pattern.map((_,i)=>`<button class="codes-slot" type="button" data-slot="${i}" aria-label="Casilla ${i+1}"></button>`).join('')}</div></section></div><div class="codes-token-bank" aria-label="Fichas de códigos">${tokens.map((token,i)=>`<button class="codes-token" type="button" draggable="true" data-token="${i}">${token.value}</button>`).join('')}</div><div class="codes-actions"><button class="codes-action primary" type="button" data-check>Comprobar</button><button class="codes-action" type="button" data-reset>Volver a mover</button></div>${feedback()}`;
+    const paint=()=>{body.querySelectorAll('[data-token]').forEach(button=>{const i=+button.dataset.token,used=placed.includes(i);button.classList.toggle('is-selected',selected===i);button.classList.toggle('is-used',used);button.disabled=used});body.querySelectorAll('[data-slot]').forEach(button=>{const i=+button.dataset.slot,tokenIndex=placed[i];button.textContent=tokenIndex===null?'':tokens[tokenIndex].value;button.classList.toggle('is-filled',tokenIndex!==null)})};
+    const put=slot=>{if(selected===null)return;const previous=placed.indexOf(selected);if(previous>=0)placed[previous]=null;if(placed[slot]!==null)placed[slot]=null;placed[slot]=selected;selected=null;paint()};
+    body.querySelectorAll('[data-token]').forEach(button=>{button.onclick=()=>{selected=+button.dataset.token;paint()};button.ondragstart=e=>{selected=+button.dataset.token;e.dataTransfer.setData('text/plain',button.dataset.token)}});body.querySelectorAll('[data-slot]').forEach(button=>{button.onclick=()=>{const slot=+button.dataset.slot;if(selected===null&&placed[slot]!==null){placed[slot]=null;paint();return}put(slot)};button.ondragover=e=>e.preventDefault();button.ondrop=e=>{e.preventDefault();selected=+e.dataTransfer.getData('text/plain');put(+button.dataset.slot)}});
+    body.querySelector('[data-reset]').onclick=()=>{placed.fill(null);selected=null;paint();setFeedback('El tablero está listo para volver a probar.')};body.querySelector('[data-check]').onclick=()=>{if(placed.some(item=>item===null)){setFeedback('Todavía quedan casillas vacías. Mueve una ficha a cada lugar.','coach');return}const exact=placed.every((tokenIndex,i)=>tokens[tokenIndex].value===answerCodes[i]);if(exact)succeed('¡Cada forma encontró su código!');else setFeedback('Algunas claves pueden cambiar de lugar. Compara primero la forma y después el color.','coach')};bindCommon(instruction);paint();
+  }
+  function renderArrows(){
+    const round=arrowLevels[level], colorKeys=[...new Set(Object.values(round.map))], painted=Array(round.items.length).fill(null);let selected=colorKeys[0];
+    const instruction='Mira qué color corresponde a cada dirección. Elige o arrastra un color y completa todas las flechas.';
+    body.innerHTML=`${guide(instruction)}<p class="codes-prompt">${instruction}</p><div class="codes-arrow-key">${Object.entries(round.map).map(([direction,color])=>`<button type="button" draggable="true" data-color="${color}" style="background:${palette[color].hex}"><span>${direction}</span> ${palette[color].name}</button>`).join('')}</div><div class="codes-arrow-board" style="--arrow-cols:${round.cols}">${round.items.map((direction,i)=>`<button class="codes-arrow-cell" type="button" data-arrow="${i}" aria-label="Flecha ${direction}, casilla ${i+1}">${direction}</button>`).join('')}</div><div class="codes-actions"><button class="codes-action primary" type="button" data-check>Comprobar ruta</button><button class="codes-action" type="button" data-reset>Quitar colores</button></div>${feedback()}`;
+    const paint=()=>{body.querySelectorAll('[data-color]').forEach(button=>button.classList.toggle('is-selected',button.dataset.color===selected));body.querySelectorAll('[data-arrow]').forEach(button=>{const color=painted[+button.dataset.arrow];button.style.background=color?palette[color].hex:'#fff'})};
+    const colorCell=index=>{painted[index]=selected;paint()};body.querySelectorAll('[data-color]').forEach(button=>{button.onclick=()=>{selected=button.dataset.color;paint()};button.ondragstart=e=>e.dataTransfer.setData('text/plain',button.dataset.color)});body.querySelectorAll('[data-arrow]').forEach(button=>{button.onclick=()=>colorCell(+button.dataset.arrow);button.ondragover=e=>e.preventDefault();button.ondrop=e=>{e.preventDefault();selected=e.dataTransfer.getData('text/plain');colorCell(+button.dataset.arrow)}});
+    body.querySelector('[data-reset]').onclick=()=>{painted.fill(null);paint();setFeedback('Las flechas están listas para otro intento.')};body.querySelector('[data-check]').onclick=()=>{if(painted.some(item=>item===null)){setFeedback('Faltan flechas por colorear. Elige un color y continúa.','coach');return}const exact=painted.every((color,i)=>color===round.map[round.items[i]]);if(exact)succeed('¡Seguiste toda la clave de direcciones!');else setFeedback('Revisa las flechas que cambian de dirección y prueba otro color.','coach')};bindCommon(instruction);paint();
+  }
+  function render(){setLevel();game==='codes'?renderCodes():renderArrows()}
+  function open(selectedGame){if(!(window.RaicesAccess?.require('plus',selectedGame==='codes'?'Claves de formas':'Rutas de color')??false))return;game=selectedGame;level=0;render();dialog.showModal()}
+  document.querySelectorAll('[data-start]').forEach(button=>button.addEventListener('click',()=>open(button.dataset.start)));$('#codes-close').addEventListener('click',()=>{window.RaicesVoice?.stop?.();dialog.close()});dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close()});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&dialog.open)dialog.close()});updateProgress();
+})();

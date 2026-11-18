@@ -47,6 +47,7 @@
   const stores = [
     ['raices-mente-progreso', 30],
     ['raices-juegos-ludicos-progreso', 18],
+    ['raices-codigos-rutas-progreso-v1', 2],
     ['raices-activacion-mental-progreso', 19],
     ['raices-rompecabezas-progreso-v1', 45],
     ['raices-lectoescritura-progreso', 17],
