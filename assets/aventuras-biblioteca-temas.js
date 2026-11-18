@@ -17,7 +17,7 @@
   const topicCovers = {
     'animales-habitats':'assets/ilustraciones-raices/aventura-caballos-02-v1.webp',
     'dinosaurios-evidencia':'assets/ilustraciones-raices/aventura-caballos-05-v1.webp',
-    'biologia-viva':'assets/ilustraciones-raices/cuerpo-02-v2.webp',
+    'biologia-viva':'assets/ilustraciones-raices/cuerpo-02-v3.webp',
     'fisica-cotidiana':'assets/ilustraciones-raices/aventura-cohetes-04-v1.webp',
     'quimica-segura':'assets/ilustraciones-raices/aventura-semilla-03-v2.webp',
     'geografia-mapas':'assets/ilustraciones-raices/aventura-caballos-04-v1.webp',

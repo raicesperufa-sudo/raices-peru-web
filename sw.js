@@ -1,4 +1,4 @@
-const CACHE = 'raices-app-v25';
+const CACHE = 'raices-app-v26';
 const APP_SHELL = [
   './app-raices.html',
   './zona-adulta.html',
@@ -112,7 +112,7 @@ const APP_SHELL = [
   './assets/ilustraciones-raices/aventura-estrellas-06-v1.webp',
   './assets/ilustraciones-raices/aventura-estrellas-07-v1.webp',
   './assets/ilustraciones-raices/cuerpo-01-v2.webp',
-  './assets/ilustraciones-raices/cuerpo-02-v2.webp',
+  './assets/ilustraciones-raices/cuerpo-02-v3.webp',
   './assets/ilustraciones-raices/cuerpo-03-v2.webp',
   './assets/ilustraciones-raices/cuerpo-04-v2.webp',
   './assets/ilustraciones-raices/cuerpo-05-v2.webp',
