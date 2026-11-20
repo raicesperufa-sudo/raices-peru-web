@@ -70,6 +70,7 @@ if (nav) {
     'activacion-mental.html': 'Hola, soy Queñal. Prepararemos el cuerpo y la mente con retos breves.',
     'juegos-lectoescritura.html': 'Hola, soy Queñal. Escucharemos sonidos, formaremos palabras y leeremos a nuestro ritmo.',
     'gimnasia-cerebral.html': 'Hola, soy Queñal. Mueve tus manos y tu cuerpo con calma. Puedes hacer una pausa cuando quieras.',
+    'foco-movimiento-raices.html': 'Hola, soy Queñal. Vamos a mirar, encontrar y coordinar a nuestro ritmo. Puedes repetir, cambiar el movimiento o hacer una pausa.',
     'matematicas-raices.html': 'Hola, soy Queñal. En matemáticas primero miramos, después representamos y al final usamos números.',
     'pintar-mandalas.html': 'Hola, soy Queñal. Elige un color y toca una zona para rellenarla. También puedes usar el pincel.'
   };

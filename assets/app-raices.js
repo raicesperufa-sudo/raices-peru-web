@@ -60,10 +60,11 @@
     ['raices-diversion-progreso-v1', 12],
     ['raices-cuerpo-progreso', 6],
     ['raices-mindfulness-progreso', 5],
-    ['raices-sonora-progreso', 16]
+    ['raices-sonora-progreso', 16],
+    ['raices-foco-movimiento-progreso-v1', 4]
   ];
-  const completed = stores.reduce((sum, [key]) => {
-    try { return sum + new Set(JSON.parse(localStorage.getItem(key) || '[]')).size; } catch (_) { return sum; }
+  const completed = stores.reduce((sum, [key, count]) => {
+    try { return sum + Math.min(count, new Set(JSON.parse(localStorage.getItem(key) || '[]')).size); } catch (_) { return sum; }
   }, 0);
   const total = stores.reduce((sum, [, count]) => sum + count, 0);
   const totalElement = $('#app-progress-total');
