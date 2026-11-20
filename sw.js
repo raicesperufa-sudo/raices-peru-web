@@ -1,4 +1,4 @@
-const CACHE = 'raices-app-v29';
+const CACHE = 'raices-app-v30';
 const APP_SHELL = [
   './app-raices.html',
   './zona-adulta.html',
@@ -42,8 +42,13 @@ const APP_SHELL = [
   './assets/codigos-raices.js',
   './assets/foco-entry.css',
   './assets/foco-movimiento-raices.css',
+  './assets/foco-videos.css',
   './assets/foco-movimiento-raices.js',
   './assets/video/guia-dos-manos-raices.webm',
+  './assets/video/numeros-en-camino-raices.mp4',
+  './assets/video/luciernaga-quenal-raices.mp4',
+  './assets/video/dos-manos-un-ritmo-raices.mp4',
+  './assets/video/palmas-companeras-raices.mp4',
   './assets/mandalas-color.js',
   './assets/gimnasia-cerebral.css',
   './assets/gimnasia-cerebral.js',

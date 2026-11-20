@@ -1,0 +1,5 @@
+.video-guide{display:grid;grid-template-columns:minmax(220px,360px) 1fr;align-items:center;gap:1rem;margin:0 0 1rem;padding:.8rem;border:1px solid #c8dbd8;border-radius:22px;background:#f5f9f7}
+.video-guide video{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:17px;background:#0a3c48}
+.video-guide figcaption{color:#536f76;line-height:1.5;font-weight:900}
+.video-layout.has-guide-video video{aspect-ratio:1;object-fit:cover}
+@media(max-width:650px){.video-guide{grid-template-columns:1fr}.video-guide figcaption{text-align:center}}
