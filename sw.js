@@ -1,4 +1,4 @@
-const CACHE = 'raices-app-v30';
+const CACHE = 'raices-app-v32';
 const APP_SHELL = [
   './app-raices.html',
   './zona-adulta.html',
@@ -13,6 +13,7 @@ const APP_SHELL = [
   './matematicas-raices.html',
   './repasando-quenal.html',
   './tablas-quenal.html',
+  './taller-tablas-raices.html',
   './laboratorio-operaciones.html',
   './mapa-emociones.html',
   './aventuras-quenal.html',
@@ -38,6 +39,7 @@ const APP_SHELL = [
   './assets/site.js',
   './assets/mente-raices-v2.js',
   './assets/juegos-colecciones.js',
+  './assets/habilidades-plus-quenal-v1.webp',
   './assets/codigos-raices.css',
   './assets/codigos-raices.js',
   './assets/foco-entry.css',
@@ -59,6 +61,9 @@ const APP_SHELL = [
   './assets/matematicas-tablas-feature.css',
   './assets/tablas-quenal.css',
   './assets/tablas-quenal.js',
+  './assets/tablas-manipulable-feature.css',
+  './assets/taller-tablas-raices.css',
+  './assets/taller-tablas-raices.js',
   './assets/laboratorio-operaciones.css',
   './assets/laboratorio-operaciones-polish.css',
   './assets/laboratorio-operaciones.js',

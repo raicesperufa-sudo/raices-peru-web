@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#075f73">
+  <meta name="description" content="Juego manipulable de tablas y división con Queñal: mueve semillas, forma grupos y corrige errores.">
+  <title>Semillas en grupo · Tablas con Queñal</title>
+  <link rel="stylesheet" href="assets/access-dialog.css?v=20261105-2">
+  <link rel="stylesheet" href="assets/taller-tablas-raices.css?v=20261124-1">
+  <script defer src="assets/site.js?v=20261105-1"></script>
+  <script defer src="assets/taller-tablas-raices.js?v=20261124-1"></script>
+</head>
+<body>
+  <a class="skip-link" href="#juego">Ir al juego</a>
+  <header class="game-header"><a href="matematicas-raices.html"><img src="assets/isotipo-raices.webp" alt=""><span><b>RAÍCES PERÚ</b><small>Matemáticas con Queñal</small></span></a><a class="back-link" href="tablas-quenal.html">← Volver a tablas</a></header>
+  <main>
+    <section class="game-hero"><div><p class="eyebrow">Familia Plus · juego manipulable</p><h1>Semillas en grupo</h1><p>Mueve cada semilla, construye grupos iguales y mira cómo cambia la operación. Primero comprendemos; después recordamos.</p><a href="#juego">Comenzar con Queñal</a></div><figure><img src="assets/personaje-quenal-v2.webp" alt="Queñal acompaña un juego de grupos y cantidades"><figcaption>“Prueba, mueve y corrige. No hay apuro”.</figcaption></figure></section>
+    <section class="how-it-works" aria-label="Cómo se aprende"><article><b>1</b><h2>Mira</h2><p>La operación aparece junto con la cantidad.</p></article><article><b>2</b><h2>Mueve</h2><p>Toca o arrastra semillas a cada bandeja.</p></article><article><b>3</b><h2>Comprueba</h2><p>Queñal muestra qué grupo revisar, sin poner notas.</p></article></section>
+    <section class="game-panel" id="juego" aria-labelledby="game-title">
+      <div class="game-settings"><div><p class="eyebrow">Elige una misión</p><h2 id="game-title">Aprende las tablas haciendo</h2></div><fieldset><legend>Modo</legend><label><input type="radio" name="mode" value="build" checked> Construir grupos</label><label><input type="radio" name="mode" value="repair"> Encontrar el error</label><label><input type="radio" name="mode" value="share"> Repartir</label></fieldset><label class="table-select">Tabla que practicaremos <select id="table-select" aria-label="Elegir tabla"></select></label><button id="new-mission" type="button">Nueva misión</button></div>
+      <div class="mission-card">
+        <div class="mission-top"><div><p id="mission-mode">Construir grupos</p><h2 id="mission-question">Preparamos la mesa…</h2></div><button id="hear-mission" type="button">🔊 Escuchar</button></div>
+        <div class="equation" id="equation" aria-live="polite"></div><p class="instruction" id="instruction"></p>
+        <div class="workbench"><section class="seed-bank" aria-labelledby="bank-title"><div><h3 id="bank-title">Semillas disponibles</h3><p>Toca una semilla y luego una bandeja. También puedes arrastrarla.</p></div><div id="seed-bank" class="seeds" data-zone="bank"></div></section><section class="groups-area" id="groups-area" aria-label="Bandejas para formar grupos"></section></div>
+        <div class="mission-actions"><button id="check-mission" type="button">Comprobar grupos</button><button id="show-model" type="button">Mostrar una pista</button><button id="reset-mission" type="button">Volver a empezar</button></div><p class="feedback" id="feedback" aria-live="polite"><span></span> Mueve una semilla para comenzar.</p><div class="hint" id="hint" hidden></div>
+      </div>
+    </section>
+    <section class="progress-card"><div><p class="eyebrow">Mi recorrido en este dispositivo</p><h2><span id="completed-count">0</span> misiones comprendidas</h2></div><p>No medimos rapidez. Registramos las misiones que pudiste construir, revisar o explicar.</p></section>
+    <section class="family-note"><img src="assets/isotipo-raices.webp" alt=""><div><p class="eyebrow">Filosofía RAÍCES</p><h2>La persona antes que el resultado</h2><p>Si hay cansancio, pueden reducir los grupos, usar objetos reales o detenerse. Preguntar “¿cómo lo viste?” ayuda más que exigir una respuesta rápida.</p></div></section>
+  </main><div class="celebration" id="celebration" aria-hidden="true"></div>
+</body></html>

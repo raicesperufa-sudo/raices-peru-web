@@ -141,6 +141,48 @@
           memory('Relaciona color y figura.',['🔵=●','🟡=▲','🟢=■'],'¿Qué forma tenía el verde?',['Círculo','Triángulo','Cuadrado'],2),
           memory('Recuerda cuatro parejas.',['🌙=noche','☀️=día','🌧️=paraguas','❄️=abrigo'],'¿Qué se relacionaba con el paraguas?',['Lluvia','Nieve','Sol'],0),
           memory('Reto final de cinco parejas.',['1=🐝','2=🐢','3=🦊','4=🦉','5=🐬'],'¿Qué animal tenía el número 4?',['Zorro','Búho','Delfín'],1)
+        ]),
+        game('l18','Ventanas de color','🪟','visual','Compara colores, posiciones y formas sin depender de la rapidez.',[
+          match('Lleva cada luz al paisaje donde combina.',['🔵','🟢','🟡','🔵'],['Cielo','Hojas','Sol'],[0,1,2,0],'Mira un color a la vez y toca primero la luz, luego su lugar.'),
+          choice('¿Qué ventana conserva el mismo orden?','<span class="tile" style="background:#e87962"></span><span class="tile" style="background:#f0c94f"></span><span class="tile" style="background:#55a58b"></span>',['Rojo · amarillo · verde','Verde · amarillo · rojo','Amarillo · rojo · verde'],0),
+          tap('La clave es azul. Toca únicamente las cuatro luces azules.',['🔵','🟢','🟡','🔵','🟣','🔵','🟠','🟢','🔵','🟡','🟣','🟠'],[0,3,5,8]),
+          memory('Observa el camino de colores.',['🟡','🟢','🔵','🟣'],'¿Qué color apareció después del verde?',['Amarillo','Azul','Morado'],1),
+          match('Ahora mira color y forma al mismo tiempo.',['🔵','🟦','🟢','🟩'],['Círculos','Cuadrados'],[0,1,0,1],'El color puede cambiar; la forma decide el lugar.')
+        ]),
+        game('l19','Sudoku de Queñal','▦','patrones','Completa filas pequeñas usando cada símbolo una sola vez.',[
+          choice('En esta fila no se repite ninguna figura. ¿Qué falta?','<span class="tile">●</span><span class="tile">▲</span><span class="tile">■</span><span class="tile">?</span>',['◆','●','▲'],0),
+          choice('Usamos 1, 2, 3 y 4 una sola vez. ¿Qué número completa la fila?','<span class="tile">1</span><span class="tile">3</span><span class="tile">4</span><span class="tile">?</span>',['1','2','4'],1),
+          choice('Mira también la columna. ¿Qué figura puede ir en el espacio vacío?','<span class="big">● ▲ ■ ◆<br>▲ ■ ◆ ●<br>■ ◆ ● ?</span>',['▲','■','◆'],0),
+          choice('¿Qué color falta para completar el grupo sin repetir?','<span class="tile" style="background:#e87962"></span><span class="tile" style="background:#55a58b"></span><span class="tile" style="background:#4b8fcb"></span><span class="tile">?</span>',['Amarillo','Azul','Verde'],0),
+          choice('Reto final: elige la pareja que completa figura y número.','<span class="big">●1 · ▲2 · ■3 · ?4</span>',['◆4','●4','■2'],0)
+        ]),
+        game('l20','La clave secreta de Queñal','🗝️','visual','Sigue una regla de color, forma o dirección y encuentra todos los objetivos.',[
+          tap('Clave: flecha arriba. Toca todas las que suben.',['↑','→','↓','↑','←','↑','→','↓','↑','←'],[0,3,5,8]),
+          tap('Clave: círculo amarillo. Mira las dos propiedades.',['🟡','🟨','🔵','🟡','🟢','🟨','🟡','🔵'],[0,3,6]),
+          choice('Si rojo significa derecha y azul significa izquierda, ¿qué indica esta clave?','<span class="tile" style="background:#e87962">→</span><span class="tile" style="background:#4b8fcb">←</span><span class="tile" style="background:#e87962">→</span>',['Derecha · izquierda · derecha','Izquierda · derecha · izquierda','Derecha · derecha · izquierda'],0),
+          memory('Recuerda la clave antes de que se cubra.',['↑=🟢','→=🟡','↓=🔵','←=🟣'],'¿Qué color acompañaba a la flecha izquierda?',['Azul','Morado','Verde'],1),
+          tap('Reto final: toca solo las flechas verdes que apuntan a la derecha.',['🟢→','🟡→','🟢←','🟢→','🔵→','🟢↓','🟢→','🟡←'],[0,3,6])
+        ]),
+        game('l21','Dominó de cantidades','🎲','manipulable','Relaciona puntos, números y grupos visibles antes de calcular.',[
+          match('Junta cada número con su cantidad de puntos.',['1','2','3','4'],['●','●●','●●●','●●●●'],[0,1,2,3]),
+          choice('¿Qué ficha continúa la cadena?','<span class="big">●● | 2 — 2 | ●●● — ?</span>',['3','4','5'],0),
+          match('Forma parejas que tengan el mismo total.',['●●●','2+2','●●●●','1+2'],['Total 3','Total 4'],[0,1,1,0]),
+          choice('Queñal reunió dos grupos de tres. ¿Cuántos hay en total?','<span class="big">●●● &nbsp; ●●●</span>',['5','6','8'],1),
+          choice('Reto final: ¿qué operación representa cuatro grupos de dos?','<span class="big">●● &nbsp; ●● &nbsp; ●● &nbsp; ●●</span>',['4 × 2','4 + 2','2 − 4'],0)
+        ]),
+        game('l22','Flechas viajeras','🧭','patrones','Construye recorridos, compara posiciones y cambia de perspectiva.',[
+          order('Lleva a Queñal hasta la estrella.',['Derecha','Arriba','Derecha'],['Derecha','Arriba','Derecha']),
+          memory('Mira la ruta.',['↑','↑','→','↓'],'¿Qué movimiento ocurrió después de avanzar a la derecha?',['Arriba','Abajo','Izquierda'],1),
+          match('Relaciona cada indicación con su dirección.',['↑','↓','←','→'],['Arriba','Abajo','Izquierda','Derecha'],[0,1,2,3]),
+          choice('Queñal mira hacia el norte. Gira a su derecha. ¿Hacia dónde mira ahora?','<span class="big">🧒 ↑ &nbsp; giro ↷</span>',['Este','Oeste','Sur'],0),
+          order('Reto final: reconstruye el camino de regreso en orden inverso.',['Abajo','Izquierda','Arriba'],['Abajo','Izquierda','Arriba'],'Primero imagina el último paso del camino de ida.')
+        ]),
+        game('l23','Manos que construyen','👐','manipulable','Prepara formas con masa o piezas grandes siguiendo una secuencia segura.',[
+          order('Antes de construir, ordena la preparación.',['Elijo una forma','Preparo una mesa firme','Lavo y seco mis manos'],['Lavo y seco mis manos','Preparo una mesa firme','Elijo una forma'],'Una persona adulta acompaña si se usan piezas pequeñas.'),
+          choice('¿Qué movimiento ayuda a formar una esfera de masa?','<span class="big">👐</span>',['Rodar entre las palmas','Cortar con fuerza','Lanzar la masa'],0),
+          order('Construye un árbol sencillo.',['Agrego una copa redonda','Hago un tronco alargado','Uno las dos partes'],['Hago un tronco alargado','Agrego una copa redonda','Uno las dos partes']),
+          choice('Si una forma no queda como esperabas, ¿qué estrategia cuida mejor el aprendizaje?','<span class="big">🌱</span>',['Volver a probar con una parte más simple','Esconderla','Compararla con la de otra persona'],0),
+          order('Cierre de la experiencia.',['Guardo los materiales','Miro lo que construí','Descanso las manos'],['Miro lo que construí','Guardo los materiales','Descanso las manos'],'No hace falta que la figura quede perfecta; importa explorar cómo se construyó.')
         ])
       ]
     },
