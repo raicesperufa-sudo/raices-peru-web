@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#075f73">
+  <meta name="description" content="Centro de tablas con Queñal: mapa de progreso, práctica comprensiva, memoria, conexiones, rachas y fluidez opcional.">
+  <title>Centro de tablas con Queñal · RAÍCES</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/isotipo-raices.webp">
+  <link rel="stylesheet" href="assets/access-dialog.css?v=20261105-2">
+  <link rel="stylesheet" href="assets/centro-tablas-raices.css?v=20261127-1">
+  <script defer src="assets/site.js?v=20261119-1"></script>
+  <script defer src="assets/centro-tablas-raices.js?v=20261127-1"></script>
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+  <header class="tables-top">
+    <a class="brand" href="matematicas-raices.html"><img src="assets/isotipo-raices.webp" alt=""><span><b>RAÍCES PERÚ</b><small>Centro de tablas con Queñal</small></span></a>
+    <div class="top-actions"><button id="voice-toggle" type="button" aria-pressed="true">🔊 Voz activa</button><a href="matematicas-raices.html">← Matemáticas</a></div>
+  </header>
+
+  <main id="contenido">
+    <section class="tables-hero">
+      <div><p class="eyebrow">Familia Plus · Comprender, practicar y transferir</p><h1>Mi mapa de multiplicaciones</h1><p>Queñal te ayuda a construir grupos, reconocer patrones y elegir una estrategia. El mapa muestra qué conviene explorar de nuevo, sin notas, comparaciones ni etiquetas.</p><div class="hero-actions"><button class="primary" type="button" data-open-view="map">Abrir mi mapa</button><button class="secondary" id="hear-intro" type="button">▶ Escuchar a Queñal</button></div></div>
+      <figure><img src="assets/personaje-quenal-v2.webp" alt="Queñal acompaña una exploración de multiplicaciones"><figcaption>“Primero lo entendemos; después buscamos fluidez”.</figcaption></figure>
+    </section>
+
+    <section class="principles" aria-label="Principios del centro de tablas">
+      <article><b>1</b><div><h2>Representa</h2><p>Grupos, filas y saltos antes del símbolo.</p></div></article>
+      <article><b>2</b><div><h2>Relaciona</h2><p>Dobles, cinco, diez y conmutatividad.</p></div></article>
+      <article><b>3</b><div><h2>Practica</h2><p>Orden, azar y apoyos que se pueden retirar.</p></div></article>
+      <article><b>4</b><div><h2>Transfiere</h2><p>Usa la idea en un reto distinto.</p></div></article>
+    </section>
+
+    <nav class="mode-tabs" aria-label="Modos del centro de tablas">
+      <button class="active" type="button" data-view="map">🗺️ Mi mapa</button>
+      <button type="button" data-view="practice">🌱 Practicar</button>
+      <button type="button" data-view="memory">🧠 Memoria</button>
+      <button type="button" data-view="connect">🧩 Conectar</button>
+      <button type="button" data-view="streak">✨ Ruta continua</button>
+      <button type="button" data-view="speed">⚡ Fluidez opcional</button>
+    </nav>
+
+    <section class="workspace" aria-live="polite">
+      <section class="view active" data-panel="map">
+        <div class="section-heading"><div><p class="eyebrow">78 relaciones únicas · mapa 12 × 12</p><h2>¿Qué estoy descubriendo?</h2><p>Las casillas reflejadas comparten evidencia: comprender 4 × 6 también ayuda a reconocer 6 × 4.</p></div><div class="map-summary"><strong id="map-mastered">0</strong><span>relaciones consolidadas</span><progress id="map-progress" max="78" value="0"></progress></div></div>
+        <div class="legend"><span><i class="new"></i>Sin explorar</span><span><i class="practice"></i>Conviene practicar</span><span><i class="growing"></i>Cada vez más fluido</span><span><i class="mastered"></i>Consolidado</span></div>
+        <div class="map-layout"><div class="table-map-wrap"><div id="table-map" class="table-map" role="grid" aria-label="Mapa de multiplicaciones del 1 al 12"></div></div><aside id="fact-panel" class="fact-panel"><img src="assets/isotipo-raices.webp" alt=""><p class="eyebrow">Elige una casilla</p><h3>Tu mapa puede orientarte</h3><p>Toca un resultado para ver su evidencia, una estrategia y una práctica breve.</p><button type="button" data-view="practice">Practicar una tabla</button></aside></div>
+      </section>
+
+      <section class="view" data-panel="practice" hidden>
+        <div class="section-heading"><div><p class="eyebrow">Ruta comprensiva</p><h2>Practicar con apoyos</h2><p>Elige una tabla y decide si quieres verla en orden o mezclarla.</p></div><button class="listen" type="button" data-speak-panel>🔊 Escuchar</button></div>
+        <div class="setup-card"><fieldset><legend>Tabla</legend><div class="number-picker" data-table-picker></div></fieldset><fieldset><legend>Orden</legend><label><input type="radio" name="practice-order" value="ordered" checked> En orden</label><label><input type="radio" name="practice-order" value="random"> Mezclada</label></fieldset><fieldset><legend>Apoyo visual</legend><label><input type="radio" name="practice-support" value="groups" checked> Grupos y filas</label><label><input type="radio" name="practice-support" value="strategy"> Estrategia</label></fieldset><button class="primary" id="practice-start" type="button">Comenzar</button></div>
+        <div class="play-card" id="practice-play" hidden><div class="play-meta"><span id="practice-step">Paso 1 de 12</span><progress id="practice-progress" max="12" value="1"></progress></div><div id="practice-model" class="math-model"></div><h3 id="practice-question"></h3><div id="practice-answers" class="answer-grid"></div><p id="practice-feedback" class="feedback" role="status"></p><div class="play-actions"><button id="practice-hint" type="button">Ver una pista</button><button id="practice-next" type="button" disabled>Siguiente →</button></div></div>
+      </section>
+
+      <section class="view" data-panel="memory" hidden>
+        <div class="section-heading"><div><p class="eyebrow">Operación + resultado</p><h2>Memoria de parejas</h2><p>Encuentra cada multiplicación y su resultado. No importa cuántos movimientos necesites.</p></div><button class="listen" type="button" data-speak-panel>🔊 Escuchar</button></div>
+        <div class="setup-card compact"><fieldset><legend>Dificultad</legend><label><input type="radio" name="memory-level" value="easy" checked> Inicial · 6 parejas</label><label><input type="radio" name="memory-level" value="medium"> Intermedia · 8 parejas</label><label><input type="radio" name="memory-level" value="all"> Todas · 10 parejas</label></fieldset><button class="primary" id="memory-start" type="button">Preparar tarjetas</button></div>
+        <div id="memory-status" class="game-status" role="status"></div><div id="memory-board" class="memory-board"></div>
+      </section>
+
+      <section class="view" data-panel="connect" hidden>
+        <div class="section-heading"><div><p class="eyebrow">Emparejar y comprobar</p><h2>Puentes de multiplicación</h2><p>Elige una operación y luego toca su resultado. También puedes cambiar de elección.</p></div><button class="listen" type="button" data-speak-panel>🔊 Escuchar</button></div>
+        <div class="setup-card compact"><fieldset><legend>Tablas que participarán</legend><div class="number-picker" data-connect-picker></div></fieldset><button class="primary" id="connect-start" type="button">Crear puentes</button></div>
+        <div id="connect-status" class="game-status" role="status"></div><div id="connect-board" class="connect-board"></div>
+      </section>
+
+      <section class="view" data-panel="streak" hidden>
+        <div class="section-heading"><div><p class="eyebrow">Sin límite de tiempo</p><h2>Ruta continua</h2><p>Cada acierto hace crecer el camino. Un error no borra lo aprendido: abre una pista y permite continuar.</p></div><button class="listen" type="button" data-speak-panel>🔊 Escuchar</button></div>
+        <div class="streak-track"><span id="streak-count">0</span><div id="streak-path" aria-hidden="true"></div></div>
+        <div class="play-card centered"><div id="streak-model" class="math-model small"></div><h3 id="streak-question"></h3><div id="streak-answers" class="answer-grid four"></div><p id="streak-feedback" class="feedback" role="status"></p><button class="primary" id="streak-next" type="button" disabled>Continuar la ruta →</button></div>
+      </section>
+
+      <section class="view" data-panel="speed" hidden>
+        <div class="section-heading"><div><p class="eyebrow">Reloj voluntario · nunca es una nota</p><h2>Explorar mi fluidez</h2><p>Elige las tablas y el tiempo. Puedes detenerte cuando quieras; se registran aciertos y estrategias, no una clasificación.</p></div><button class="listen" type="button" data-speak-panel>🔊 Escuchar</button></div>
+        <div class="setup-card"><fieldset><legend>Tablas</legend><div class="number-picker multi" data-speed-picker></div></fieldset><fieldset><legend>Tiempo</legend><label><input type="radio" name="speed-time" value="60" checked> 1 minuto</label><label><input type="radio" name="speed-time" value="120"> 2 minutos</label><label><input type="radio" name="speed-time" value="180"> 3 minutos</label></fieldset><button class="primary" id="speed-start" type="button">Empezar cuando esté listo</button></div>
+        <div class="play-card centered" id="speed-play" hidden><div class="speed-head"><strong id="speed-clock">1:00</strong><span id="speed-score">0 exploradas</span><button id="speed-stop" type="button">Detener</button></div><h3 id="speed-question"></h3><div id="speed-answers" class="answer-grid four"></div><p id="speed-feedback" class="feedback" role="status"></p></div>
+      </section>
+    </section>
+
+    <section class="adult-note"><img src="assets/isotipo-raices.webp" alt=""><div><p class="eyebrow">Filosofía RAÍCES</p><h2>La persona antes que el resultado</h2><p>El mapa orienta apoyos y próximos pasos. No diagnostica, no compara niños y no convierte la rapidez en capacidad. El progreso permanece en este dispositivo hasta contar con una arquitectura familiar segura.</p></div><button id="reset-map" type="button">Reiniciar solo este mapa</button></section>
+  </main>
+</body>
+</html>
