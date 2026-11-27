@@ -1,4 +1,4 @@
-const CACHE = 'raices-app-v33';
+const CACHE = 'raices-app-v34';
 const APP_SHELL = [
   './app-raices.html',
   './zona-adulta.html',
@@ -6,6 +6,7 @@ const APP_SHELL = [
   './juegos-ludicos.html',
   './codigos-raices.html',
   './foco-movimiento-raices.html',
+  './retos-atencion-raices.html',
   './activacion-mental.html',
   './juegos-lectoescritura.html',
   './pintar-mandalas.html',
@@ -47,6 +48,9 @@ const APP_SHELL = [
   './assets/foco-movimiento-raices.css',
   './assets/foco-videos.css',
   './assets/foco-movimiento-raices.js',
+  './assets/retos-atencion-raices.css',
+  './assets/retos-atencion-fix.css',
+  './assets/retos-atencion-raices.js',
   './assets/video/guia-dos-manos-raices.webm',
   './assets/video/numeros-en-camino-raices.mp4',
   './assets/video/luciernaga-quenal-raices.mp4',

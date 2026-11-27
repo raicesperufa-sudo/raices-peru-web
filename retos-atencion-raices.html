@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#075c70">
+  <meta name="description" content="Colección RAÍCES de atención, concentración y dibujo guiado con 10 ejercicios libres y rutas Familia Plus.">
+  <title>Atención, concentración y dibujo · RAÍCES</title>
+  <link rel="stylesheet" href="assets/retos-atencion-raices.css?v=20261127-1">
+  <link rel="stylesheet" href="assets/retos-atencion-fix.css?v=20261127-1">
+  <link rel="stylesheet" href="assets/access-dialog.css?v=20261105-2">
+  <script defer src="assets/site.js?v=20261105-1"></script>
+  <script defer src="assets/pedagogia-raices.js?v=20261105-1"></script>
+  <script defer src="assets/retos-atencion-raices.js?v=20261127-1"></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="topbar">
+    <a class="brand" href="app-raices.html"><img src="assets/isotipo-raices.webp" alt=""><span><b>RAÍCES</b><small>Atención y creación</small></span></a>
+    <a class="back" href="app-raices.html#jugar">← Volver a Jugar</a>
+  </header>
+  <main id="contenido">
+    <section class="hero">
+      <div><p class="eyebrow">Nueva colección semanal · 30 experiencias</p><h1>Observar, concentrarse y crear</h1><p>Queñal acompaña retos breves que se pueden repetir, pausar o hacer de otra manera. Los primeros 10 ejercicios son libres; los demás forman parte de Familia Plus.</p><a href="#coleccion">Elegir una actividad</a></div>
+      <img src="assets/personaje-quenal-v2.webp" alt="Queñal acompaña una actividad visual">
+    </section>
+
+    <section class="collection" id="coleccion">
+      <div class="heading"><div><p class="eyebrow">10 libres · 20 Familia Plus</p><h2>Actividades de esta semana</h2></div><p>Las pestañas separan cada propósito. El progreso queda solo en este dispositivo.</p></div>
+      <div class="tabs" role="tablist" aria-label="Tipos de actividades">
+        <button type="button" role="tab" aria-selected="true" data-tab="atencion">Atención</button>
+        <button type="button" role="tab" aria-selected="false" data-tab="concentracion">Concentración</button>
+        <button type="button" role="tab" aria-selected="false" data-tab="dibujo">Dibujo</button>
+        <button type="button" role="tab" aria-selected="false" data-tab="manuales">Manuales de apoyo</button>
+      </div>
+      <p class="tab-note" id="tab-note" aria-live="polite"></p>
+      <div class="activity-grid" id="activity-grid"></div>
+      <section class="manual-grid" id="manual-grid" hidden>
+        <article><span>PDF · 35 actividades</span><h3>Atención visual</h3><p>Matrices, rutas, patrones, mosaicos, claves y secuencias para imprimir o usar con acompañamiento.</p><a href="assets/descargas/raices-atencion-visual-11-2026.pdf" download>Descargar PDF</a></article>
+        <article><span>PDF · 55 actividades</span><h3>Concentración</h3><p>Búsqueda, conteo, correspondencias, copias en puntos y recorridos graduados.</p><a href="assets/descargas/raices-concentracion-11-2026.pdf" download>Descargar PDF</a></article>
+        <article><span>PDF · 10 construcciones originales</span><h3>Dibujo geométrico</h3><p>Guías progresivas RAÍCES para trazar, cambiar de color y crear una versión propia sobre cuadrícula.</p><a href="assets/descargas/raices-dibujo-geometrico-11-2026.pdf" download>Descargar PDF</a></article>
+      </section>
+    </section>
+
+    <section class="principle"><img src="assets/isotipo-raices.webp" alt=""><div><p class="eyebrow">Filosofía RAÍCES</p><h2>El reto se adapta a la persona</h2><p>No medimos valor, inteligencia ni capacidad. Miramos qué apoyo ayuda: menos elementos, más tiempo, una explicación con voz, otra forma de responder o una pausa.</p></div></section>
+  </main>
+
+  <dialog id="activity-dialog" aria-labelledby="activity-title"><div class="dialog-shell">
+    <header><div><p id="activity-meta">Actividad</p><h2 id="activity-title">Reto</h2></div><button type="button" id="activity-close" aria-label="Cerrar">Cerrar ×</button></header>
+    <div class="guide"><img src="assets/personaje-quenal-v2.webp" alt="Queñal"><p id="activity-guide"></p><button type="button" id="activity-listen">🔊 Escuchar</button></div>
+    <div id="activity-stage"></div>
+    <p class="feedback" id="activity-feedback" aria-live="polite"></p>
+    <footer><button type="button" id="activity-reset">Volver a intentar</button><button type="button" id="activity-finish">Terminar a mi manera</button></footer>
+  </div></dialog>
+
+  <nav class="bottom-nav" aria-label="Navegación"><a href="app-raices.html"><span>⌂</span>Inicio</a><a href="juegos-ludicos.html"><span>◇</span>Jugar</a><a href="app-raices.html#calma"><span>○</span>Calma</a><a href="zona-adulta.html"><span>♟</span>Adultos</a></nav>
+</body>
+</html>
